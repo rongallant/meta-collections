@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Meta Collections ===
 Contributors: bastiaaaan
 Donate link: Contact Me At -statuur@gmail.com- If You Want To Donate. Donations Are Welcome
 
@@ -84,15 +84,15 @@ Answer to foo bar dilemma.
 
 == Screenshots ==
 
-'/tags/4.3/screenshot-1.png'
+'/screenshot-01.jpg'
 
 -
 
-'/tags/4.3/screenshot-1.png'
+'/screenshot-02.jpg'
 
 -
 
-'/tags/4.3/screenshot-1.png'
+'/screenshot-03.jpg'
 
 == Changelog ==
 
