@@ -82,14 +82,8 @@ You first have to drag it into the user interface. Go to Collections, click on '
 
 == Screenshots ==
 
-/trunk/screenshot-01.jpg
-
-
-/trunk/screenshot-02.jpg
-
--
-
-/trunk/screenshot-03.jpg
+1. Edit screen Collections
+2. Metadataschema
 
 == Changelog ==
 
