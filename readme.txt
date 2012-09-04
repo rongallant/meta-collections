@@ -78,21 +78,18 @@ The plugin is published in a language supporing two languages, English and Dutch
 = I added a metafield bu it doesn't show up in the post type edit screen =
 
 You first have to drag it into the user interface. Go to Collections, click on 'edit user interface' and drag the field in a place you wan't it  
-= What about foo bar? =
 
-Answer to foo bar dilemma.
 
 == Screenshots ==
 
-'/screenshot-01.jpg'
+/trunk/screenshot-01.jpg
+
+
+/trunk/screenshot-02.jpg
 
 -
 
-'/screenshot-02.jpg'
-
--
-
-'/screenshot-03.jpg'
+/trunk/screenshot-03.jpg
 
 == Changelog ==
 
