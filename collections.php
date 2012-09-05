@@ -1,6 +1,6 @@
 <?php
 /*
-* @Plugin Name: Collections
+* @Plugin Name: Meta Collections
 * @Plugin URI: http://wordpress.org/extend/plugins/meta-collections
 * @Author Bastiaan Blaauw <statuur@gmail.com>
 * Author: Bastiaan Blaauw <statuur@gmail.com>
