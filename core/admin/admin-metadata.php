@@ -320,7 +320,7 @@ echo"
 <input type=\"hidden\" name=\"ID\" id=\"ID\" value=\"{$metafield[ID]}\"/>
 ";
 	       
-	                   echo $typeclass::fieldOptions($metafield);
+	                   echo $typeclass->fieldOptions($metafield);
 	             if($metafield[noform]!=1){      
 	                   echo"</form>
 	                   
