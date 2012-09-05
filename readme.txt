@@ -84,6 +84,9 @@ You first have to drag it into the user interface. Go to Collections, click on '
 
 1. Edit screen Collections
 2. Metadataschema
+3. Edit Screen Collections
+4. Compose your user Interface
+5. Start managing your collection
 
 == Changelog ==
 
