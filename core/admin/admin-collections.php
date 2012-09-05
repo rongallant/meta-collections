@@ -36,7 +36,7 @@ public function __construct(){
 	//$this::Overview();
 	//echo"end";
 	}else{
-	$this::Overview();
+	$this->Overview();
 	}
 		
 }
@@ -530,7 +530,8 @@ echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
                 <select name=\"menu_position\">";
                 
                 foreach($menu_positions as $position=>$name){
-	               echo"<option value=\"{$position}\">{$name}</option>"; 
+	               $selected = ($collection[menu_position]==$position)? "selected":"";
+	               echo"<option {$selected} value=\"{$position}\">{$name}</option>"; 
                 }
                 
                 echo"</select>
