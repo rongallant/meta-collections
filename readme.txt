@@ -5,7 +5,7 @@ Donate link: Contact Me At -statuur@gmail.com- If You Want To Donate. Donations 
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -75,7 +75,7 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 == Frequently Asked Questions ==
 
-= I added a metafield bu it doesn't show up in the post type edit screen =
+= I added a metafield but it doesn't show up in the post type edit screen =
 
 You first have to drag it into the user interface. Go to Collections, click on 'edit user interface' and drag the field in a place you wan't it  
 
