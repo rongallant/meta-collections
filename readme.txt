@@ -102,4 +102,5 @@ You first have to drag it into the user interface. Go to Collections, click on '
 
 = 1.0.1 = 
 * Some issues fixed for php 5.2 compatibility
+* fatal file path error
 
