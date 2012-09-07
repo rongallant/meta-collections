@@ -2,7 +2,7 @@
 /*
 * @Plugin Name: Meta Collections
 * @Plugin URI: http://wordpress.org/extend/plugins/meta-collections
-* @Author Bastiaan Blaauw <statuur@gmail.com>
+* @author Bastiaan Blaauw <statuur@gmail.com>
 * Author: Bastiaan Blaauw <statuur@gmail.com>
 * @see http://metacollections.statuur.nl/ 
 * @category Wordpress Plugin
