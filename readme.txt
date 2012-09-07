@@ -1,12 +1,11 @@
 === Meta Collections ===
 Contributors: bastiaaaan
-Donate link: Contact Me At -statuur@gmail.com- If You Want To Donate. Donations Are Welcome
 
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0.1
-License: GPLv3
+Stable tag: 1.01
+License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
 Turns Wordpress into a Collection Manager. Customize edit screen by creation metadata schema's for custom post types, taxomonies and fields
