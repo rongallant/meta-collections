@@ -75,7 +75,7 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 == Frequently Asked Questions ==
 
-= I added a metafield bu it doesn't show up in the post type edit screen =
+= I added a metafield but it doesn't show up in the post type edit screen =
 
 You first have to drag it into the user interface. Go to Collections, click on 'edit user interface' and drag the field in a place you wan't it  
 
@@ -95,7 +95,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 
 = 1.0.1 = 
 * Some issues fixed for php 5.2 compatibility
-
+* fixed some minor bugs
 
 == Upgrade Notice ==
 = 1.0 =
