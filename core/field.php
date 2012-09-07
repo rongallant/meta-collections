@@ -43,7 +43,7 @@ echo"<select name=\"type\" onchange=\"jQuery('#edit_options_{$element[ID]}_{$ele
     * @access public
     */	
 public function getFields(){
-	$field_dir	= ABSPATH."wp-content/plugins/collections/core/fieldtypes";
+	$field_dir	= ABSPATH."wp-content/plugins/meta-collections/core/fieldtypes";
 	$entries	= array();
 	
 	
@@ -75,7 +75,7 @@ public function getClasses(){
 
 
 	foreach($this->entries as $entry){
-	  $file				= ABSPATH."wp-content/plugins/collections/core/fieldtypes/".$entry;
+	  $file				= ABSPATH."wp-content/plugins/meta-collections/core/fieldtypes/".$entry;
 
        if(file_exists($file)){
        include_once($file);       

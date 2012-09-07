@@ -453,8 +453,8 @@ echo $term->name."<br/>";;
     */
 public function includes(){
 	//if($_SERVER[HTTP_X_REQUESTED_WITH]=="XMLHttpRequest"){
-	include(ABSPATH."wp-content/plugins/collections/core/field.php");
-	include(ABSPATH."wp-content/plugins/collections/core/system_elements.php");
+	include(ABSPATH."wp-content/plugins/meta-collections/core/field.php");
+	include(ABSPATH."wp-content/plugins/meta-collections/core/system_elements.php");
 	//}
 }
 
@@ -771,7 +771,7 @@ if($_SESSION[saved]!=1){
 	
 	
 	$this->includes();
-	include(ABSPATH."wp-content/plugins/collections/core/admin/admin-save-post-type.php");
+	include(ABSPATH."wp-content/plugins/meta-collections/core/admin/admin-save-post-type.php");
 	$this->savePostMeta	= new savePostMeta();
 	$_SESSION[saved]=1;
 	}
@@ -787,7 +787,7 @@ if($_SESSION[saved]!=1){
     */
 function manage_media_metadata(){
 	$this->includes();
-	include(ABSPATH."wp-content/plugins/collections/core/admin/admin-media-metadata.php");
+	include(ABSPATH."wp-content/plugins/meta-collections/core/admin/admin-media-metadata.php");
 	$this->mediametadata	= new mediaMetadata();
 
 }
@@ -800,7 +800,7 @@ function manage_media_metadata(){
     */	
 function buildinterface(){
 	$this->includes();
-	include(ABSPATH."wp-content/plugins/collections/core/admin/admin-post-type.php");
+	include(ABSPATH."wp-content/plugins/meta-collections/core/admin/admin-post-type.php");
 	$this->buildInterface	= new buildInterface();
 	
 	
