@@ -9,7 +9,6 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
   *
   * @author  Bastiaan Blaauw <statuur@gmail.com>
   *
-  * @version  1.0
   * @author URI: http://metacollections.statuur.nl/
   * @license http://www.gnu.org/copyleft/gpl.html GNU Public License version 3
   * @access Public
@@ -111,7 +110,7 @@ function deletecollection(){
 	delete_option( "metaboxes_".$_POST[cpt]); 
 	delete_option( "metadata_".$_POST[cpt]);  
 	delete_option( "userinterface_".$_POST[cpt]); 
-	
+	delete_option("tableorder_".$_POST[cpt]);
 	$cpts = get_option("collection_cpt");								
 	unset($cpts[$_POST[cpt]]);			
 	update_option( "collection_cpt", $cpts, '', 'no'); 									
@@ -171,7 +170,7 @@ public function saveCollection(){
 					'menu_icon'			=> $_POST[menu_icon],
 					'query_var'			=> true,
 					//'supports'			=> array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions'),//in metaboxes option
-					'active'			=> $_POST[active]	
+					'active'			=> $_POST[active]
 				);	
 				
 				
@@ -190,6 +189,7 @@ public function saveCollection(){
 					 
 					 $metaboxes = "";//array();
 					
+					 //adding system metaboxes to the user interface
 					 $i=0;
 					 foreach($this->supports as $supports=>$setting){
 					
@@ -201,12 +201,20 @@ public function saveCollection(){
 					 }
 					 }
 					 
+					 //adding system metaboxes to the table order
+					$metafields = array();
+					$columns	= array();
+					foreach($this->system_columns as $ID=>$metafield){
+					$columns[] = "system-element-".$ID;
+					}
+										 
+					 $metafields[active]  = implode(",", array_values($columns)); 
 					 
-					 
+					
 					 add_option("metaboxes_".$post_type, $metaboxes, "", "no");
 					 add_option("metadata_".$post_type, "", "", "no");
 					 add_option("userinterface_".$post_type, "", "", "no");
-					
+					 add_option("tableorder_".$post_type, $metafields, "", "no");
 					
 										
 					
@@ -262,8 +270,8 @@ echo"   <div class=\"form-wrap\">
             <thead class=\"content-types-list\">
               <tr>
                
-                <th style=\"\" class=\"manage-column column-name\" id=\"name\" scope=\"col\">".__('Label','_coll')."</th>
-                <th style=\"\" class=\"manage-column column-fields\" id=\"label\" scope=\"col\">".__('Post type','_coll')."</th>
+                <th style=\"width:80%\" class=\"manage-column column-name\" id=\"name\" scope=\"col\">".__('Label','_coll')."</th>
+                <th style=\"width:20%\" class=\"manage-column column-fields\" id=\"label\" scope=\"col\">".__('Post type','_coll')."</th>
               </tr>
             </thead>
             <tbody id=\"the-list\">";
@@ -287,6 +295,7 @@ echo"   <div class=\"form-wrap\">
                     <span class=\"edit\"><a class=\"ajaxify\" rel=\"action:editcollection,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit Collection','_coll')."</a> - </span>
                     <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:editmetadata,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit Metadata set','_coll')."</a> -</span>
                     <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:edituserinterface,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit User interface','_coll')."</a> |</span>
+                    <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:editoverviewtable,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit Overview Table','_coll')."</a> |</span>
                     <span class=\"delete\"><a href=\"#\" onclick=\"deletecollection('{$postype}', '".__("Are you sure to delete this entire collection including metadataset en user interface?","_coll")."')\">".__('Delete Collection','_coll')."</a></span>
                   </div>
                 </td>
@@ -540,35 +549,46 @@ echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
             </tbody>
 </table>
 
-<div style=\"display:none;\" id=\"check_getter\"></div>
+
 <br/>";
 
-
-
-/****** ADVANCED OPTIONS *****/
 /*
-echo"<div>
-			<div class=\"sidebar-name\" onclick=\"jQuery('#advanced_option_holder').toggle();\">
-				<div class=\"sidebar-name-arrow\"><br></div>
-				<h3>".__("Advanced settings","_coll")."	<span><img alt=\"\" title=\"\" class=\"ajasx-feedback\" src=\"/wp-admin/images/wpspin_light.gif\"></span>
-				</h3>
-			</div>
-			<div id=\"advanced_option_holder\" class=\"widget-holder inactive\" style=\"
-			  border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-style: none solid solid;
-    border-width: 0 1px 1px;
-			border-color:#DFDFDF;\">
-				<div class=\"widgets-sortables ui-sortable\" id=\"wp_inactive_widgets\">
-<div class=\"sidebar-description\">
-	<p class=\"description\">Hier komen advanced options</p></div>
-</div>
-				<br class=\"clear\">
-			</div>
-		</div>
+$cat_active		= ($collection[categories]==1) ? "checked" :"";
+$tags_active	= ($collection[tags]==1) ? "checked" :"";
 
-<br/><br/>
-		*/
+echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
+            <thead class=\"content-types-list\">
+              <tr>
+                <th style=\"\" colspan=\"2\" class=\"manage-column column-name\" id=\"name\" scope=\"col\">".__('Advanced Options')."</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            <tr>
+                <td width=\"20%\" class=\"name column-name\">
+                ".$this->helpicon(__('Categories'), __("Activate Category support for this collection. Categories are part of Wordpress' standard functionality ", "_coll"))."
+                
+                ".__('Categories')." </td>
+                <td class=\"categories column-categories\">
+                <input type=\"checkbox\" name=\"categories\" {$cat_active} value=\"1\"/>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class=\"name column-name\">
+                ".$this->helpicon(__('Tags'), __("Activate Tags support for this collection. Tags are part of Wordpress' standard functionality ", "_coll"))."
+                
+                ".__('Tags')." </td>
+                <td class=\"categories column-categories\">
+                <input type=\"checkbox\" name=\"tags\" {$tags_active} value=\"1\"/>
+                </td>
+            </tr>
+              </tbody>
+
+            </table>
+
+<br/><br/><div style=\"display:none;\" id=\"check_getter\"></div>";
+/****** ADVANCED OPTIONS *****/		
 echo"
 {$buttons}
 </form>

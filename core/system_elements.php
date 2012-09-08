@@ -17,26 +17,10 @@ class SystemElements extends Basics{
 function __construct(){
 		$this->init();
 		
-		/*
-add_meta_box('submitdiv', __('Publish'), 'post_submit_meta_box', $pagenow, 'side', 'core');	//publish
-add_meta_box('postimagediv', __('Featured Image'), 'post_thumbnail_meta_box', $pagenow, 'side', 'low'); //featured image
-add_meta_box( 'formatdiv', _x( 'Format', 'post format' ), 'post_format_meta_box', $pagenow, 'side', 'core' ); //notation
-add_meta_box('pageparentdiv', 'page' == $_POST[cpt] ? __('Page Attributes') : __('Attributes'), 'page_attributes_meta_box', $pagenow, 'side', 'core');
-
-
-add_meta_box('postexcerpt', __('Excerpt'), 'post_excerpt_meta_box', $pagenow, 'normal', 'core');
-add_meta_box('trackbacksdiv', __('Send Trackbacks'), 'post_trackback_meta_box', $pagenow, 'normal', 'core');
-
-add_meta_box('commentstatusdiv', __('Discussion'), 'post_comment_status_meta_box', $pagenow, 'normal', 'core');
-add_meta_box('commentsdiv', __('Comments'), 'post_comment_meta_box', $pagenow, 'normal', 'core');
-add_meta_box('slugdiv', __('Slug'), 'post_slug_meta_box', $pagenow, 'normal', 'core');
-
-//'supports' 			=> array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments','author', 'trackbacks', 'custom-fields', 'revisions', 'post-formats')//dezen in andere option opslaan
-
-
-		*/
-		
 	}
+	
+	
+	
 	
 	 
 function taxonomy($taxonomy){
@@ -44,7 +28,32 @@ global $pagenow;
 	add_meta_box('tagsdiv-' . $taxonomy[ID].$this->nodrag, $taxonomy[label]." <span class=\"description\">taxonomy</span>", 'post_tags_meta_box', $pagenow, 'side', 'core', array( 'taxonomy' => $taxonomy[ID] ));
 //print_r($taxonomy);
 }	
-	
+
+		/*
+	add_meta_box('tagsdiv-' . $tax_name, $label, 'post_tags_meta_box', null, 'side', 'core', array( 'taxonomy' => $tax_name ));
+	else
+		add_meta_box($tax_name . 'div', $label, 'post_categories_meta_box', null, 'side', 'core', array( 'taxonomy' => $tax_name ));
+
+
+		*/
+
+function tags($context){
+global $pagenow;
+	add_meta_box($this->systemprefix.'post_tag', __('Tags'), 'post_tags_meta_box', $pagenow, $context, 'core', array( 'taxonomy' => 'post_tag'));
+}	
+
+
+function post_tag($context){
+global $pagenow;
+	add_meta_box($this->systemprefix.'post_tag', __('Tags'), 'post_tags_meta_box', $pagenow, $context, 'core', array( 'taxonomy' => 'post_tag'));
+}	
+ 
+function category($context){
+global $pagenow;
+	add_meta_box($this->systemprefix.'category', __('Category'), 'post_categories_meta_box', $pagenow, $context, 'core', array( 'taxonomy' => 'category' ));
+
+}
+
 function title($context){
 global $pagenow;
 	add_meta_box($this->systemprefix.'title'.$this->nodrag, _( 'Title'), array($this, 'get_title_contents'), $pagenow, $context, 'core' ); //notation

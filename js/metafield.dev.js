@@ -4,7 +4,6 @@ var metafield;
 	metafield = {
 		add_postbox_toggles : function(page, args) {
 			var self = this;
-
 			self.init(page, args);
 
 			$('.meta-field-box h3, .meta-field-box .handlediv').bind('click.metafield', function() {
@@ -64,13 +63,13 @@ var metafield;
 
 		init : function(page, args) {
 			var isMobile = $(document.body).hasClass('mobile');
-//console.log('oke');
+
 			$.extend( this, args || {} );
 			$('#wpbody-content').css('overflow','hidden');
 			$('.meta-field-sortables').sortable({
 				placeholder: 'sortable-placeholder',
 				connectWith: '.meta-field-sortables',
-				items: '.meta-field-box',
+				items: '.meta-field-box, .meta-field-system-box',
 				handle: '.meta-field-hndle',
 				cursor: 'move',
 				delay: ( isMobile ? 200 : 0 ),
@@ -80,7 +79,9 @@ var metafield;
 				helper: 'clone',
 				opacity: 0.65,
 				start: function(e,ui) {
+				if ($('#ui_controls').length>0){
 				jtabs.activate(0);
+				}
 				
 				},
 				stop: function(e,ui) {
@@ -92,13 +93,15 @@ var metafield;
 					metafield.save_order(page);
 				},
 				receive: function(e,ui) {
+					if ($(ui.item).parent().length>0){
+					
 					if($(ui.item).parent().attr('id')=="inactive-sortables"){
 					$(ui.item).addClass('closed');	
-					}else{
+					}else if($(this).hasClass("tableoverview")!=true){
 					$(ui.item).removeClass('closed');	
 					}
-					//$(ui.item).addClass('closed');
-					//$("#"+ui.item[0].id).removeClass('closed');;
+					}
+					
 					if ( 'dashboard_browser_nag' == ui.item[0].id )
 						$(ui.sender).sortable('cancel');
 
@@ -117,7 +120,7 @@ var metafield;
 		save_state : function(page) {
 			var closed = $('.meta-field-box').filter('.closed').map(function() { return this.id; }).get().join(','),
 				hidden = $('.meta-field-box').filter(':hidden').map(function() { return this.id; }).get().join(',');
-
+				
 			$.post(ajaxurl, {
 				action: 'closed-metafield',
 				closed: closed,
@@ -131,15 +134,19 @@ var metafield;
 			var postVars, page_columns = $('.columns-prefs input:checked').val() || 0;
 
 			postVars = {
-				action: 'metafieldorder',
+				action: 'savetableoverview',
 				_ajax_nonce: $('#meta-box-field-nonce').val(),
 				page_columns: page_columns,
-				page: page
+				page: page,
+				post_type: this.post_type
 			}
 			$('.meta-field-sortables').each( function() {
 				postVars["order[" + this.id.split('-')[0] + "]"] = $(this).sortable( 'toArray' ).join(',');
 			} );
-			$.post( ajaxurl, postVars );
+			
+			$.post(ajaxurl, postVars, function(data){
+				setMessage(data);
+			} );
 		},
 
 		_mark_area : function() {

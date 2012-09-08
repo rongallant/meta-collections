@@ -13,24 +13,34 @@
   * @see      http://metacollections.statuur.nl/ 
   */
 class Field extends Basics{
+
+function __construct(){
+	parent::init();
+
+}
 /**
     * Generates the html for the field type select in a metafield form.
     * Since it is the same in every form it is a shred function    
     * @access private
     */
 function getFieldSelect($element){
-
+$this->getFields();
+$this->getClasses();
+ 
 $othervars		= "fieldtype: this.value, action:'changemetafieldtype'";
 $elementinfo	= json_encode($element);
 $elementinfo	= preg_replace("/\"/","'",$elementinfo);
 $elementinfo 	= preg_replace("/}/",", $othervars}",$elementinfo);
 
-
+ 
 echo"<select name=\"type\" onchange=\"jQuery('#edit_options_{$element[ID]}_{$element[cpt]}').load('admin-ajax.php', {$elementinfo});\">";
 	
 	foreach($this->entries as $metatype=>$metafile){
+	$c = ucfirst($metatype);
+	$typeclass = new $c();
+
 	$checked = ($metatype == $element[type]) ? "selected": "";
-	echo"<option $checked value=\"{$metatype}\">{$metatype}</option>";
+	echo"<option $checked value=\"{$metatype}\">{$typeclass->fieldname}</option>";
 	}
 	
 	echo"</select>";
@@ -43,7 +53,7 @@ echo"<select name=\"type\" onchange=\"jQuery('#edit_options_{$element[ID]}_{$ele
     * @access public
     */	
 public function getFields(){
-	$field_dir	= ABSPATH."wp-content/plugins/collections/core/fieldtypes";
+	$field_dir	= ABSPATH."wp-content/plugins/meta-collections/core/fieldtypes";
 	$entries	= array();
 	
 	
@@ -74,8 +84,9 @@ public function getFields(){
 public function getClasses(){
 
 
-	foreach($this->entries as $entry){
-	  $file				= ABSPATH."wp-content/plugins/collections/core/fieldtypes/".$entry;
+	foreach($this->entries as $name=>$entry){
+	
+	  $file				= ABSPATH."wp-content/plugins/meta-collections/core/fieldtypes/".$entry;
 
        if(file_exists($file)){
        include_once($file);       

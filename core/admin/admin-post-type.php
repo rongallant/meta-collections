@@ -11,7 +11,6 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
   * @category Wordpress Plugin
   * @package  Collections Wordpress plugin
   * @author   Bastiaan Blaauw <statuur@gmail.com>
-  * @version  1.0
   * @access   Public
   * @license http://www.gnu.org/copyleft/gpl.html GNU Public License version 3
   * @see  http://metacollections.statuur.nl/   

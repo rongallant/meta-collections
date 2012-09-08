@@ -33,7 +33,7 @@ function addPointers(){//enables wordpress own pointers ass tooltips. :-)
 	}
 
 function addlisteners(){
-	
+	//console.log(ajaxurl);
 	jQuery.each(jQuery('.ajaxify'), function(index, element) { 
 
 		jQuery(element).click(function(){
@@ -86,7 +86,7 @@ function setMessage(message, timeout){
 
 
 function save_collection(message){
-jQuery.post('admin-ajax.php', jQuery('#savecollection').serialize(), function(){
+jQuery.post(ajaxurl, jQuery('#savecollection').serialize(), function(){
 setMessage(message);
 setTimeout(function(){document.location.reload();},1500);
 });
@@ -95,9 +95,9 @@ return false;
 
 function save_metafield(elementID, cpt, message){
 
-jQuery.post('admin-ajax.php', jQuery('#edit_options_'+elementID+'_'+cpt).serialize(), function(){
+jQuery.post(ajaxurl, jQuery('#edit_options_'+elementID+'_'+cpt).serialize(), function(){
 
-jQuery('#collections_wrapper').load('admin-ajax.php', {action: 'editmetadata', cpt: cpt}, function() {
+jQuery('#collections_wrapper').load(ajaxurl, {action: 'editmetadata', cpt: cpt}, function() {
 				addlisteners();
 				setMessage(message);
 			});
@@ -113,7 +113,7 @@ function delete_metabox(element, cpt, message){
 
 if(confirm(message)){
 
-jQuery.post('admin-ajax.php',{action:'delete_metabox', metaboxid:element.attr('id'), cpt:cpt}, function(){
+jQuery.post(ajaxurl,{action:'delete_metabox', metaboxid:element.attr('id'), cpt:cpt}, function(){
 
 jQuery(element).fadeTo('slow', 0, function() {
       jQuery(element).remove();
@@ -136,7 +136,7 @@ function rename_metabox(cpt, element, question){//question,title
  jQuery(element).parent().prev().html(renamedmetabox);
 
 
-jQuery.post('admin-ajax.php',{action:'rename_metabox', metaboxname: renamedmetabox, metaboxid:jQuery(element).parent().prev().attr('class'), cpt:cpt}, function(){
+jQuery.post(ajaxurl,{action:'rename_metabox', metaboxname: renamedmetabox, metaboxid:jQuery(element).parent().prev().attr('class'), cpt:cpt}, function(){
 
 setMessage('Settings updated');
 
@@ -155,7 +155,7 @@ function save_metabox(message){
      jQuery('#side').val(jQuery('input[name=position]:checked').attr('rel'));       
         
          
-	jQuery.post('admin-ajax.php',  jQuery('#metabox_add').serialize(), function(data){
+	jQuery.post(ajaxurl,  jQuery('#metabox_add').serialize(), function(data){
 	jQuery(theid+' #'+theside+'-sortables').append(data);
 	jQuery('form')[0].reset();
 	});
@@ -169,7 +169,7 @@ function deletemetafield(cpt, metafieldID, message, dmessage){
 
 if(confirm(message)){
 	
-	jQuery.post('admin-ajax.php',  {action:'delete_metafield', cpt:cpt, metafieldID: metafieldID}, function(data){
+	jQuery.post(ajaxurl,  {action:'delete_metafield', cpt:cpt, metafieldID: metafieldID}, function(data){
 	setMessage(dmessage);
 	//console.log(jQuery('#content_'+metafieldID));
 	jQuery('#content_'+metafieldID).fadeTo('slow', 0, function() {
@@ -189,7 +189,7 @@ if(confirm(message)){
 
 
 function deletecollectioncontent(cpt){
-jQuery.post('admin-ajax.php',  {action:'deletecollectioncontent', cpt:cpt}, function(data){
+jQuery.post(ajaxurl,  {action:'deletecollectioncontent', cpt:cpt}, function(data){
 setMessage(data);
 });
 
@@ -200,7 +200,7 @@ function deletecollection(cpt, message){
 	
 	if(confirm(message)){
 	
-	jQuery.post('admin-ajax.php',  {action:'deletecollection', cpt:cpt}, function(data){
+	jQuery.post(ajaxurl,  {action:'deletecollection', cpt:cpt}, function(data){
 	setMessage(data, 100000);
 	//setTimeout(function(){document.location.reload();},1500);
 	jQuery('#collectie_'+cpt).fadeTo('slow', 0, function() {
@@ -254,7 +254,7 @@ function save_uinterface(cpt, message){
 	
 //console.log(uiOrder);
 	postvars	= {action: 'saveuserinterface', cpt: cpt, metaboxes: metaboxes, ui: uiOrder};
-	jQuery('#footer').load('admin-ajax.php', postvars, function(){
+	jQuery('#footer').load(ajaxurl, postvars, function(){
 		setMessage(message)
 	});
 }

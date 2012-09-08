@@ -11,12 +11,11 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
   * @category Wordpress Plugin
   * @package  Collections Wordpress plugin
   * @author   Bastiaan Blaauw <statuur@gmail.com>
-  * @version  1.0
   * @access   Public
   * @license http://www.gnu.org/copyleft/gpl.html GNU Public License version 3
   * @see      http://metacollections.statuur.nl/
 */
-
+ 
 class Metadata extends Basics{ 
 /**
     * Constructor
@@ -43,21 +42,27 @@ public function __construct(){
     * works with posted values instead of params    
     * @access private
     */
+
 private function delete_metafield(){
 $metadataset 		= get_option("metadata_".$_POST[cpt]);
 $userinterface		= get_option("userinterface_".$_POST[cpt]);
 
+//
 
+//
+if(is_array($metadataset[$_POST[metafieldID]])){
+	unset($metadataset[$_POST[metafieldID]]);
+	
+	}
 
-
-unset($metadataset[$_POST[metafieldID]]);
-unset($userinterface[$_POST[metafieldID]]);
+if(is_array($userinterface[$_POST[metafieldID]])){
+	unset($userinterface[$_POST[metafieldID]]);
+}
 
 update_option( "metadata_".$_POST[cpt], $metadataset, '', 'no'); 
 update_option( "userinterface_".$_POST[cpt], $userinterface, '', 'no'); 
 
 }
-
 
 /**
     * Saves data related to the metadata field
@@ -152,6 +157,7 @@ echo"<div class=\"icon32\" id=\"icon-options-general\" ><br></div><h2>
 <div style=\"height:40px;width:100%;padding:7px;\"><div class=\"updated settings-error\" style=\"display:none;\" id=\"setting-error-settings_updated\"></div></div>
 {$buttons}<br/><br/>";
 
+//<th class=\"manage-column column-fields\" id=\"headtype\" scope=\"col\">".__("Show in Collection overview", "_coll")."</th>
 
 echo"
 
@@ -162,8 +168,7 @@ echo"
             <thead class=\"content-types-list\">
               <tr>
               <th class=\"manage-column column-fields\" id=\"headtype\" scope=\"col\">".__('Label','_coll')."</th>
-                <th class=\"manage-column column-fields\" id=\"headtype\" scope=\"col\">".__("Show in Collection overview", "_coll")."</th>
-                
+                                
                 <th class=\"manage-column column-fields\" id=\"headstatus\" scope=\"col\">".__('Status','_coll')."</th>
                 
                 <th class=\"manage-column column-fields\" id=\"headtype\" scope=\"col\">".__('Type','_coll')."</th>
@@ -212,17 +217,16 @@ if(is_array($metadataset))
                    
                     <span class=\"delete\"><a onclick=\"deletemetafield('{$_POST[cpt]}', '{$metafield['ID']}', '".__("Are you sure to delete this Metafield?","_coll")."', '".__("Metafield deleted","_coll")."')\" href=\"#\">".__('Delete')."</a></span>
                   </div>
-                  </td>";
+                  </td>";                
                 
-                
-                
-                
+                /*
                 $ochecked =($metafield[overview]==1)? "checked":"";
                 echo"<td><input type=\"checkbox\" onclick=\"jQuery.post('admin-ajax.php',  {action:'changeinoverview', cpt:'{$_POST[cpt]}', metafieldID: '{$metafield[ID]}', status:this.checked}, function(){setMessage('".__("Settings updated...","_coll")."')});\" name=\"show_in_overview\" $ochecked value=\"1\">
                 <div class=\"row-actions\">
                  <span class=\"edit\"><a href=\"".get_bloginfo('url')."/wp-admin/edit.php?post_type={$_POST[cpt]}\" target=\"_blank\"> ".__("Show overview","_coll")."</a></span></div>
                 </td>
                 ";
+                */
                 $status = ($metafield[status]==1)? __("Active", "_coll"):__("Deactivated", "_coll");
                 echo"<td class=\"categories column-categories\">{$status}</td>
                 <td class=\"categories column-categories\">";
@@ -257,6 +261,8 @@ if(is_array($metadataset))
 echo"</tbody>
         </table>
 <div style=\"height:40px;width:100%;padding:7px;\">{$buttons}</div>
+
+
 </div>";
 }
 
@@ -309,7 +315,7 @@ if($metafield[type]!=""){
 	$metafield[cpt] = $_POST[cpt];
 	$c = ucfirst($metafield[type]);
 	$typeclass = new $c();
-	                    	                       
+	              	                       
 if($metafield[noform]!=1){
 echo"<form id=\"edit_options_{$metafield[ID]}_{$_POST[cpt]}\">";
 }
@@ -322,10 +328,10 @@ echo"
 	       
 	                   echo $typeclass->fieldOptions($metafield);
 	             if($metafield[noform]!=1){      
-	                   echo"</form>
+	                   echo"</form>";
 	                   
-	                   
-	                   <script>
+				if($metafield[ID]!="new"){                   
+	                   echo"<script>
 	                   
 	                   jQuery('form :input').change(function() {
   						
@@ -340,6 +346,7 @@ echo"
 	                   </script>
 	                   
 	                   ";
+	                   }
 }
 	                       
 	 }   
