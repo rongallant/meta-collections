@@ -109,4 +109,4 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added functionality to order fields in the table overview
 * Tags and Category support for Collections
 * Empty container 'class' caused the drop field in 'Side' to be to short
-* Changes all old names 'collections' to 'metacollections'
+* Changes all old names 'collections' to 'metacollections' 
