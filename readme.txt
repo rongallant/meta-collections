@@ -4,7 +4,6 @@ Contributors: bastiaaaan
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0.2 
 Version: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
