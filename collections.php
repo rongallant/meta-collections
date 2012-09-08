@@ -7,11 +7,12 @@
 * @see http://metacollections.statuur.nl/ 
 * @category Wordpress Plugin
 * @package  Collections Wordpress plugin
-* @Description: <strong>Meta Collentions&deg;</strong> turns Wordpress into a collection management system. Create Metadata Schema's with easy and intuitively create a user interface for the backend to manage you collection. Besides a professional Collection management tool Meta Collections&deg; can be used to create a Google maps marker collection or a recepy database. Meta Collentions&deg; comes with extensive help and developers documentation.
 * @author URI: http://metacollections.statuur.nl/
 * @license http://www.gnu.org/copyleft/gpl.html GNU Public License version 3
 * @Creation date: September 2012
 * @access Public
+* @Description: <strong>Meta Collentions&deg;</strong> turns Wordpress into a collection management system. Create Metadata Schema's with easy and intuitively create a user interface for the backend to manage you collection. Besides a professional Collection management tool Meta Collections&deg; can be used to create a Google maps marker collection or a recepy database. Meta Collentions&deg; comes with extensive help and developers documentation.
+
 * Text Domain: _coll
 */
 
