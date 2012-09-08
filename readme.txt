@@ -4,7 +4,8 @@ Contributors: bastiaaaan
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0.2 
+Stable tag: 1.0.2
+Version: 1.0 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -103,3 +104,11 @@ You first have to drag it into the user interface. Go to Collections, click on '
 = 1.0.1 = 
 * Some issues fixed for php 5.2 compatibility
 
+= 1.0.2 = 
+* Fixed path errors for metadatafields
+* Number of fatal errors fixes
+* Bug fixed in save_metabox() name metabox saved properly now
+* Added functionality to order fields in the table overview
+* Tags and Category support for Collections
+* Empty container 'class' caused the drop field in 'Side' to be to short
+* Changes all old names 'collections' to 'metacollections' 
