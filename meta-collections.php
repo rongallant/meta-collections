@@ -5,6 +5,7 @@
 * @author Bastiaan Blaauw <statuur@gmail.com>
 * Author: Bastiaan Blaauw <statuur@gmail.com>	 
 * Version: 1.0.2
+* @version: 1.0.2
 * @see http://metacollections.statuur.nl/ 
 * @category Wordpress Plugin
 * @package  Collections Wordpress plugin
