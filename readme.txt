@@ -94,6 +94,15 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Some issues fixed for php 5.2 compatibility
 * fixed some minor bugs
 
+= 1.0.2 = 
+* Fixed path errors for metadatafields
+* Number of fatal errors fixes
+* Bug fixed in save_metabox() name metabox saved properly now
+* Added functionality to order fields in the table overview
+* Tags and Category support for Collections
+* Empty container 'class' caused the drop field in 'Side' to be to short
+* Changes all old names 'collections' to 'metacollections' 
+
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
