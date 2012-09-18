@@ -341,7 +341,7 @@ public function load_admin_scripts(){ //for configuring Collections
 public function load_user_scripts(){ //for Collections management one function for overlapping
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
-	 wp_enqueue_script( 'googleapis', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyAFJKmLHcvDWgYQuY6hm0FES-R3_gPya6g&amp;sensor=false', '', '1.0'); //user
+	 wp_enqueue_script( 'googleapis', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBoIKBxe1sCVI1L1OEtfxtsHp2H88emFaI&amp;sensor=false', '', '1.0'); //user
 	 wp_enqueue_script( 'jquery.googlemaps', plugins_url('/js/jquery.googlemaps.js', __FILE__), '', '1.0'); //user
 	 
 	 wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url('/js/mobiscroll-2.0.2.custom.min.js', __FILE__), '', '2.0.1'); //admin
