@@ -1,7 +1,7 @@
 === Meta Collections ===
 Contributors: bastiaaaan
 
-Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen
+Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen, vimeo API
 Requires at least: 3.0
 Tested up to: 3.4.1
 Version: 1.0.3
@@ -26,6 +26,7 @@ You can also add metafields in the overview table.
 * Text
 * Textarea
 * Wysiwyg (Wordpress' own Editor)
+* Vimeo API connector (copies vimeo's preview images and other metadata into wordpress, configure embedding options)
 * ColorPicker (jQuery UI Colorpicker with hsb, rgb, lab, cmyk, hex colortype and transparancy support)   
 * Date (jQuery UI datepicker)
 * Datetime (jQuery Mobiscroll)
@@ -34,9 +35,11 @@ You can also add metafields in the overview table.
 * True / False (checkbox with text comment)
 * Taxonomy (adds a 'Wordpress own' taxonomy to your post type)
 * Select (for selecting one or multiple values in a dropdownmenu)
+* Radio (for multiple values in a radio setup)
+
 
 Future (shortly available)
-* Youtube and Vimeo
+* Youtube API field
 * File
 * multiple checkboxes
 * radio
