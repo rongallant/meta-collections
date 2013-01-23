@@ -1,14 +1,13 @@
 === Meta Collections ===
 Contributors: bastiaaaan
 
-Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy
+Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen
 Requires at least: 3.0
 Tested up to: 3.4.1
-Stable tag: 1.0.2
-Version: 1.0 
+Version: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
-
+Stable tag: 1.0.3
 Turns Wordpress into a Collection Manager. Customize edit screen by creation metadata schema's for custom post types, taxomonies and fields
 
 == Description ==
@@ -18,10 +17,8 @@ Beside 'Posts' and 'Pages' you can add your own post type (a Collection e.g. 'Fi
 For that particular post type you can a you own Metadata schema. So for example, if you want a Dublin Core schema you can.
 That schema can be a mixture of system and custom fields or a completely customized metadataschema.
 On top of that you can intuitively compose the user interface for the post type by dragging and dropping metafields in the right places using neat metaboxes.
-
-Managing your collection is facilitated by a range of special fields. 
+ 
 Fields can be validated and can consist of multiple instances (e.g. more dan one ingredient field).
-
 You can also add metafields in the overview table. 
 
 <h4>Fields types</h4>
@@ -121,3 +118,12 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Tags and Category support for Collections
 * Empty container 'class' caused the drop field in 'Side' to be to short
 * Changes all old names 'collections' to 'metacollections' 
+
+= 1.0.3 = 
+* Fixed compatibility issues with Wordpress 3.5
+* Fixed javascript bug
+* Fixed true false field error
+* Fixed and bug in georeference field.
+* Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
+* Added field type: radio-buttons field.
+ 

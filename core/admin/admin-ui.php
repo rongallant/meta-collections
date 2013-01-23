@@ -110,19 +110,19 @@ $metaboxes	= get_option("metaboxes_".$_POST[cpt]);
     * ajaxrequest, vars via $POST
     * @access public
     */
+    
+    
+    //add_meta_box($ID, "<span class=\"{$ID}\">{$metabox[name]}</span>".$this->metaboxoptions, array($this, 'getFields'), $pagenow, $side, 'core', array($metabox, $_POST[cpt]));	
+
 public function save_metabox(){
 global $pagenow;
-
-//add_meta_box($ID, "<span class=\"{$ID}\">{$metabox[name]}</span>".$this->metaboxoptions, array($this, 'getFields'), $pagenow, $_POST[side], 'core', array($metabox, $_POST[cpt]));	
-//do_meta_boxes($pagenow, $side, $data); 	
-//add metabox function here!
 
 $metaboxID = $this->slugify($_POST[label]);
 
 echo "
 <div class=\"postbox ui-area\" id=\"{$metaboxID}\">
 <div title=\"Klik om te wisselen\" class=\"handlediv\"><br></div>
-<h3 class=\"hndle\"><span>{$_POST[label]}</span></h3>
+<h3 class=\"hndle\"><span><span>{$_POST[label]}</span>".$this->metaboxoptions."<span></h3>
 
 <div class=\"inside\">
 <div class=\"meta-field-sortables ui-sortable\">
@@ -145,18 +145,21 @@ echo "
     * ajaxrequest, vars via $POST
     * @access public
     */
-public function do_meta_fields($page, $context, $object ){
+public function do_meta_fields($page, $context, $object){
 	//do_meta_boxes($pagenow, 'elements', $data)
-	
-	printf('<div id="%s-sortables" class="meta-field-sortables">', htmlspecialchars($context));
+		printf('<div id="%s-sortables" class="meta-field-sortables">', htmlspecialchars($context));
 	
 	
 	if(is_array($this->metafields[$context])){
+	
 	foreach($this->metafields[$context] as $box){
-		echo '<div id="' . $box['id'] . '" class="meta-field-box ' . postbox_classes($box['id'], $page) . $hidden_class . '" ' . '> ' ."\n";
+	//print_r($box);
+	$classname 		= (preg_match("/system-element-/", $box[id]) ) ? "meta-field-system-box" : "meta-field-box";
+	$system_text 	= (preg_match("/system-element-/", $box[id]) ) ? "<span class=\"description\">".__("system metafield","")."</span>" : "";
+		echo '<div id="' . $box['id'] . '" class="'.$classname.' ' . postbox_classes($box['id'], $page) . $hidden_class . '" ' . '> ' ."\n";
 					if ( 'dashboard_browser_nag' != $box['id'] )
 						echo '<div class="handlediv" title="' . esc_attr__('Click to toggle') . '"><br /></div>';
-					echo "<h3 class='meta-field-hndle'><span>{$box['title']}</span></h3>\n";
+					echo "<h3 class='meta-field-hndle'><span>{$box['title']}</span> {$system_text}</h3>\n";
 					echo '<div class="inside">' . "\n";
 					call_user_func($box['callback'], $object, $box);
 					echo "</div>\n";
@@ -202,7 +205,7 @@ if(is_array($systemboxes['inactive-system'])){
 			$searchfor="/{$this->systemprefix}/";
 			$function = preg_replace($searchfor, '', $title);
 			$function = preg_replace('/-/', '_', $function);//replace '-' with '_' . functions with '-' in name are not supported in php 
-
+			//echo $function."<br/>";
 			call_user_func(array($this->SystemElements, $function), 'inactive-system'); // As of PHP 5.3.0
 
 		}
@@ -359,7 +362,9 @@ function saveuserinterface(){
 	$userinterface	= get_option("userinterface_".$_POST[cpt]);
 	$ordered_mb		= array();
 		
-	//$ordered_ui		= array();
+	//print_r($metaboxes);
+	//echo"<hr/>";
+
 		
 	foreach($_POST[metaboxes] as $side=>$sideinfo){
 		
@@ -391,7 +396,7 @@ function saveuserinterface(){
 	}
 	
 	
-	//print_r($ordered_mb);
+	//print_r($metaboxes);
 	//echo"<hr/>";
 	//print_r($_POST);
 	 	
@@ -405,8 +410,98 @@ function saveuserinterface(){
 
 }
 
+
 /**
-    * Editsthe userinterface for the collection
+    * Collection overview table options
+    *
+
+    * @access public
+    */
+public function editOverviewTable(){
+global $pagenow;
+$this->metadataset 	= get_option("metadata_".$_POST[cpt]);	
+$this->tableorder	= get_option("tableorder_".$_POST[cpt]);
+
+
+//$systemprefix 	
+$buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>
+<a onclick=\"save_uinterface('{$_POST[cpt]}', '".__("Settings updated", "_coll")."');return false;\"  class=\"button-primary\" href=\"#\">".__('Save','_coll')."</a>";
+
+echo "
+".screen_icon('options-general')."<h2>
+".__("Edit Collection Overview Table",'_coll')."
+</h2>
+<br/>
+{$buttons}
+
+ <div style=\"height:30px;width:100%;padding:7px;\"><div class=\"updated settings-error\" style=\"display:none;\" id=\"setting-error-settings_updated\"></div></div>";
+/****** LOOPING METADATASET ***********/
+
+$this->metaelements = array_merge($this->metadataset, $this->system_columns);
+
+
+foreach($this->tableorder as $state => $fields){
+$metafieldids = explode(",",$fields);	
+
+foreach($metafieldids as $rawmetafieldID){
+$patterns 			= array('/system-element-/', '/meta-element-/');
+$metafieldID 		= preg_replace($patterns,"", $rawmetafieldID);
+$check_with_meta 	= (in_array($metafieldID, array_keys($this->metaelements))) ? "ja" : "nee";
+//echo $rawmetafieldID."<br/>";;
+unset($this->metadataset[$rawmetafieldID]);
+
+$prefix				= (preg_match("/system-element-/", $rawmetafieldID))? "system-element-":"meta-element-";
+$is_meta			= preg_match("/meta-element-/", $rawmetafieldID);
+
+$label 				= (preg_match("/system-element-/", $rawmetafieldID))? $this->system_columns[$metafieldID][label] : $this->metadataset[$metafieldID][label]  ;
+$label 				= (preg_match("/system-element-/", $rawmetafieldID))? __($label) : $label;
+
+$this->add_meta_field("{$prefix}{$metafieldID}", $label, array($typeclass, 'showfield'), $pagenow, $state, 'core', $metafield);
+
+//echo "{$state} - {$metafieldID} - {$check_with_meta}<br/>";
+}
+}
+//print_r($this->metadataset);
+foreach($this->metadataset as $metafieldID => $metafield){//all the inactive metafield not in option tableorder
+$this->add_meta_field("meta-element-{$metafieldID}", $metafield[label], array($typeclass, 'showfield'), $pagenow, 'inactive', 'core', $metafield);
+}
+echo"<hr/>";
+
+echo"
+<h3>Elements in overview</h3>
+<div id=\"poststuff\" class=\"active-elements drag-elements\">";
+ $this->do_meta_fields($page, 'active', $object);
+
+echo"</div>
+
+<h3>Elements not in overview</h3>
+<div id=\"poststuff\" class=\"inactive-elements drag-elements\">";
+ 
+
+ $this->do_meta_fields($page, 'inactive', $object);
+//, message:'".__("Settings updated")."'
+echo"</div>
+
+
+
+<script>
+metafield.add_postbox_toggles('{$pagenow}',{post_type:'{$_POST[cpt]}'});
+jQuery('.meta-field-box, .meta-field-system-box').addClass('closed');//#meta_elements 
+jQuery('.meta-field-sortables').addClass('tableoverview');//#meta_elements 
+</script>";
+
+
+
+}
+
+public function showfield(){
+	echo"<div  style=\"font-style:italic;text-align:center;padding:5px;\">system metadata</div>";
+}
+
+
+
+/**
+    * Edits the userinterface for the collection
      * @access public
     */
 public function edituserinterface(){
@@ -415,9 +510,9 @@ global $pagenow;
 require_once('./includes/meta-boxes.php');
 
 
-
+$this->tableorder	= get_option("tableorder_".$_POST[cpt]);
 	
-	
+//print_r($this->tableorder);
 	
 $this->metadataset 	= get_option("metadata_".$_POST[cpt]);
 $metaboxes 			= get_option("metaboxes_".$_POST[cpt]);
@@ -433,7 +528,7 @@ $buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"
 /* GENERATE METABOXES */
 
 //always add a publish metabox and make it undraggable//<span class=\"description\">".__("Cannot be moved","_coll")."</span>
-add_meta_box('submitdiv'.$this->nodrag, __('Publish')."", 'post_submit_meta_box', $pagenow, 'side', 'core'); 
+//add_meta_box('submitdiv'.$this->nodrag, __('Publish')."", 'post_submit_meta_box', $pagenow, 'side', 'core'); 
 
 
 /* check for taxonomies */
@@ -444,7 +539,7 @@ $has_taxonomies		= in_array("taxonomy", $types);
 		foreach($this->metadataset as $metadataID=>$metaINFO){ 
 		
 			if($metaINFO[type]=="taxonomy" && $metaINFO[status]==1){
-				//print_r($metaINFO);
+				
 				call_user_func(array($this->SystemElements, 'taxonomy'), $metaINFO);
 		 
 			}
@@ -463,8 +558,10 @@ if(preg_match($searchfor, $ID) ){
 $function = preg_replace($searchfor, '', $ID);
 $function = preg_replace('/-/', '_', $function);//replace '-' with '_' . functions with '-' in name are not supported in php 
 $function = ($function == "formatdiv") ? "post_formats" :  $function;
+//echo $function."<br/>";
+$mside		= ($function == "category" || $function == "post_tag") ? "side" : $side;
 
-call_user_func(array($this->SystemElements, $function), $side); //system elements
+call_user_func(array($this->SystemElements, $function), $mside); //system elements
 
 }else{
 //print_r($metabox);
@@ -580,18 +677,21 @@ echo"</div>
 jQuery(document).ready(function() {
 
 jtabs.init({tabID: 'ui_controls'});
-postboxes.add_postbox_toggles('{$pagenow}');
+postboxes.add_postbox_toggles();
 
-metafield.add_postbox_toggles('{$pagenow}');
+metafield.add_postbox_toggles();
 
 
 jQuery('.meta-field-box').addClass('closed');//#meta_elements 
 addPointers();
 
-jQuery('.postbox').addClass('ui-area');
+//jQuery('.postbox').addClass('ui-area');
 
-
+if(jQuery('#side-sortables').children().length>0){
+jQuery('#side-sortables').removeClass('empty-container');
+}
 jQuery('#meta_elements .metabox-holder .postbox').addClass('closed');//#meta_elements 
+
 jQuery('.meta-box-sortables').sortable({cancel: 'div[id$=\"{$this->nodrag}\"]'});
 
 jQuery('.meta-box-sortables').sortable({
@@ -603,6 +703,7 @@ jQuery('.meta-box-sortables').sortable({
 
 
 });
+
 
 
 
@@ -619,11 +720,13 @@ jQuery('.metabox-holder-collections textarea, .metabox-holder-collections input[
 }
 
 /**
-    * Not used
+    * Called from editOverviewTable to order the overviewtable items and to sort out the active and inactive items.
+     * @access public
     */
-function metafieldorder(){ //drag and drop function for order
-	print_r($_POST);
-	
+public function saveTableOverview(){ //drag and drop function for order
+	//print_r($_POST[order]);
+	echo __("Order saved","_coll")."...";
+	update_option("tableorder_".$_POST[post_type], $_POST[order], '', 'no');
 }
 
 /**
