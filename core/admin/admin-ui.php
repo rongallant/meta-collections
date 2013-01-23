@@ -205,7 +205,7 @@ if(is_array($systemboxes['inactive-system'])){
 			$searchfor="/{$this->systemprefix}/";
 			$function = preg_replace($searchfor, '', $title);
 			$function = preg_replace('/-/', '_', $function);//replace '-' with '_' . functions with '-' in name are not supported in php 
-//echo $function."<br/>";
+			//echo $function."<br/>";
 			call_user_func(array($this->SystemElements, $function), 'inactive-system'); // As of PHP 5.3.0
 
 		}
@@ -362,7 +362,9 @@ function saveuserinterface(){
 	$userinterface	= get_option("userinterface_".$_POST[cpt]);
 	$ordered_mb		= array();
 		
-	//$ordered_ui		= array();
+	//print_r($metaboxes);
+	//echo"<hr/>";
+
 		
 	foreach($_POST[metaboxes] as $side=>$sideinfo){
 		
@@ -394,7 +396,7 @@ function saveuserinterface(){
 	}
 	
 	
-	//print_r($ordered_mb);
+	//print_r($metaboxes);
 	//echo"<hr/>";
 	//print_r($_POST);
 	 	
@@ -496,8 +498,10 @@ public function showfield(){
 	echo"<div  style=\"font-style:italic;text-align:center;padding:5px;\">system metadata</div>";
 }
 
+
+
 /**
-    * Editsthe userinterface for the collection
+    * Edits the userinterface for the collection
      * @access public
     */
 public function edituserinterface(){
@@ -524,7 +528,7 @@ $buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"
 /* GENERATE METABOXES */
 
 //always add a publish metabox and make it undraggable//<span class=\"description\">".__("Cannot be moved","_coll")."</span>
-add_meta_box('submitdiv'.$this->nodrag, __('Publish')."", 'post_submit_meta_box', $pagenow, 'side', 'core'); 
+//add_meta_box('submitdiv'.$this->nodrag, __('Publish')."", 'post_submit_meta_box', $pagenow, 'side', 'core'); 
 
 
 /* check for taxonomies */

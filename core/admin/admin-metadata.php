@@ -82,7 +82,7 @@ public function save_metafield(){
 	if($key!="action" && $key!="cpt"){
 	
 	
-		$metadataset[$_POST['ID']][$key] = $value;
+		$metadataset[$_POST['ID']][$key] = htmlentities($value);
 
 	}
 	
@@ -200,7 +200,7 @@ if(is_array($metadataset))
                     }else{
                     jQuery('#content_{$metafield['ID']}').addClass('on');                    }
                     
-                    });return false;\" href=\"#\" title=\"Edit {$metafield['label']} {$metafield['ID']}  \">{$metafield['label']}</a></strong>
+                    });return false;\" href=\"#\" title=\"Edit {$metafield['label']} {$metafield['ID']}  \">".stripslashes($metafield['label'])."</a></strong>
                     
                     <div class=\"row-actions\">
                     <span class=\"edit\"><a onclick=\"jQuery('#{$metafield['ID']}_edit').slideToggle(200, function(){
