@@ -87,6 +87,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 3. Edit Screen Collections
 4. Compose your user Interface
 5. Start managing your collection
+6. The new Vimeo field
 
 == Changelog ==
 
