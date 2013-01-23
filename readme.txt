@@ -103,6 +103,15 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Empty container 'class' caused the drop field in 'Side' to be to short
 * Changes all old names 'collections' to 'metacollections' 
 
+= 1.0.3 = 
+* Fixed compatibility issues with Wordpress 3.5
+* Fixed javascript bug
+* Fixed true false field error
+* Fixed and bug in georeference field.
+* Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
+* Added field type: radio-buttons field.
+ 
+
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
