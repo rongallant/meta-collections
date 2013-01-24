@@ -3,7 +3,7 @@ Contributors: bastiaaaan
 
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen, vimeo API
 Requires at least: 3.0
-Tested up to: 3.4.1
+Tested up to: 3.5
 Version: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
