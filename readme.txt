@@ -114,6 +114,16 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Fixed and bug in georeference field.
 * Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
 * Added field type: radio-buttons field.
+
+= 2.0. =
+* Wordpress 3.8 compatible (not tested yet on downwards compatibility)
+* Fixed compatibility issues with Wordpress 3.8
+* Fixed google maps, javascript loads without a specific api key
+* Added local javascript libraries instead of using my own.
+* Fixed numerous bugs 
+* Bug drag and drop function in the user interface edit screen
+* missing collections.css 
+* added renewed custom vimeo field. communicates trought the Vimeo Api 
  
 
 == Upgrade Notice ==
@@ -142,10 +152,4 @@ You first have to drag it into the user interface. Go to Collections, click on '
  
 = 2.0. =
 * Wordpress 3.8 compatible (not tested yet on downwards compatibility)
-* Fixed compatibility issues with Wordpress 3.8
-* Fixed google maps, javascript loads without a specific api key
-* Added local javascript libraries instead of using my own.
-* Fixed numerous bugs 
-* Bug drag and drop function in the user interface edit screen
-* missing collections.css 
-* added renewed custom vimeo field. communicates trought the Vimeo Api 
+
