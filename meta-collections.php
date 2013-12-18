@@ -307,7 +307,7 @@ public function load_admin_scripts(){ //for configuring Collections
 	 wp_enqueue_script('post'); //admin
 	 wp_enqueue_script('wp-pointer');//admin
 	 
-	 wp_enqueue_style('collections',  plugins_url('/css/collections.css', __FILE__), '', '1.0'); //admin
+	 //wp_enqueue_style('collections',  plugins_url('/css/collections.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_style('css.dd',  plugins_url('/css/msdropdown/dd.css', __FILE__)); //admin
 	 wp_enqueue_style('collections-admin',  plugins_url('/css/collections-admin.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_style('wp-pointer');//admin
