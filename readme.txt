@@ -8,7 +8,7 @@ Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 2.0
-Turns Wordpress into a Collection Manager. Customize edit screen by creation metadata schema's for custom post types, taxomonies and fields
+Turns Wordpress into a Collection Manager. Customize the Wordpress edit screen by creatiing metadata schema's for custom post types, taxomonies and numerous custom field types.
 
 == Description ==
 <h4>Meta Collections</h4>
@@ -146,3 +146,4 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Fixed google maps, javascript loads without a specific api key
 * Added local javascript libraries instead of using my own.
 * fixed numerous bugs
+* added custom vimeo field. communicates trought the Vimeo Api 
