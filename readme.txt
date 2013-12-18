@@ -8,13 +8,13 @@ Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 2.0
-Turns Wordpress into a Collection Manager. Customize the Wordpress edit screen by creatiing metadata schema's for custom post types, taxomonies and numerous custom field types.
+Turns Wordpress into a Collection Manager. Customize the Wordpress post edit screen by creating metadata schema's for custom post types, taxomonies and numerous custom field types.
 
 == Description ==
 <h4>Meta Collections</h4>
 Meta Collections is developed to turn Wordpress into a Collection manager.
 Beside 'Posts' and 'Pages' you can add your own post type (a Collection e.g. 'Films'). 
-For that particular post type you can a you own Metadata schema. So for example, if you want a Dublin Core schema you can.
+For that particular post type you can add you own Metadata schema. So for example, if you want a Dublin Core metadtata schema you can.
 That schema can be a mixture of system and custom fields or a completely customized metadataschema.
 On top of that you can intuitively compose the user interface for the post type by dragging and dropping metafields in the right places using neat metaboxes.
  
@@ -141,7 +141,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added field type: radio-buttons field.
  
 = 2.0. =
-* Wordpress 3.8 compatible (no tested yet on downwards compatibility)
+* Wordpress 3.8 compatible (not tested yet on downwards compatibility)
 * Fixed compatibility issues with Wordpress 3.8
 * Fixed google maps, javascript loads without a specific api key
 * Added local javascript libraries instead of using my own.
