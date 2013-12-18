@@ -1,6 +1,6 @@
 <?php
 /**
-  * Handles all functions regarding the field type input type=checkbox true false
+  * Handles all functions for the Vimeo field, in combination with javascript it gets its data from the vimeo api
   *
   *
   * @author  Bastiaan Blaauw <statuur@gmail.com>

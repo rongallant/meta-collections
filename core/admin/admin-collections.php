@@ -15,13 +15,6 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
   * @package  Collections Wordpress plugin
   */
   
-//register_activation_hook( __FILE__, 'collections_activate' );
-//function collections_activate(){
-//	$b = new Basics();
-//}
-
-
-  
 class Collections extends Basics{ 
 /**
   * Basic Constructor

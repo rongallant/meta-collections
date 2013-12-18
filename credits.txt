@@ -1,4 +1,4 @@
-Collections wordpress plugin
+Meta-collections wordpress plugin
 
 Credits:
 - http://adambrown.info/p/wp_hooks/hook for the good list of Wordpress hooks
@@ -10,3 +10,4 @@ Credits:
 - http://mobiscroll.com/ for the Mobiscroll datetime jquery plugin
 - Martijn W. van der Lee, http://www.vanderlee.com/martijn/?page_id=314 , for the jquery Colorpicker plugin
 - Yusuke Kamiyamane, http://p.yusukekamiyamane.com/, for the Custom post type icon set
+- Php documentor for the creation of proper help docs

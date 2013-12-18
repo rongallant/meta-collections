@@ -1,4 +1,4 @@
-<?php
+	<?php
 /*
 * Plugin Name: Meta Collections
 * Plugin URI: http://wordpress.org/extend/plugins/meta-collections
@@ -82,7 +82,7 @@ class Basics{
 /**
     * Constructor
     *
-    * Loads basic function, javscript and css<br/>
+    * Loads basic function, javascript and css<br/>
     * Defines basic actions
     * Loads the proper locatisation
     * some rightsmanagement, only admin with the privileg&eacute; manage options will see the Collections menu and will be able to manage Collections configuration
@@ -244,9 +244,6 @@ public function convertShortcode($attributes){
     * @access public    
     */
 public function postformvalidation(){
-	//echo"hier dus.";
-	//print_r($_SESSION[required]);
-	
 	echo"<script>
 	jQuery(document).ready(function(){
 	
