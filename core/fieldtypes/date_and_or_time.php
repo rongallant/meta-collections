@@ -140,6 +140,8 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	
 	$date_c		= ($element[preset]=="date")? "checked": "";
+	$date_c		= ($element[preset]=="")? "checked": "";
+	
 	$time_c		= ($element[preset]=="time")? "checked": "";
 	$datetime_c	= ($element[preset]=="datetime")? "checked": "";	
 	echo"<tr>
