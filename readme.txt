@@ -8,7 +8,7 @@ Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 2.0
-Turns Wordpress into a Collection Manager. Customize the Wordpress post edit screen by creating metadata schema's for custom post types, taxomonies and numerous custom field types.
+Turns Wordpress into a Collection Manager. Customize Wordpress' post edit screen by creating metadata schema's for custom post types, taxomonies and numerous custom field types.
 
 == Description ==
 <h4>Meta Collections</h4>
