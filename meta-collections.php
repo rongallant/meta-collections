@@ -1,4 +1,4 @@
-	<?php
+<?php
 /*
 * Plugin Name: Meta Collections
 * Plugin URI: http://wordpress.org/extend/plugins/meta-collections
@@ -12,7 +12,6 @@
 * @Creation date: September 2012
 * @access Public
 * @Description: <strong>Meta Collentions&deg;</strong> turns Wordpress into a collection management system. Create Metadata Schema's with easy and intuitively create a user interface for the backend to manage you collection. Besides a professional Collection management tool Meta Collections&deg; can be used to create a Google maps marker collection or a recepy database. Meta Collentions&deg; comes with extensive help and developers documentation.
-
 * Text Domain: _coll
 */
 
@@ -25,9 +24,6 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
   * @author  Bastiaan Blaauw <statuur@gmail.com>
   * @package Collections Wordpress plugin
   */
-  
-  
-  
 class Basics{ 
 		var $dir;
 		var $name							= "Collections";
