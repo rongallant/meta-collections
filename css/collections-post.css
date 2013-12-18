@@ -1,6 +1,9 @@
 
 a.delete_metavalue{
-	display:inline-block;text-decoration:none;width:10px;background: url('/collections/wp-admin/images/xit.gif')no-repeat;
+	display:inline-block;
+	text-decoration:none;
+	width:10px;
+	/* background: url('/collections/wp-admin/images/xit.gif')no-repeat;*/
 }
 
 a.delete_metavalue:hover{
