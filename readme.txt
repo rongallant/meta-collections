@@ -14,7 +14,7 @@ Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by 
 <h4>Meta Collections</h4>
 Meta Collections is developed to turn Wordpress into a Collection manager.
 Beside 'Posts' and 'Pages' you can add your own post type (a Collection e.g. 'Films'). 
-For that particular post type you can add you own Metadata schema. So for example, if you want a Dublin Core metadtata schema you can.
+For that particular post type you can add you own Metadata schema. So for example, if you want a Dublin Core metadata schema you can.
 That schema can be a mixture of system and custom fields or a completely customized metadataschema.
 On top of that you can intuitively compose the user interface for the post type by dragging and dropping metafields in the right places using neat metaboxes.
  
