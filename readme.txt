@@ -1,7 +1,7 @@
 === Meta Collections ===
 Contributors: bastiaaaan
 
-Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen, vimeo API
+Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference
 Requires at least: 3.0
 Tested up to: 3.8
 Version: 2.0
