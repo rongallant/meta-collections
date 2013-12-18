@@ -63,12 +63,13 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 
 == Installation ==
-1. Upload the plugin folder` to the `/wp-content/plugins/` directory 
-1. ..or just download it trough the wordpress new plugin interface searching for 'meta collections'
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload the plugin folder to the `/wp-content/plugins/` directory 
+1. ...or just download it trough the wordpress add plugin interface searching for 'meta collections'
+1. Activate the plugin through the 'Plugins' menu in WordPress (start using)
 1. Create a Collection
 1. Create a Metadata Schema
 1. Compose the Collection's User Interface
+1. Edit and compose the collection table overview elements
 1. Start managing your collection
 1. Build your collection details into your template or use shortcode
 
@@ -77,7 +78,7 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 = I added a metafield but it doesn't show up in the post type edit screen =
 
-You first have to drag it into the user interface. Go to Collections, click on 'edit user interface' and drag the field in a place you wan't it  
+You first have to drag it into the user interface. Go to Collections, click on 'User Interface', create a metabox and drag the field into that box  
 
 
 == Screenshots ==

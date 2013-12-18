@@ -141,10 +141,6 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	
 	</table>
-	
-	<script>
-	addPointers();	
-</script>
 	";
 	
 	
