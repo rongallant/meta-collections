@@ -74,6 +74,7 @@ The plugin is published in a language supporing two languages, English and Dutch
 1. Build your collection details into your template or use shortcode
 
 
+
 == Frequently Asked Questions ==
 
 = I added a metafield but it doesn't show up in the post type edit screen =
@@ -83,10 +84,10 @@ You first have to drag it into the user interface. Go to Collections, click on '
 
 == Screenshots ==
 
-1. Edit screen Collections
-2. Metadataschema
+1. Add you own Post Type besides 'posts' and 'pages'. 
+2. A Metadata schema composed with numerous custom field types
 3. Edit Screen Collections
-4. Compose your user Interface
+4. Compose your own Wordpres' edit screen User Interface
 5. Start managing your collection
 6. The new Vimeo field
 
