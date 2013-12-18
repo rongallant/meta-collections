@@ -81,6 +81,14 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 You first have to drag it into the user interface. Go to Collections, click on 'User Interface', create a metabox and drag the field into that box  
 
+= I moved some of the system metaboxes (like title or featured image) to other places but nothin happend in my post edit screen =
+
+Some of the System metaboxes have fixed locations. i'll might build some functionality for this restrictions in later releases
+
+= I can't edit or delete the posts or pages collections =
+
+That is because that post types or Core Wordpress post types. You can only add metaboxes and meta fields to that types.
+
 = As a developer, where can i find technical documentation =
 
 Go to http://metacollections.statuur.nl/ for class documentation
