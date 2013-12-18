@@ -1,14 +1,14 @@
 === Meta Collections ===
 Contributors: bastiaaaan
 
-Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen, vimeo API
+Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference
 Requires at least: 3.0
 Tested up to: 3.8
 Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 2.0
-Turns Wordpress into a Collection Manager. Customize Wordpress' post edit screen by creating metadata schema's for custom post types, taxomonies and numerous custom field types.
+Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by creating your own metadata schema's.
 
 == Description ==
 <h4>Meta Collections</h4>
@@ -145,5 +145,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Fixed compatibility issues with Wordpress 3.8
 * Fixed google maps, javascript loads without a specific api key
 * Added local javascript libraries instead of using my own.
-* fixed numerous bugs
-* added custom vimeo field. communicates trought the Vimeo Api 
+* Fixed numerous bugs 
+* Bug drag and drop function in the user interface edit screen
+* missing collections.css 
+* added renewed custom vimeo field. communicates trought the Vimeo Api 
