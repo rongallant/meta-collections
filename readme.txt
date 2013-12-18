@@ -145,5 +145,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Fixed compatibility issues with Wordpress 3.8
 * Fixed google maps, javascript loads without a specific api key
 * Added local javascript libraries instead of using my own.
-* fixed numerous bugs
-* added custom vimeo field. communicates trought the Vimeo Api 
+* Fixed numerous bugs 
+* Bug drag and drop function in the user interface edit screen
+* missing collections.css 
+* added renewed custom vimeo field. communicates trought the Vimeo Api 
