@@ -115,6 +115,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
 * Added field type: radio-buttons field.
  
+ 
 
 == Upgrade Notice ==
 = 1.0 =
