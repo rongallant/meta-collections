@@ -81,7 +81,7 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 You first have to drag it into the user interface. Go to Collections, click on 'User Interface', create a metabox and drag the field into that box  
 
-= Where can i find documentation =
+= As a developer, where can i find technical documentation =
 
 Go to http://metacollections.statuur.nl/ for class documentation
 
