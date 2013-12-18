@@ -58,9 +58,7 @@ function showfield($post=null, $element=null){
 			</div>";
 			}
 		
-			$this->Field->metafieldBox($html, $element);
-			//, jQuery.datepicker.regional['nl']
-			echo"<script>
+			$html.="<script>
 			jQuery(document).ready(function () {
 			 date_preset = {$element['format']} ;
 			 jQuery('.datepicker').datepicker({
@@ -73,7 +71,24 @@ function showfield($post=null, $element=null){
 			
 			
 			</script>";
-					
+		
+			$this->Field->metafieldBox($html, $element);
+			//, jQuery.datepicker.regional['nl']
+			/*
+			echo"<script>
+			$(document).ready(function () {
+			 date_preset = {$element['format']} ;
+			 jQuery('.datepicker').datepicker({
+			 
+			 dateFormat: date_preset
+			
+			 }).val();
+			 
+			});
+			
+			
+			</script>";
+				*/ 	
 }
 
 /**

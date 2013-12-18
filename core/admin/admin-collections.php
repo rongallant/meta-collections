@@ -14,6 +14,14 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
   * @access Public
   * @package  Collections Wordpress plugin
   */
+  
+//register_activation_hook( __FILE__, 'collections_activate' );
+//function collections_activate(){
+//	$b = new Basics();
+//}
+
+
+  
 class Collections extends Basics{ 
 /**
   * Basic Constructor
@@ -39,6 +47,8 @@ public function __construct(){
 	}
 		
 }
+
+
 
 /**
     * Get's all positions where a collections may be places in the admin menu     
@@ -114,11 +124,15 @@ function deletecollection(){
 	$cpts = get_option("collection_cpt");								
 	unset($cpts[$_POST[cpt]]);			
 	update_option( "collection_cpt", $cpts, '', 'no'); 									
+
+if($_POST[cpt]!="post" && $_POST[cpt]!="page"){
 echo __("Do you wan't to delete the entire content of the collection too?","_coll")." <a class=\"button-primary\" href=\"#\" 
 onclick=\"deletecollectioncontent('{$_POST[cpt]}');\"
 
 >".__("Yes")."</a> 
 <a href=\"#\" onclick=\"jQuery('#setting-error-settings_updated').slideToggle('slow');clearTimeout(message_to)\" class=\"button\">".__("No")."</a>";
+}
+
 }
 
 /**
@@ -132,9 +146,19 @@ onclick=\"deletecollectioncontent('{$_POST[cpt]}');\"
     * Uses $_POST posted values.
     * @access public
     */
-public function saveCollection(){	
-	
+    
+   
+    
+public function saveCollection($collection){	
+  	$_POST 				= ($collection!="")? $collection : $_POST;
 	$post_type			= ($_POST[post_type]=="") ? $this->slugify($_POST[name]) : $_POST[post_type];
+	$siteurl			= get_site_url();
+	$menu_icon			= $_POST[menu_icon];
+	$menu_icon			= explode("wp-content", $menu_icon);
+	$menu_icon			= $siteurl."/wp-content".$menu_icon[1];
+	
+	//$_POST[menu_icon]	= preg_replace($patterns, $replacements, $_POST[menu_icon]);
+	
 	$_POST[name]		= preg_replace('/[\/\&%#;$]/', '', $_POST[name]);	
 	$_POST[name] 		= stripslashes($_POST[name]);  
 	$labels = array
@@ -167,7 +191,7 @@ public function saveCollection(){
 					'hierarchical'		=> false,
 					'capability_type'	=> 'post',
 					'rewrite'			=> array( 'slug' => $post_type, 'with_front' => false),
-					'menu_icon'			=> $_POST[menu_icon],
+					'menu_icon'			=> $menu_icon,
 					'query_var'			=> true,
 					//'supports'			=> array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions'),//in metaboxes option
 					'active'			=> $_POST[active]
@@ -176,17 +200,10 @@ public function saveCollection(){
 				
 					$ecpts = get_option("collection_cpt");
 					
-					if($_POST[post_type]==""){//if it concerns a new collection
-					$post_type			= $this->slugify($_POST[name]);
-					/*
-					$metadataset 	= get_option("metadata_".$_POST[cpt]);
-					$metaboxes 		= get_option("metaboxes_".$_POST[cpt]);
-					$userinterface	= get_option("userinterface_".$_POST[cpt]);
-					*/
-					//generate supports
+					if($_POST[post_type]=="" || $collection!=""){//if it concerns a new collection
+					 $post_type			= ($collection!="") ? $_POST[post_type] : $this->slugify($_POST[name]);
 					
-					//update_option( "collection_cpt", $ecpts, '', 'no'); 
-					 
+					 //die($post_type);
 					 $metaboxes = "";//array();
 					
 					 //adding system metaboxes to the user interface
@@ -237,6 +254,46 @@ public function saveCollection(){
     * @access public
     */
 public function CollectionOverview(){
+ $cpts = get_option("collection_cpt");
+ 	
+
+if($cpts[post]==""){
+$posts = array(
+			"post_type"		=> "post",
+ 			"name"			=> __('Posts', '_coll'),
+ 			"singular_name" => __('Post', '_coll'),
+ 			"description" 	=> __( 'Standard collection for Posts', '_coll'),
+ 			"menu_position" => "5",
+ 			"public" 		=> true,
+ 			"active"		=> 1,
+ 			'menu_icon'		=> get_site_url()."/wp-content/plugins/meta-collections/images/cpt-icons/blue-documents.png"
+ 			);	
+ 			
+ 			//
+ $this->saveCollection($posts);
+}
+
+if($cpts[page]==""){
+$pages = array(
+			"post_type"		=> "page",
+ 			"name"			=> __('Pages', '_coll'),
+ 			"singular_name" => __('Page', '_coll'),
+ 			"description" 	=> __( 'Standard collection for Pages', '_coll'),
+ 			"menu_position" 	=> "5",
+ 			"public" 		=> true,
+ 			"active"		=> 1,
+ 			'menu_icon'		=> get_site_url()."/wp-content/plugins/meta-collections/images/cpt-icons/blue-documents.png"	
+ 			);
+ $this->saveCollection($pages);
+ }
+
+
+
+if($cpts[post]=="" || $cpts[page]==""){
+echo"<script>setTimeout(function(){document.location.reload();},100);</script>";
+}
+
+
 
 $supports = array
 				(
@@ -276,28 +333,51 @@ echo"   <div class=\"form-wrap\">
             </thead>
             <tbody id=\"the-list\">";
             
-            $cpts = get_option("collection_cpt");
+           
 			
 			if(is_array($cpts))
             foreach($cpts as $postype => $cpt){ 
+			$metadataset 			= get_option("metadata_".$postype);	
+			
+	        $cpt['labels']['name'] 	= stripslashes($cpt['labels']['name']);  	
+            $opacity 				= ($cpt['active']==0) ? "opacity:0.5;-moz-opacity:0.5;" : "";
+            $inactive 				= ($cpt['active']==0) ? __("(inactive)", "_coll") : "";
+            $name 					= ($postype!="post" && $postype!="page") ? 
+            "<a class=\"row-title ajaxify\" rel=\"action:editcollection,cpt:{$postype}\" title=\"Edit &ldquo;{$cpt['name']}&rdquo;\" href=\"admin-ajax.php\">{$cpt['labels']['name']}</a>" : 
+            $cpt['labels']['name']; 
+            //echo gettype($metadataset);
            
-	         $cpt['labels']['name'] = stripslashes($cpt['labels']['name']);  	
-            $opacity = ($cpt['active']==0) ? "opacity:0.5;-moz-opacity:0.5;" : "";
-            $inactive = ($cpt['active']==0) ? __("(inactive)", "_coll") : "";
-                echo"<tr id=\"collectie_{$cpt['rewrite']['slug']}\" style=\"{$opacity}\">
+            echo"<tr id=\"collectie_{$cpt['rewrite']['slug']}\" style=\"{$opacity}\">
                
                 <td class=\"name column-name\">
                   <strong>
-                    <div style=\"float:left;width:22px;height:20px;overflow:hidden\"><img align=\"absmiddle\" src=\"{$cpt[menu_icon]}\"/></div> 
-                    <a class=\"row-title ajaxify\" rel=\"action:editcollection,cpt:{$postype}\" title=\"Edit &ldquo;{$cpt['name']}&rdquo;\" href=\"admin-ajax.php\">{$cpt['labels']['name']}</a></strong><br />{$cpt[description]}
+                    <div style=\"float:left;width:22px;height:20px;overflow:hidden\"><img align=\"absmiddle\" src=\"{$cpt[menu_icon]}\"/></div>
+                   {$name}
+                   
+                    </strong><br />{$cpt[description]}
                     
-                    <div class=\"row-actions\">
-                    <span class=\"edit\"><a class=\"ajaxify\" rel=\"action:editcollection,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit Collection','_coll')."</a> - </span>
-                    <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:editmetadata,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit Metadata set','_coll')."</a> -</span>
-                    <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:edituserinterface,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit User interface','_coll')."</a> |</span>
-                    <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:editoverviewtable,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit Overview Table','_coll')."</a> |</span>
-                    <span class=\"delete\"><a href=\"#\" onclick=\"deletecollection('{$postype}', '".__("Are you sure to delete this entire collection including metadataset en user interface?","_coll")."')\">".__('Delete Collection','_coll')."</a></span>
-                  </div>
+                    <div class=\"row-actions\">";
+                     if($postype!="post" && $postype!="page"){
+                    echo"<span class=\"edit\"><a class=\"ajaxify\" rel=\"action:editcollection,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Edit','_coll')."</a> | </span>";
+                    }
+                    echo"<span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:editmetadata,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Metadata','_coll')."</a> | </span>
+                    <span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:edituserinterface,cpt:{$postype}\" href=\"admin-ajax.php\">".__('User interface','_coll')."</a> | </span>";
+                    if(gettype($metadataset)=="string"){
+	                   echo"<span class=\"edit_custom_fields\"><a class=\"disabled tooltips\" title=\"".__('Metadata first','_coll')."\" rel=\"".__('This item is currently disabled because you need to create metadata elements first in order to place them in the table overview.','_coll')."\" href=\"#\">".__('Edit Overview Table','_coll')."</a>";  
+                    }else{
+	                 echo"<span class=\"edit_custom_fields\"><a class=\"ajaxify\" rel=\"action:editoverviewtable,cpt:{$postype}\" href=\"admin-ajax.php\">".__('Overview Table','_coll')."</a>";   
+                    }
+                    
+                    if($postype!="post" && $postype!="page"){
+                    echo" | ";
+                    }
+                    echo"</span>";
+                    
+                    
+                    if($postype!="post" && $postype!="page"){
+                    echo" <span class=\"delete\"><a href=\"#\" onclick=\"deletecollection('{$postype}', '".__("Are you sure to delete this entire collection including metadataset en user interface?","_coll")."')\">".__('Delete','_coll')."</a></span>";
+                    }
+                  echo"</div>
                 </td>
                 
                 <td class=\"categories column-categories\">{$postype} {$inactive}";
@@ -320,9 +400,9 @@ echo"   <div class=\"form-wrap\">
             </form>
             </div></div>
             
-            
-            
+                
             ";
+            /*
             echo"<script>
 
 jQuery(document).ready(function() {
@@ -331,13 +411,14 @@ jQuery(document).ready(function() {
 
 
 //jQuery('#collections_wrapper').load('admin-ajax.php', {action:'edituserinterface',cpt:'afleveringen'}, function() {
-//			addlisteners();
+//			
 //			});
 
 });
 
 </script>";
- }  
+*/
+}  
 
 
 /**
@@ -391,7 +472,7 @@ function editCollection(){
 
 
 $buttons = "<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>
-<a class=\"button-primary submit_c\" onclick=\"return (jQuery(this).attr('disabled')) ?  false : save_collection('".__("Collection\'s configuration saved, reloading page....")."')\" href=\"#\">".__('Save Collection','_coll')."</a>";
+<a class=\"button-primary submit_c\" onclick=\"return (jQuery(this).attr('disabled')) ?  false : save_collection('".__("Collection\'s configuration saved, reloading page....", "_coll")."')\" href=\"#\">".__('Save Collection','_coll')."</a>";
 
 echo"
 <div class=\"wrap\" id=\"collections_wrapper\">
@@ -504,6 +585,7 @@ echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
                 ".$this->helpicon(__('Menu icon','_coll'), __("The icon used for the Collection menu.","_coll") )."
                 ".__('Menu icon','_coll')."</td>
                 <td style=\"overflow:visible\" class=\"categories column-categories\">
+                
                 <select name=\"menu_icon\" id=\"menu_icon\">";
                 $s=1;
                 $slashes 		= explode("/", $collection[menu_icon]);
@@ -515,17 +597,17 @@ echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
 	              }
 	              
 	              
-	              $selected 	=($icon_file==$menu_icon)? "selected":"";
+	              $selected 	= ($icon_file==$menu_icon)? "selected":"";
+	              $selected_icon= ($icon_file==$menu_icon)? $menu_icon: $selected_icon;
 	              
-	              
-	               echo"<option {$selected} value=\"{$this->basedir}/images/cpt-icons/{$menu_icon}\" title=\"{$this->basedir}/images/cpt-icons/{$menu_icon}\">".ucfirst($menu_icon)."</option>"; 
+	               echo"<option {$selected} value=\"{$this->basedir}/images/cpt-icons/{$menu_icon}\" title=\"{$this->basedir}/images/cpt-icons/{$menu_icon}\">{$menu_icon}</option>"; 
                 $s++;
                 
                 }
 
                 
                 echo"</select>
-                
+               
                 
                 </td>
             </tr>
@@ -551,54 +633,10 @@ echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
 
 
 <br/>";
-
-/*
-$cat_active		= ($collection[categories]==1) ? "checked" :"";
-$tags_active	= ($collection[tags]==1) ? "checked" :"";
-
-echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
-            <thead class=\"content-types-list\">
-              <tr>
-                <th style=\"\" colspan=\"2\" class=\"manage-column column-name\" id=\"name\" scope=\"col\">".__('Advanced Options')."</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-            <tr>
-                <td width=\"20%\" class=\"name column-name\">
-                ".$this->helpicon(__('Categories'), __("Activate Category support for this collection. Categories are part of Wordpress' standard functionality ", "_coll"))."
-                
-                ".__('Categories')." </td>
-                <td class=\"categories column-categories\">
-                <input type=\"checkbox\" name=\"categories\" {$cat_active} value=\"1\"/>
-                </td>
-            </tr>
-            
-            <tr>
-                <td class=\"name column-name\">
-                ".$this->helpicon(__('Tags'), __("Activate Tags support for this collection. Tags are part of Wordpress' standard functionality ", "_coll"))."
-                
-                ".__('Tags')." </td>
-                <td class=\"categories column-categories\">
-                <input type=\"checkbox\" name=\"tags\" {$tags_active} value=\"1\"/>
-                </td>
-            </tr>
-              </tbody>
-
-            </table>
-
-<br/><br/><div style=\"display:none;\" id=\"check_getter\"></div>";
 /****** ADVANCED OPTIONS *****/		
 echo"
 {$buttons}
-</form>
-
-<script>
-	jQuery('#menu_icon').msDropDown();
-	jQuery('#advanced_option_holder').toggle();
-	addPointers();	
-</script>
-";				
+</form>";				
 	die();
 }
 

@@ -12,6 +12,10 @@
 	
 }
 
+a.disabled{
+	opacity:0.4;
+}
+
 .side-text{
 	width:100%;
 	padding-left:40px;
@@ -19,7 +23,7 @@
 	background: url('../images/arrow-left.png') no-repeat 0% 9px;
 	font-family: 'comic sans', 'comic sans MS';
 	font-size: 11px;
-	color:#21759B;
+	color: #0074A2;
 }
 
 /******** SORTABLES METABOXES EN METAFIELD BOXES UI ***********/
@@ -28,33 +32,41 @@
 	border-radius: 4px;
 	padding:4px;
 }
-
+#inactive-system-sortables{
+	border: 2px dashed #90BACD!important;
+	border-radius: 4px;
+	padding:4px;
+	min-height:35px;
+}
 
 #inactive-system-sortables .postbox, #inactive-sortables .meta-field-box{
-	width:250px;
+	swidth:250px;
 	}
 
-#inactive-sortables{
+#inactive-sortables, #active-sortables{
 	border: 2px dashed #90BACD!important;
 	border-radius: 4px;
 	padding:4px;
 	min-height:135px;
 }
-
-
-
-#inactive-sortables:after{
-	content : ' drag metaboxes in this area to deactivate them'; 
+/*
+.new-sortable:after{
+	content : ' drag metaboxes in this area'; 
 	font-family: 'comic sans', 'comic sans MS';
 	font-size: 11px;
-	color:#21759B;
+	color: #0074A2;
+}
+*/
+#inactive-sortables:after{
+	content : ' drag metaboxes in this area'; 
+	font-family: 'comic sans', 'comic sans MS';
+	font-size: 11px;
+	color: #0074A2;
 }
 
 
-.meta-field-box{
-	/*border: 2px dashed #90BACD!important;
-	border-radius: 4px;
-	*/
+.meta-field-box, .meta-field-system-box{
+
 	margin-bottom:10px;
 }
 
@@ -67,17 +79,25 @@
 	text-shadow:none!important;
 }
 
-.meta-field-box.closed .meta-field-hndle{
-	/*background: -moz-linear-gradient(center top , #2C8BBE, #246F99) repeat scroll 0 0 transparent!important;*/
-	 background-image: -moz-linear-gradient(center bottom , #5589AA, #619BBB)!important;
-	 background-position:0px 0px!important;
-	 border: 1px solid #619BBB!important;
+
+ .meta-field-system-box.closed .meta-field-hndle{
+	 background:#c0c0c0;
+	 border: 1px solid  #c0c0c0!important;
 	 color:white;
-	 border-radius: 3px 3px 3px 3px;
+	 border-radius: 2px;
+	 cursor: move;
+	 /*color:#333333!important;*/
+	}
+
+.meta-field-box.closed .meta-field-hndle{
+	 background-image: -moz-linear-gradient(center bottom , #eee, #f1f1f1)!important;
+	 background-position:0px 0px!important;
+	 border: 1px solid #c0c0c0!important;
+	 color:white;
+	 border-radius: 2px;
 	 cursor: move;
 	 color:#333333!important;
-	 text-shadow: 0 1px 0 #5589AA!important;
-}
+	}
 
 .meta-field-box.closed .meta-field-hndle:hover{
 	border: 1px solid #13455B!important;

@@ -4,7 +4,7 @@ Contributors: bastiaaaan
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy,edit screen, vimeo API
 Requires at least: 3.0
 Tested up to: 3.5
-Version: 1.0.3
+Version: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 1.0.3
@@ -140,3 +140,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
 * Added field type: radio-buttons field.
  
+= 1.0.4 =
+* Fixed compatibility issues with Wordpress 3.8
+* Fixed google maps, javascript loads without a specific api key
+

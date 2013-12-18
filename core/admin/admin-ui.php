@@ -32,15 +32,12 @@ public function __construct(){
 	$this->Field 			= new Field();
 	$this->Field->getFields();
 	$this->Field->getClasses();//+':parent'
-	$this->metaboxoptions 	= " <span class=\"metabox_options\"> - <a href=\"#\" onclick=\"rename_metabox('{$_POST[cpt]}',this, '".__("Please enter a new name for this Metabox: ", "-coll")."')\">".__("Rename Metabox","_coll")."</a> <a href=\"#\" onclick=\"delete_metabox(jQuery(this).parent().parent().parent().parent(), '".$_POST[cpt]."', '".__("Are you sure to delete this metabox? All metafield in it will return to the Inactive Elements Metadataset.","_coll")."');return false;\">".__("Delete Metabox")."</a></span>";
-	//$this->metafieldoptions = " <span class=\"metabox_options\"><a href=\"#\" onclick=\"alert(23);\">".__("Deactivate Metafield position")."</a> </span>";	
+	$this->metaboxoptions 	= " <span class=\"metabox_options\"> - <a href=\"#\" onclick=\"rename_metabox('{$_POST[cpt]}',this, '".__("Please enter a new name for this Metabox: ", "-coll")."', '".__("Settings Updated", "-coll")."')\">".__("Rename Metabox","_coll")."</a> <a href=\"#\" onclick=\"delete_metabox(jQuery(this).parent().parent().parent().parent(), '".$_POST[cpt]."', '".__("Are you sure to delete this metabox? All metafield in it will return to the Inactive Elements Metadataset.","_coll")."');return false;\">".__("Delete Metabox")."</a></span>";
+	
 	$this->SystemElements	= new SystemElements();
 		
 	if($this->action!=""){
-	call_user_func(array($this, $this->action)); // As of PHP 5.3.0
-	//eval('$instance = '.$className.'::GetInstance();');
-	//print_r($this->sides);
-	//$this->edituserinterface();
+	call_user_func(array($this, $this->action));
 	}	
 	
 	}
@@ -114,24 +111,53 @@ $metaboxes	= get_option("metaboxes_".$_POST[cpt]);
     
     //add_meta_box($ID, "<span class=\"{$ID}\">{$metabox[name]}</span>".$this->metaboxoptions, array($this, 'getFields'), $pagenow, $side, 'core', array($metabox, $_POST[cpt]));	
 
+public function draggable($a, $metabox){
+	echo"<div class=\"meta-field-sortables ui-sortable new-sortable\">
+<div id=\"elements-sortables\" class=\"meta-field-sortables ui-sortable new-sortable\"></div>
+</div>";
+	
+	
+	
+	//<div id=\"{$metabox[id]}-sortables\" class=\"meta-field-sortables ui-sortable new-sortable\"></div>
+}
+
 public function save_metabox(){
 global $pagenow;
 
+//HIER DE HELE EDIT INTERFACE OPNIEUW LADEN
+ /*add_meta_box('tagsdiv-' . $taxonomy[ID].$this->nodrag, $taxonomy[label]." <span class=\"description\">taxonomy</span>", 'post_tags_meta_box', $pagenow, 'side', 'core', array( 'taxonomy' => $taxonomy[ID] ))
+ * @param string $id String for use in the 'id' attribute of tags.
+ * @param string $title Title of the meta box.
+ * @param string $callback Function that fills the box with the desired content. The function should echo its output.
+ * @param string|object $screen Optional. The screen on which to show the box (post, page, link). Defaults to current screen.
+ * @param string $context Optional. The context within the page where the boxes should show ('normal', 'advanced').
+ * @param string $priority Optional. The priority within the context where the boxes should show ('high', 'low').
+ * @param array $callback_args Optional. Data that should be set as the "args" property of the box array (which is the second parameter passed to your callback).
+ */
+//function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advanced', $priority = 'default', $callback_args = null ) {
 $metaboxID = $this->slugify($_POST[label]);
 
+
+add_meta_box($metaboxID, "<span class=\"{$metaboxID}\">{$_POST[label]}</span>".$this->metaboxoptions, array($this, 'draggable'), $pagenow, $_POST[position], 'core', array($metabox, $_POST));	
+
+do_meta_boxes($pagenow, $_POST[position], $data);
+
+
+/*
 echo "
 <div class=\"postbox ui-area\" id=\"{$metaboxID}\">
 <div title=\"Klik om te wisselen\" class=\"handlediv\"><br></div>
 <h3 class=\"hndle\"><span><span>{$_POST[label]}</span>".$this->metaboxoptions."<span></h3>
 
 <div class=\"inside\">
-<div class=\"meta-field-sortables ui-sortable\">
-<div class=\"meta-field-sortables ui-sortable\" id=\"elements-sortables\">
-//save en reload this page in order to drag and drop metafield here.....
+
+<div id=\"{$metaboxID}-sortables\" class=\"meta-field-sortables\">
 </div>
+
 </div>
-</div>
+
 </div>";
+*/
 
 
 }
@@ -247,15 +273,19 @@ echo"<div id=\"meta_elements\" style=\"padding:0px 10px 0px 10px;width:100%;\">
     * Add metabox form under tab all metabox
      * @access public
     */
-public function add_metabox(){//BEWARE OF DOUBLE METABOXES ID'S BECAUSE OF SAVING UI'S
+public function add_metabox($cpt){
+//BEWARE OF DOUBLE METABOXES ID'S BECAUSE OF SAVING UI'S
 echo"<form id=\"metabox_add\" action=\"{$_SERVER[REQUEST_URI]}\" method=\"post\" >
          <input type=\"hidden\" name=\"action\" value=\"save_metabox\"/>
          <input type=\"hidden\" name=\"side\" id=\"side\" value=\"normal\"/>
+         <input type=\"hidden\" name=\"cpt\" value=\"{$cpt}\" id=\"cpt\"/>
+         
          <table style=\"width:100%;\" cellspacing=\"0\">
 
             <thead class=\"content-types-list\">
               <tr>
-	         <th style=\"padding-bottom:10px;\" colspan=\"2\" class=\"manage-column column-name\" id=\"name\" scope=\"col\"><h3>".__('Add Metabox','_coll')." <span class=\"description\" style=\"color:white\"> - ".__("Inserted in preview area","_coll")."</span></h3></th>
+	         <th colspan=\"2\" class=\"manage-column column-name\" id=\"name\" scope=\"col\"><h3 class=\"title\">".__('Add Metabox','_coll')." 
+	         <span class=\"description\">".__("Inserted in preview area","_coll")."</span></h3></th>
               </tr>
             </thead>
             
@@ -284,7 +314,7 @@ echo"<form id=\"metabox_add\" action=\"{$_SERVER[REQUEST_URI]}\" method=\"post\"
             <tr>
             <td></td>
                 <td style=\"padding:15px;\">
-                <a rel=\"action:savemetabox\" class=\"button-primary\" onclick=\"save_metabox('".__("Save the User interface to save the created Metabox.", "_coll")."');return false;\" href=\"#\">".__('Insert Metabox','_coll')."</a>
+                <a rel=\"action:savemetabox\" class=\"button-primary\" onclick=\"save_metabox('".__("Metabox is beeing placed. One moment.", "_coll")."', '{$cpt}');return false;\" href=\"#\">".__('Insert Metabox','_coll')."</a>
 
 </td>
 </tr>
@@ -394,19 +424,11 @@ function saveuserinterface(){
 		
 		}
 	}
-	
-	
-	//print_r($metaboxes);
-	//echo"<hr/>";
-	//print_r($_POST);
 	 	
 	
 	update_option("metaboxes_".$_POST[cpt], $ordered_mb, '', 'no'); // this one saves al the info  and order for metaboxes
 	update_option("userinterface_".$_POST[cpt], $_POST[ui], '', 'no'); // this one saves al the info  and order for metafields
-	
-	
-	
-	/** save metabox order**/
+	/** dont save metabox order**/
 
 }
 
@@ -422,10 +444,8 @@ global $pagenow;
 $this->metadataset 	= get_option("metadata_".$_POST[cpt]);	
 $this->tableorder	= get_option("tableorder_".$_POST[cpt]);
 
-
-//$systemprefix 	
-$buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>
-<a onclick=\"save_uinterface('{$_POST[cpt]}', '".__("Settings updated", "_coll")."');return false;\"  class=\"button-primary\" href=\"#\">".__('Save','_coll')."</a>";
+//<a onclick=\"save_uinterface('{$_POST[cpt]}', '".__("Settings updated", "_coll")."', '');\"  class=\"button-primary\" href=\"#\">".__('Save','_coll')."</a>
+$buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>";
 
 echo "
 ".screen_icon('options-general')."<h2>
@@ -436,6 +456,7 @@ echo "
 
  <div style=\"height:30px;width:100%;padding:7px;\"><div class=\"updated settings-error\" style=\"display:none;\" id=\"setting-error-settings_updated\"></div></div>";
 /****** LOOPING METADATASET ***********/
+
 
 $this->metaelements = array_merge($this->metadataset, $this->system_columns);
 
@@ -483,11 +504,12 @@ echo"</div>
 echo"</div>
 
 
-
+<div id=\"rcver\"></div>
 <script>
-metafield.add_postbox_toggles('{$pagenow}',{post_type:'{$_POST[cpt]}'});
-jQuery('.meta-field-box, .meta-field-system-box').addClass('closed');//#meta_elements 
-jQuery('.meta-field-sortables').addClass('tableoverview');//#meta_elements 
+metafield.add_postbox_toggles('{$pagenow}',{post_type:'{$_POST[cpt]}', action: 'savetableoverview'});
+
+$('.meta-field-box, .meta-field-system-box').addClass('closed');//#meta_elements 
+$('.meta-field-sortables').addClass('tableoverview');//#meta_elements 
 </script>";
 
 
@@ -510,16 +532,13 @@ global $pagenow;
 require_once('./includes/meta-boxes.php');
 
 
-$this->tableorder	= get_option("tableorder_".$_POST[cpt]);
-	
-//print_r($this->tableorder);
-	
+$this->tableorder	= get_option("tableorder_".$_POST[cpt]);	
 $this->metadataset 	= get_option("metadata_".$_POST[cpt]);
 $metaboxes 			= get_option("metaboxes_".$_POST[cpt]);
 $userinterface		= get_option("userinterface_".$_POST[cpt]);
-
+//print_r($this->metadataset);
 $buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>
-<a onclick=\"save_uinterface('{$_POST[cpt]}', '".__("Settings updated", "_coll")."');return false;\"  class=\"button-primary\" href=\"#\">".__('Save user Interface','_coll')."</a>
+<a onclick=\"save_uinterface('{$_POST[cpt]}', '".__("Settings updated", "_coll")."', 0);return false;\"  class=\"button-primary\" href=\"#\">".__('Save user Interface','_coll')."</a>
 
 <a style=\"float:right\" class=\"button\" onclick=\"jQuery('.side-text, .tooltips').slideToggle();return false;\" href=\"#\">".__('Toggle help','_coll')."</a>
 ";
@@ -589,8 +608,8 @@ echo "<div class=\"wrap\" id=\"collections_wrapper\">
 <h3 class=\"nav-tab-wrapper\">
     
     
-    <a href=\"#\" class=\"nav-tab nav-tab-active\" id=\"nav-0\">".__('Inactive Elements Metadataset','_coll')."</a>
-    <a href=\"#\" class=\"nav-tab\" id=\"nav-1\">".__('Inactive System Elements Wordpress','_coll')."</a>
+    <a href=\"#\" class=\"nav-tab nav-tab-active\" id=\"nav-0\">".__('Inactive Metafields','_coll')."</a>
+    <a href=\"#\" class=\"nav-tab\" id=\"nav-1\">".__('Inactive System Metaboxes','_coll')."</a>
     
     <a href=\"#\" class=\"nav-tab\" id=\"nav-2\">".__('Add Metabox','_coll')."</a>
 </h3>
@@ -609,7 +628,7 @@ $this->inactive_metaboxes();
 echo"</div>";
 */ 
 echo"<div class=\"tab-content\" id=\"c-2\">";
-$this->add_metabox();
+$this->add_metabox($_POST[cpt]);
 echo"</div>
 
 
@@ -655,9 +674,36 @@ foreach($this->sides as $side=>$elementID){ //loop though the different UI parts
 	}
 }
 
-//jQuery( ".selector" ).sortable( "option", "disabled", true );
+/*
+	
+	jtabs.init({tabID: 'ui_controls'});
+
+
+postboxes.add_postbox_toggles(pagenow);
+//metafield.add_postbox_toggles();
+
+
+jQuery('.meta-field-box').addClass('closed');//#meta_elements 
+addPointers();
+
+///jQuery('.postbox').addClass('ui-area');
+
+//if(jQuery('#side-sortables').children().length>0){
+//jQuery('#side-sortables').removeClass('empty-container');
+//}
+//jQuery('#meta_elements .metabox-holder .postbox').addClass('closed');//#meta_elements 
+
+//jQuery('.meta-box-sortables').sortable({cancel: 'div[id$=\"{$this->nodrag}\"]'});
 
 //jQuery('.meta-box-sortables').sortable({
+//				start: function(e,ui) {
+//				jtabs.activate(1);
+//				}
+//				
+//				});
+
+//jQuery('.metabox-holder-collections textarea, .metabox-holder-collections input[type=text], .metabox-holder-collections input[type=checkbox],  .metabox-holder-collections input[type=submit]').prop('disabled', true);	
+*/
 echo"</div>
  
 
@@ -671,49 +717,23 @@ echo"</div>
 
 <div style=\"padding-top:30px;float:left;width:100%;\">{$buttons}</div>
 <script>
+//turn it into a function????? 
  
  
  
-jQuery(document).ready(function() {
-
+$(document).ready(function() {
 jtabs.init({tabID: 'ui_controls'});
-postboxes.add_postbox_toggles();
-
-metafield.add_postbox_toggles();
-
-
-jQuery('.meta-field-box').addClass('closed');//#meta_elements 
-addPointers();
-
-//jQuery('.postbox').addClass('ui-area');
-
-if(jQuery('#side-sortables').children().length>0){
-jQuery('#side-sortables').removeClass('empty-container');
-}
 jQuery('#meta_elements .metabox-holder .postbox').addClass('closed');//#meta_elements 
 
-jQuery('.meta-box-sortables').sortable({cancel: 'div[id$=\"{$this->nodrag}\"]'});
+$('.meta-field-box, #normal-sortables .postbox').toggleClass('closed');
 
-jQuery('.meta-box-sortables').sortable({
-				start: function(e,ui) {
-				jtabs.activate(1);
-				}
-				
-				});
-
-
+metafield.add_postbox_toggles(pagenow, {post_type: '{$_POST[cpt]}', action: 'save_uinterface'});
+postboxes.add_postbox_toggles(pagenow);
 });
 
 
-
-
-jQuery('.metabox-holder-collections textarea, .metabox-holder-collections input[type=text], .metabox-holder-collections input[type=checkbox],  .metabox-holder-collections input[type=submit]').prop('disabled', true);	
-
-
-
-
-
 </script>
+<div id=\"rcver\"></div>
 
 ";
 
@@ -725,6 +745,20 @@ jQuery('.metabox-holder-collections textarea, .metabox-holder-collections input[
     */
 public function saveTableOverview(){ //drag and drop function for order
 	//print_r($_POST[order]);
+	
+	
+	/*
+	Array ( 
+	[action] => savetableoverview 
+	[page_columns] => 0 
+	[page] => admin-ajax.php 
+	[post_type] => waaar 
+	[order] => Array ( 
+	[active] => system-element[]=title&system-element[]=id&system-element[]=images&system-element[]=author&system-element[]=categories&system-element[]=tags&system-element[]=date 
+	[inactive] => system-element[]=title&system-element[]=id&system-element[]=images&system-element[]=author&system-element[]=categories&system-element[]=tags&system-element[]=date ) ) 
+	
+	a:1:{s:6:"active";s:148:"system-element-id,system-element-title,system-element-images,system-element-author,system-element-categories,system-element-tags,system-element-date";}
+	*/
 	echo __("Order saved","_coll")."...";
 	update_option("tableorder_".$_POST[post_type], $_POST[order], '', 'no');
 }

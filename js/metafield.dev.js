@@ -1,11 +1,11 @@
-var metafield;
+var metafield, metafieldSortable;
 
 (function($) {
 	metafield = {
 		add_postbox_toggles : function(page, args) {
+			
 			var self = this;
 			self.init(page, args);
-
 			$('.meta-field-box h3, .meta-field-box .handlediv').bind('click.metafield', function() {
 				var p = $(this).parent('.meta-field-box'), id = p.attr('id');
 
@@ -13,7 +13,7 @@ var metafield;
 					return;
 
 				p.toggleClass('closed');
-
+			
 				if ( page != 'press-this' )
 					self.save_state(page);
 
@@ -66,7 +66,7 @@ var metafield;
 
 			$.extend( this, args || {} );
 			$('#wpbody-content').css('overflow','hidden');
-			$('.meta-field-sortables').sortable({
+			metafieldSortable = $('.meta-field-sortables').sortable({
 				placeholder: 'sortable-placeholder',
 				connectWith: '.meta-field-sortables',
 				items: '.meta-field-box, .meta-field-system-box',
@@ -87,6 +87,7 @@ var metafield;
 				stop: function(e,ui) {
 					if ( $(this).find('#dashboard_browser_nag').is(':visible') && 'dashboard_browser_nag' != this.firstChild.id ) {
 						$(this).sortable('cancel');
+						
 						return;
 					}
 					
@@ -98,7 +99,7 @@ var metafield;
 					if($(ui.item).parent().attr('id')=="inactive-sortables"){
 					$(ui.item).addClass('closed');	
 					}else if($(this).hasClass("tableoverview")!=true){
-					$(ui.item).removeClass('closed');	
+					//$(ui.item).removeClass('closed');	
 					}
 					}
 					
@@ -129,24 +130,30 @@ var metafield;
 				page: page
 			});
 		},
-
+		
 		save_order : function(page) {
 			var postVars, page_columns = $('.columns-prefs input:checked').val() || 0;
-
+			
 			postVars = {
-				action: 'savetableoverview',
+				action: this.action,
 				_ajax_nonce: $('#meta-box-field-nonce').val(),
 				page_columns: page_columns,
 				page: page,
 				post_type: this.post_type
 			}
+			
+			
 			$('.meta-field-sortables').each( function() {
 				postVars["order[" + this.id.split('-')[0] + "]"] = $(this).sortable( 'toArray' ).join(',');
+				//postVars["order[" + this.id.split('-')[0] + "]"] = $('.meta-field-sortables').sortable('serialize');
 			} );
 			
+			if(this.action=="savetableoverview"){//aanpassen
 			$.post(ajaxurl, postVars, function(data){
 				setMessage(data);
 			} );
+			}
+			
 		},
 
 		_mark_area : function() {

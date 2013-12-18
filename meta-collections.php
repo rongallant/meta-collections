@@ -3,7 +3,7 @@
 * Plugin Name: Meta Collections
 * Plugin URI: http://wordpress.org/extend/plugins/meta-collections
 * Author: Bastiaan Blaauw <statuur@gmail.com>	 
-* Version: 1.0.3
+* Version: 1.0.4
 * @see http://metacollections.statuur.nl/ 
 * @category Wordpress Plugin
 * @package  Collections Wordpress plugin
@@ -20,29 +20,14 @@ if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
 	die("Access denied.");
 }
 
-
  /**
   * This core class contains all the basic backend functionality for the plugin.
   * @author  Bastiaan Blaauw <statuur@gmail.com>
   * @package Collections Wordpress plugin
-  
-  	$new_columns['id'] = __('ID');
-				$new_columns['title'] = __('Title');
-		//$new_columns['title'] = __('Title');
-		$new_columns['images'] = __('Images');
-		$new_columns['author'] = __('Author');
-		$new_columns['categories'] = __('Categories');
-		$new_columns['tags'] = __('Tags');
-		$new_columns['date'] = _x('Date', 'column name');
-		
-		'id'					=>  __('ID'),
-					'title'					=>  __('Title'),
-					'images'				=>  __('Images'),
-					'author'				=>  __('Author'),
-					'categories'			=>  __('Categories'),
-					'tags'					=>  __('Tags'),
-					'date'					=>  _x('Date', 'column name')
   */
+  
+  
+  
 class Basics{ 
 		var $dir;
 		var $name							= "Collections";
@@ -154,14 +139,9 @@ public function __construct(){
 	}
 	
 	
-
-	//$post_types=get_post_types('','names');
-	//OR get the collections option in_array($posttypes, get_post_type())
-	//print_r($post_types);
-	//&& isset($_GET[post_type]) && !isset($_POST[post_ID])
 	if($pagenow=="edit.php" && isset($_GET[post_type]) && $_GET[post_type]!="page" && $_GET[post_type]!="post" ){
-	//// todoonly on post overview and only on registered post types from collections!
-	//echo get_post_type($post);
+	////todo only on post overview and only on registered post types from collections!
+	////echo get_post_type($post);
 	add_action( 'admin_init', array( $this, 'table_columns') );
 	}
 	
@@ -203,10 +183,9 @@ public function __construct(){
 	add_action('wp_ajax_editoverviewtable', array($this, 'userinterface'));	
 	add_action('wp_ajax_savetableoverview', array($this, 'userinterface'));
 
-
+	
 	/*********** AJAX ACTIONS FOR USER MEDIA INTERFACE *************/
 	add_action('wp_ajax_manage_mediametadata', array($this, 'manage_mediametadata'));
-	
 	add_shortcode( 'collections',				array( $this, 'convertShortcode') );	
 	}
 
@@ -223,10 +202,9 @@ public function init(){
 	$this->basedir 	= plugins_url('',__FILE__);
 	$this->action	= (isset($_POST[action]))? $_POST[action] : $_REQUEST[action] ;
 	$this->searchfor= "/{$this->systemprefix}/";
-
 }
-
-
+     
+         
 /**
     * Converts the shortcode into the right metafield value
     *
@@ -317,19 +295,20 @@ public function postformvalidation(){
     * @access public
     */   
 public function load_admin_scripts(){ //for configuring Collections
+	 wp_enqueue_script('jquery');
+	
 	 wp_enqueue_script('jquery.collections', plugins_url('/js/jquery.collections.js', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script('jquery.tabs', plugins_url('/js/jquery.tabs.js', __FILE__), '', '1.0');	//admin
-	
+	 
 	 wp_enqueue_script('metafield', plugins_url('/js/metafield.dev.js', __FILE__), '');	//admin
-	 wp_enqueue_script('jquery.dd', plugins_url('/js/jquery.dd.js', __FILE__), '', '2.38.4');	//admin
+	 wp_enqueue_script('jquery.dd', plugins_url('/js/jquery.dd.min.js', __FILE__), '', '2.38.4');	//admin
 	 wp_enqueue_script('widgets'); //?
 	 wp_enqueue_script('postbox'); //admin
 	 wp_enqueue_script('post'); //admin
-	 
 	 wp_enqueue_script('wp-pointer');//admin
 	 
 	 wp_enqueue_style('collections',  plugins_url('/css/collections.css', __FILE__), '', '1.0'); //admin
-	 wp_enqueue_style('css.dd',  plugins_url('/css/dd.css', __FILE__)); //admin
+	 wp_enqueue_style('css.dd',  plugins_url('/css/msdropdown/dd.css', __FILE__)); //admin
 	 wp_enqueue_style('collections-admin',  plugins_url('/css/collections-admin.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_style('wp-pointer');//admin
 	 
@@ -343,29 +322,30 @@ public function load_admin_scripts(){ //for configuring Collections
 public function load_user_scripts(){ //for Collections management one function for overlapping
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
-	 wp_enqueue_script( 'googleapis', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBoIKBxe1sCVI1L1OEtfxtsHp2H88emFaI&amp;sensor=false', '', '1.0'); //user
+	 wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user
 	 wp_enqueue_script( 'jquery.googlemaps', plugins_url('/js/jquery.googlemaps.js', __FILE__), '', '1.0'); //user
-	 
+	 wp_enqueue_script('jquery.widget', plugins_url('/js/jquery.ui.widget.min.js', __FILE__), '', '1.0');	//admin
+	
 	 wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url('/js/mobiscroll-2.0.2.custom.min.js', __FILE__), '', '2.0.1'); //admin
 	 wp_enqueue_style( 'mobiscroll.core-2.0.2',  plugins_url('/css/mobiscroll.core-2.0.2.css', __FILE__), '', '2.0.1'); //admin
 	 
+	  
+	 wp_enqueue_script('jquery-ui-datepicker');
+	 wp_enqueue_script('jquery-ui-widget');
+	 	 
 	 //wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui-1.8.20.custom.min.js', __FILE__), '', '1.8.2.0'); //admin
-	 wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui.min.js', __FILE__), '', '1.9.2'); //admin
-	 
-	 wp_enqueue_style('jquery-ui','http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css');
-
-
-	 wp_enqueue_script('jquery.colorpicker.js', plugins_url('/js/jquery.colorpicker.js', __FILE__), '', '0.9.2'); //admin
+	 //wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui.min.js', __FILE__), '', '1.9.2'); //admin
+	  //wp_enqueue_script(' jquery-ui-core , '', '1.9.2'); //admin
+	  //jquery-ui-core 
+	   
+	   wp_enqueue_script('jquery.colorpicker.js', plugins_url('/js/jquery.colorpicker.js', __FILE__), '', '1.0.6'); //admin
 	 //wp_enqueue_script('jquery.colorpickerlang.js', plugins_url('/js/i18n/jquery.ui.colorpicker-nl.js', __FILE__), '', '0.9.2'); //admin
-	 wp_enqueue_style('css.colorpicker', plugins_url('/css/jquery.colorpicker.css', __FILE__));
 
-	  wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
-/*
-	 if(get_bloginfo( 'language')=="nl-NL"){ 	
-	 wp_enqueue_script('colorpicker.lang', plugins_url('/js/i18n/jquery.ui.colorpicker-nl.js', __FILE__)); //admin
-	 wp_enqueue_script('datepicker.lang', plugins_url('/js/i18n/jquery.ui.datepicker-nl.js', __FILE__)); //admin
-	 }
-*/
+	 //wp_enqueue_style('jquery-ui',plugins_url('/css/smoothness/jquery-ui-1.10.3.custom.min.css', __FILE__));
+	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
+	 wp_enqueue_style('css.colorpicker', plugins_url('/css/jquery.colorpicker.css', __FILE__));
+	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
+
 	}
 
 
@@ -424,8 +404,9 @@ global $wpdb;
 if( $column_name=="id"){
 		echo $id;
 }else if($column_name=="images"){
-$num_images = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpdb->posts WHERE post_parent = {$id};"));
-			echo $num_images; 
+//$num_images = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $wpdb->posts WHERE post_parent = {$id};"));
+$num_images = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->posts WHERE post_parent = {$id};");
+echo $num_images; 
 }else{
 
 if(is_array($value)){
@@ -728,10 +709,7 @@ public function collection_menu() {
 
 			//$this->pagehook	= add_submenu_page( 'collection-config', __("User interfaces",'_coll'), __("User interfaces",'_coll') , 'manage_options', 'userinterface', array($this,'userinterface'));
 			//add_submenu_page( 'collection-config', __("Metadata Sets",'_coll'), __("Metadata Sets",'_coll') , 'manage_options', 'metadata', array($this,'metadata'));			 
-			
 			//add_submenu_page( 'collections', __("Media Metadata",'_coll'), __("Media Metadata",'_coll') , 'manage_options', 'manage-media-metadata', array($this,'manage_media_metadata')); 			
-			
-			
 			//add_submenu_page( 'collection-config', __("Import Mappings",'_coll'), __("Import Mappings",'_coll') , 'manage_options', 'import-metadata', array($this,'import_metadata')); 			
 			//add_submenu_page( 'collection-config', __("Create shortcodes",'_coll'), __("Create shortcodes",'_coll') , 'manage_options', 'create_shortcode', array($this,'create_shortcode')); 
 			
@@ -752,7 +730,7 @@ public function metadata(){
 }	
 
 /**
-    * Portals all actions related to user interface management (defined in Basics::__construct()) to admin-metadata.php <b>Class UI</b>
+    * Portals all actions related to user interface management (defined in Basics::__construct()) to admin-ui.php <b>Class UI</b>
     * 
     * All actions are calles trough an ajax request
     * @access public
@@ -840,6 +818,7 @@ function manage_media_metadata(){
     */	
 function buildinterface(){
 	$this->includes();
+	
 	include(ABSPATH."wp-content/plugins/meta-collections/core/admin/admin-post-type.php");
 	$this->buildInterface	= new buildInterface();
 	

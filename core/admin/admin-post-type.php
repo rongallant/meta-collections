@@ -33,17 +33,15 @@ public function __construct(){
 	
 	$this->SystemElements		= new SystemElements();
 	
-	//$this->action = ($this->action=="") ? "Build": $this->action;
-	//if($this->action!=""){
-	//call_user_func(array($this, $this->action)); // As of PHP 5.3.0
 	$this->post_type = (get_post_type( $_GET[post])=="") ? $_GET[post_type] : get_post_type( $_GET[post]);
+	$this->post_type = ($this->post_type=="") ? "post" : $this->post_type;
+	///print_r($this->post_type);
+	
 	$this->Build();
 	
-	if(isset($_POST[post_ID])){
-	//print_r($_POST);
-	}
-	//echo"<hr/>";
-	//print_r($this);
+	
+	
+	//if(isset($_POST[post_ID])){}
 	
 }
 
@@ -60,23 +58,16 @@ global $pagenow;
 	$this->metaboxes 	= get_option("metaboxes_".$this->post_type);
 	$this->userinterface= get_option("userinterface_".$this->post_type);
 	$this->metadataset 	= get_option("metadata_".$this->post_type); //{}
-	//$this->searchfor	= "/{$this->systemprefix}/";
 	$this->searchfor	= "/_nodrag/";
-	//print_r($this->userinterface);
-	//die($this->post_type);
-	
+	//	print_r($this->metaboxes);
 	if(is_array($this->metaboxes)){	
 	
 	foreach($this->isides as $context=>$container){
 	
-	
 	if(is_array($this->metaboxes[$context])){	
-	
 	
 	foreach($this->metaboxes[$context] as $metabox){//all sides
 	
-
-	//		$function = preg_replace($searchfor, '', $title);
 	if($metabox[ID]!="submitdiv" && !preg_match($this->searchfor, $metabox[ID])){
 	
 	add_meta_box($metabox[ID], $metabox[name], array($this, 'getFields'), $this->post_type, $context, 'core', array($void, $metabox));	
@@ -113,8 +104,9 @@ global $pagenow;
   */
 function getFields($post, $metaboxinfo){
 global $post;
-
-
+//print_r($this->userinterface);
+//echo gettype($this->userinterface);
+if(gettype($this->userinterface)=="array"){
 foreach($this->userinterface as $metadataID=>$UIinfo){
 	//print_r($UIinfo);
 	if($UIinfo[metaboxID]==$metaboxinfo[id] && $this->metadataset[$UIinfo[metadataID]][status]==1){//find the right custom fields with the metabox
@@ -131,7 +123,7 @@ foreach($this->userinterface as $metadataID=>$UIinfo){
 	
 	}
 
-
+}
 
 }
 

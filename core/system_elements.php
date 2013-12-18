@@ -26,16 +26,8 @@ function __construct(){
 function taxonomy($taxonomy){
 global $pagenow;	
 	add_meta_box('tagsdiv-' . $taxonomy[ID].$this->nodrag, $taxonomy[label]." <span class=\"description\">taxonomy</span>", 'post_tags_meta_box', $pagenow, 'side', 'core', array( 'taxonomy' => $taxonomy[ID] ));
-//print_r($taxonomy);
+
 }	
-
-		/*
-	add_meta_box('tagsdiv-' . $tax_name, $label, 'post_tags_meta_box', null, 'side', 'core', array( 'taxonomy' => $tax_name ));
-	else
-		add_meta_box($tax_name . 'div', $label, 'post_categories_meta_box', null, 'side', 'core', array( 'taxonomy' => $tax_name ));
-
-
-		*/
 
 function tags($context){
 global $pagenow;
@@ -106,15 +98,6 @@ function post_formats($context){
 global $pagenow;
 	add_meta_box($this->systemprefix.'post_formats', _x( 'Format', 'post format' ), 'post_format_meta_box', $pagenow, 'side', 'core' ); //notation
 }
-
-
-
-
-
-
-
-
-
 
 
 function get_title_contents($context){
