@@ -3,7 +3,7 @@
 * Plugin Name: Meta Collections
 * Plugin URI: http://wordpress.org/extend/plugins/meta-collections
 * Author: Bastiaan Blaauw <statuur@gmail.com>	 
-* Version: 1.0.4
+* Version: 2.0
 * @see http://metacollections.statuur.nl/ 
 * @category Wordpress Plugin
 * @package  Collections Wordpress plugin
