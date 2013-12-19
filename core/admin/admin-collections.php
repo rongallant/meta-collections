@@ -517,16 +517,9 @@ echo"<br/>
             <tr>
                 <td class=\"name column-name\">".$this->helpicon(__('Collection Singular Name','_coll'), __("The singular name of the Collection","_coll"))." ".__('Collection Singular Name','_coll')." </td>
                 <td class=\"categories column-categories\"><input type=\"text\" name=\"singular_name\" size=\"20\" value=\"{$collection[labels][singular_name]}\"/> ".__('e.g. Treasure','_coll')."</td>
-            </tr>";
-            
-  /*          
-            <tr>
-                <td class=\"name column-name\">".__('Post Type Name','_coll')." <span style=\"color:red;\">*</span></td>
-                <td class=\"categories column-categories\"><input type=\"text\" class=\"disabled\" 	readonly=\"readonly\" name=\"post_type\" id=\"spost_type\" size=\"20\" onblur=\"set_post_type(this);\" value=\"{$collection[post_type]}\"/> ".__('e.g. treasures,','_coll')."</td>onblur=\"set_post_type(this);\" 
             </tr>
-    */        
             
-       echo"     <tr>
+            <tr>
                 <td class=\"name column-name\">
                 ".$this->helpicon(__('Collection Description','_coll'), __("Brief description of the Collections","_coll"))."
                 ".__('Description','_coll')." </td>
@@ -629,7 +622,12 @@ echo"<table class=\"wpcf-types-form-table widefat\" cellspacing=\"0\">
 /****** ADVANCED OPTIONS *****/		
 echo"
 {$buttons}
-</form>";				
+</form>
+
+<script>
+	jQuery('#menu_icon').msDropDown();
+</script>
+";				
 	die();
 }
 
