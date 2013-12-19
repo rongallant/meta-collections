@@ -321,24 +321,28 @@ public function load_user_scripts(){ //for Collections management one function f
 	
 	 wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url('/js/mobiscroll-2.0.2.custom.min.js', __FILE__), '', '2.0.1'); //admin
 	 wp_enqueue_style( 'mobiscroll.core-2.0.2',  plugins_url('/css/mobiscroll.core-2.0.2.css', __FILE__), '', '2.0.1'); //admin
-	 
-	  
 	 wp_enqueue_script('jquery-ui-datepicker');
 	 wp_enqueue_script('jquery-ui-widget');
 	 	 
 	 //wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui-1.8.20.custom.min.js', __FILE__), '', '1.8.2.0'); //admin
 	 //wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui.min.js', __FILE__), '', '1.9.2'); //admin
-	  //wp_enqueue_script(' jquery-ui-core , '', '1.9.2'); //admin
-	  //jquery-ui-core 
-	   
-	   wp_enqueue_script('jquery.colorpicker.js', plugins_url('/js/jquery.colorpicker.js', __FILE__), '', '1.0.6'); //admin
+	 //wp_enqueue_script(' jquery-ui-core , '', '1.9.2'); //admin
+	 //jquery-ui-core 
 	 //wp_enqueue_script('jquery.colorpickerlang.js', plugins_url('/js/i18n/jquery.ui.colorpicker-nl.js', __FILE__), '', '0.9.2'); //admin
-
 	 //wp_enqueue_style('jquery-ui',plugins_url('/css/smoothness/jquery-ui-1.10.3.custom.min.css', __FILE__));
+
+	 wp_enqueue_script('jquery.colorpicker.js', plugins_url('/js/jquery.colorpicker.js', __FILE__), '', '1.0.6'); //admin
+	 
+	 wp_enqueue_style( 'msDropDown',  plugins_url('/css/msdropdown/dd.css', __FILE__), ''); //admin
 	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
 	 wp_enqueue_style('css.colorpicker', plugins_url('/css/jquery.colorpicker.css', __FILE__));
 	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
 
+
+	 if(get_bloginfo( 'language')=="nl-NL"){ 	
+	 wp_enqueue_script('colorpicker.lang', plugins_url('/js/i18n/jquery.ui.colorpicker-nl.js', __FILE__)); //admin
+	 wp_enqueue_script('datepicker.lang', plugins_url('/js/i18n/jquery.ui.datepicker-nl.js', __FILE__)); //admin
+	 }
 	}
 
 
