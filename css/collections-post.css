@@ -1,0 +1,50 @@
+
+a.delete_metavalue{
+	display:inline-block;
+	text-decoration:none;
+	width:10px;
+	/* background: url('/collections/wp-admin/images/xit.gif')no-repeat;*/
+}
+
+a.delete_metavalue:hover{
+	background-position: -10px 0px;
+}
+
+/****** METAFIELD CSS ***********/
+.metafield-wrapper{
+	width:100%;
+	margin-bottom: 15px;
+}
+
+.metafield-wrapper  .metafield-box{
+	border:1px solid  #DFDFDF;
+	border-radius:2px;
+}
+
+.metafield-wrapper  .metafield-label{
+	text-shadow: 0 1px 0 #fff;
+	padding:6px;
+	font-size:13px;
+	font-style:italic;
+	background:#ededed;
+	color:#333333;
+	font-family: Georgia,'Times New Roman','Bitstream Charter',Times,serif;
+}
+
+.metafield-wrapper  .metafield-body{
+	padding:10px;
+}
+
+.metafield-wrapper  .metafield-value{
+	padding:4px;
+	border-bottom:1px solid #DFDFDF;
+}
+
+.metafield-wrapper  .metafield-value label{
+	display:inline-block;
+	font-size:10px;
+}
+
+.metafield-wrapper  .metafield-add{
+	padding:0px 0px 10px 10px;
+}
