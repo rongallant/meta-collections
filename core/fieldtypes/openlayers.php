@@ -31,7 +31,7 @@ class OpenLayers extends Basics{
 function showfield($post=null, $element=null, $c=null){
 
 
-			$element 			= ($element[id]!="") ? $element[args]: $element;
+			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
