@@ -2,7 +2,6 @@ var fieldsort, cp, date_time_preset, date_preset, changedanger, mypointer;
 var $ = jQuery.noConflict();
 
 $(document).ready(function() {
-
 addlisteners();
 });
 

@@ -13,6 +13,7 @@
 * @access Public
 * @Description: <strong>Meta Collentions&deg;</strong> turns Wordpress into a collection management system. Create Metadata Schema's with easy and intuitively create a user interface for the backend to manage you collection. Besides a professional Collection management tool Meta Collections&deg; can be used to create a Google maps marker collection or a recepy database. Meta Collentions&deg; comes with extensive help and developers documentation.
 * Text Domain: _coll
+*
 */
 
 if( $_SERVER['SCRIPT_FILENAME'] == __FILE__ ){
@@ -313,37 +314,15 @@ public function load_admin_scripts(){ //for configuring Collections
     * @access public
     */
 public function load_user_scripts(){ //for Collections management one function for overlapping
+ 	 
+ 	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
-	 wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user
-	 wp_enqueue_script( 'jquery.googlemaps', plugins_url('/js/jquery.googlemaps.js', __FILE__), '', '1.0'); //user
-	 wp_enqueue_script('jquery.widget', plugins_url('/js/jquery.ui.widget.min.js', __FILE__), '', '1.0');	//admin
-	
-	 wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url('/js/mobiscroll-2.0.2.custom.min.js', __FILE__), '', '2.0.1'); //admin
-	 wp_enqueue_style( 'mobiscroll.core-2.0.2',  plugins_url('/css/mobiscroll.core-2.0.2.css', __FILE__), '', '2.0.1'); //admin
-	 wp_enqueue_script('jquery-ui-datepicker');
-	 wp_enqueue_script('jquery-ui-widget');
-	 	 
-	 //wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui-1.8.20.custom.min.js', __FILE__), '', '1.8.2.0'); //admin
-	 //wp_enqueue_script('jquery.ui.datepicker', plugins_url('/js/jquery-ui.min.js', __FILE__), '', '1.9.2'); //admin
-	 //wp_enqueue_script(' jquery-ui-core , '', '1.9.2'); //admin
-	 //jquery-ui-core 
-	 //wp_enqueue_script('jquery.colorpickerlang.js', plugins_url('/js/i18n/jquery.ui.colorpicker-nl.js', __FILE__), '', '0.9.2'); //admin
-	 //wp_enqueue_style('jquery-ui',plugins_url('/css/smoothness/jquery-ui-1.10.3.custom.min.css', __FILE__));
-
-	 wp_enqueue_script('jquery.colorpicker.js', plugins_url('/js/jquery.colorpicker.js', __FILE__), '', '1.0.6'); //admin
-	 
+ 	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
+ 	 wp_enqueue_script('jquery.widget', plugins_url('/js/jquery.ui.widget.min.js', __FILE__), '', '1.0');	//admin
 	 wp_enqueue_style( 'msDropDown',  plugins_url('/css/msdropdown/dd.css', __FILE__), ''); //admin
-	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
-	 wp_enqueue_style('css.colorpicker', plugins_url('/css/jquery.colorpicker.css', __FILE__));
-	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
 
-
-	 if(get_bloginfo( 'language')=="nl-NL"){ 	
-	 wp_enqueue_script('colorpicker.lang', plugins_url('/js/i18n/jquery.ui.colorpicker-nl.js', __FILE__)); //admin
-	 wp_enqueue_script('datepicker.lang', plugins_url('/js/i18n/jquery.ui.datepicker-nl.js', __FILE__)); //admin
-	 }
-	}
+}
 
 
 /**

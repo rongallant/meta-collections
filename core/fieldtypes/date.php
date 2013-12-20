@@ -30,6 +30,17 @@ class Date extends Basics{
     */	
 	
 function showfield($post=null, $element=null){
+			
+			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
+			wp_enqueue_script('jquery-ui-datepicker'); 																							//user only for the date field
+			
+			
+			
+			if(get_bloginfo( 'language')=="nl-NL"){ 	
+				wp_enqueue_script('datepicker.lang', plugins_url().'/meta-collections/js/i18n/jquery.ui.datepicker-nl.js'); //admin
+			}
+			}
+			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 
@@ -46,10 +57,8 @@ function showfield($post=null, $element=null){
 			$_SESSION[required][$element[ID]] = $element[required_err]	;
 			}
 			
-		
-			
-			$html = "";
 
+			$html = "";
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>

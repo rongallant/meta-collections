@@ -12,12 +12,12 @@
   * @package  Collections Wordpress plugin
   */
 
-class Georeference extends Basics{
+class OpenLayers extends Basics{
 	
 	function __construct(){
 	parent::init();
 	$this->Field 		= new Field();
-	$this->fieldname 	= __("Georeference","_coll");
+	$this->fieldname 	= __("OpenLayers","_coll");
 	}
 	
 	
@@ -29,11 +29,7 @@ class Georeference extends Basics{
     */	
 	
 function showfield($post=null, $element=null, $c=null){
-			
-			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
-			wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user only for the georeference field
-			wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
-			}
+
 
 			$element 			= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];

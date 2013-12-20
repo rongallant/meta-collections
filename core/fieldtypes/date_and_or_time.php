@@ -33,6 +33,12 @@ class Date_and_or_time extends Basics{
 	
 function showfield($post=null, $element=null){
 					
+			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
+			wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url().'/meta-collections/js/date/mobiscroll-2.0.2.custom.min.js', '', '2.0.1');  	//user only for the date field
+			wp_enqueue_style( 'mobiscroll.core-2.0.2',  plugins_url('/css/mobiscroll.core-2.0.2.css', __FILE__), '', '2.0.1');  					//user only for the date field
+			}
+					
+					
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 
@@ -60,6 +66,7 @@ function showfield($post=null, $element=null){
 			$this->Field->metafieldBox($html, $element);
 			//minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),var now = new Date();
 			echo"<script>
+			
 			date_time_preset = '{$element[preset]}';
 			jQuery(document).ready(function () {
 			
@@ -72,6 +79,7 @@ function showfield($post=null, $element=null){
 			});
 
 			});
+			
 			</script>";
 			
 			}

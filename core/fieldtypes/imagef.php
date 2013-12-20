@@ -29,7 +29,8 @@ class Imagef extends Basics{
     */	
 public function showfield($post=null, $element=null){
 		global $post;		
-		
+			 wp_enqueue_script( 'zebra_tooltips', plugins_url('/js/zebra_tooltips.js', __FILE__), '', '2.0.1');  	//test
+
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 

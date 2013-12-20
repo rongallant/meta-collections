@@ -29,7 +29,6 @@ class Text extends Basics{
     */	
 public function showfield($post=null, $element=null){
 				
-		
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 
