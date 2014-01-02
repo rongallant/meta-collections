@@ -7,7 +7,7 @@ Tested up to: 3.8
 Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
-Stable tag: 2.0.1
+Stable tag: 2.0
 Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by creating your own metadata schema's.
 
 == Description ==
