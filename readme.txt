@@ -1,13 +1,13 @@
 === Meta Collections ===
 Contributors: bastiaaaan
 
-Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference
+Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference, open layer, google maps
 Requires at least: 3.0
 Tested up to: 3.8
 Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
-Stable tag: 2.0
+Stable tag: 2.0.1
 Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by creating your own metadata schema's.
 
 == Description ==
@@ -36,6 +36,8 @@ You can also add metafields in the overview table.
 * Taxonomy (adds a 'Wordpress own' taxonomy to your post type)
 * Select (for selecting one or multiple values in a dropdownmenu)
 * Radio (for multiple values in a radio setup)
+* Open Layer New Open Layer field for managing multiple point with a post (or other custom post type) every point can contain a title, date time and amount.
+
 
 
 Future (shortly available)
@@ -115,6 +117,23 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
 * Added field type: radio-buttons field.
  
+= 2.0. =
+* Wordpress 3.8 compatible (not tested yet on downwards compatibility)
+* Fixed compatibility issues with Wordpress 3.8
+* Fixed google maps, javascript loads without a specific api key
+* Added local javascript libraries instead of using my own.
+* Fixed numerous bugs 
+* Bug drag and drop function in the user interface edit screen
+* missing collections.css 
+* added renewed custom vimeo field. communicates trought the Vimeo Api 
+
+
+= 2.0.1 =
+* Added the Openlayer field with lots of options. Possibility to add multiple point on a map, use all google maps layers
+* Fixed numerous bugs 
+* Removed unnecessary field options.
+* Added more structure in folders.
+* Change the loading of javascript files. They only load when the have to now.
  
 
 == Upgrade Notice ==
@@ -150,3 +169,12 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Bug drag and drop function in the user interface edit screen
 * missing collections.css 
 * added renewed custom vimeo field. communicates trought the Vimeo Api 
+
+
+= 2.0.1 =
+* Added the Openlayer field with lots of options. Possibility to add multiple point on a map, use all google maps layers
+* Fixed numerous bugs 
+* Removed unnecessary field options.
+* Added more structure in folders.
+* Change the loading of javascript files. They only load when the have to now.
+
