@@ -182,15 +182,16 @@ public function do_meta_fields($page, $context, $object){
 	
 	$classname 		= (preg_match("/system-element-/", $box[id]) ) ? "meta-field-system-box" : "meta-field-box";
 	$system_text 	= (preg_match("/system-element-/", $box[id]) ) ? "<span class=\"description\">".__("system metafield","")."</span>" : "";
+		
 		echo '<div id="' . $box['id'] . '" class="'.$classname.' ' . postbox_classes($box['id'], $page) . $hidden_class . '" ' . '> ' ."\n";
 					if ( 'dashboard_browser_nag' != $box['id'] )
 						echo '<div class="handlediv" title="' . esc_attr__('Click to toggle') . '"><br /></div>';
 					echo "<h3 class='meta-field-hndle'><span>{$box['title']}</span> {$system_text}</h3>\n";
 					echo '<div class="inside">' . "\n";
-					//print_r($box['callback']);
+					//print_r($box[args]);
 					//echo"<<<<";
 					//call_user_func($box['callback'], $object, $box);
-					echo "&nbsp;No field preview here</div>\n";
+					echo $box[args]['type']." field.&nbsp;<br/><i>No field preview here</i></div>\n";
 					echo "</div>\n";
 		
 	}

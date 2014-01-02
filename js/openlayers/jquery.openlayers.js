@@ -106,8 +106,8 @@ this.mapoptions = { controls: [
 	 
 	this.editPanel 		= new OpenLayers.Control.Panel({displayClass: 'editPanel'});
     this.navControl 	= new OpenLayers.Control.Navigation({title: 'Kaart bewegen / zoomen'});
-    this.editControl 	= new OpenLayers.Control.ModifyFeature(this.vectorLayer, {dragComplete:obj.modifyFeature,title: 'Punten bewerken'});//
-    this.drawControl	= new OpenLayers.Control.DrawFeature(this.vectorLayer, OpenLayers.Handler.Point, {featureAdded: obj.addFeature, displayClass: 'pointButton', title: 'Punt toevoegen', handlerOptions: {style: this.sty}});
+    this.editControl 	= new OpenLayers.Control.ModifyFeature(this.vectorLayer, {dragComplete:obj.modifyFeature,title: 'Punten bewerken'});//12obj.addFeature
+    this.drawControl	= new OpenLayers.Control.DrawFeature(this.vectorLayer, OpenLayers.Handler.Point, {featureAdded: this.addnewFeature, displayClass: 'pointButton', title: 'Punt toevoegen', handlerOptions: {style: this.sty}});
     //this.deleteControl  = new DeleteFeature(this.vectorLayer, {title: 'punten wissen'});         
 	this.deleteControl	= new DeleteFeature(this.vectorLayer, {title: 'punten wissen'});
     this.deleteControl	= new DeleteFeature(this.vectorLayer, {title: 'punten wissen'}); 
@@ -169,6 +169,8 @@ this.updateFeatureInfo();
 },
 
 modifyFeature:function(Sfeature){		
+	console.log(Sfeature);
+
 	$.each(obj.vectorLayer.features, function( index, feature ) {
 		if(Sfeature.id==feature.id){
 		lonlat = new OpenLayers.LonLat(Sfeature.geometry.x, Sfeature.geometry.y);
@@ -176,33 +178,37 @@ modifyFeature:function(Sfeature){
          //      obj.map.getProjectionObject(),
 		//	   new OpenLayers.Projection("EPSG:4326")
 		//);
-		feature.lonlat = lonlat 	
+		//feature.lonlat = lonlat 	
 		}
 
 	});
+	
 	obj.updateFeatureInfo();
 	//console.log(obj.vectorLayer.features);
 },
 	
-addFeature: function(feature){
-
+addnewFeature: function(feature){
+//console.log(arguments);
+	
 	for (var e=0;e<obj.props.length;e++) {
 	feature.attributes[obj.props[e]]="";
 	}
-
 	
+	//latlon =	feature.geometry.transform(  
+    //this.map.getProjectionObject(),
+    //new OpenLayers.Projection("EPSG:4326")
+    //);
 	
-	latlon =	feature.geometry.transform(  
-    this.map.getProjectionObject(),
-    new OpenLayers.Projection("EPSG:4326")
-    );
-	//console.log();
+    //feature.lonlat = new OpenLayers.LonLat(latlon.x,latlon.y);
+	feature.lonlat = new OpenLayers.LonLat(feature.geometry.x,feature.geometry.y);
+	//console.log(feature);
 
-    feature.lonlat = new OpenLayers.LonLat(latlon.x,latlon.y);
 	obj.updateFeatureInfo();		
+	 
 	},
 	
 deleteFeature: function(feature){
+	//alert(23)
 	 if(feature.fid == undefined) {
             feature.state = OpenLayers.State.DELETE;
             obj.vectorLayer.destroyFeatures([feature]);
@@ -212,17 +218,18 @@ deleteFeature: function(feature){
             feature.renderIntent = "select";
             obj.vectorLayer.drawFeature(feature);
     }
-     feature.destroy(); 
+    // feature.destroy(); 
 	obj.updateFeatureInfo();
+	console.log(feature);
 	},
 	 
 	 
 updateFeatureInfo: function(sfeature){
 //sync the feature list, attrubutes and latlongs with the input field
-		//console.log(sfeature);
+		
 		
 		features = {};
-		$.each(obj.vectorLayer.features, function( index, feature ) {
+		$.each(this.vectorLayer.features, function( index, feature ) {
 
 		lonlat = new OpenLayers.LonLat(feature.lonlat.lon,feature.lonlat.lat).transform(
                obj.map.getProjectionObject(),
@@ -236,19 +243,9 @@ updateFeatureInfo: function(sfeature){
 		
 		features[feature.id] = f
 		
-		//nlonlat = new OpenLayers.LonLat(feature.geometry.x,feature.geometry.y).transform(
-         //      obj.map.getProjectionObject(),
-		//	   new OpenLayers.Projection("EPSG:4326")
-		//);
-		//console.log(lonlat);
-		
-		//console.log(nlonlat);
-		//f.lon 	= lonlat.lon;
-		//f.lat 	= lonlat.lat;
-		
 		});
-	   //console.log(obj.map);
 
+//console.log(features);
 		$("#"+obj.options.input).val(JSON.stringify(features));
 		
 
@@ -258,7 +255,6 @@ popupFeature: function (feature){
 	
 	feature.fid	= (feature.fid==null) ? 10 : feature.fid;
 	hasprops	= (Object.keys(feature.attributes).length > 0) ? 1 : 0;
-
 	selFeature 	= feature;
 	title		= "Eigenschappen";
 	mform		= "<form class='propertyform' id='form_"+feature.fid+"'>";
@@ -293,6 +289,7 @@ popupFeature: function (feature){
 	$('#featurePopup_contentDiv').html("<div class='popupmessage'>Properties modified...<br/>Save the page in order to save modifies marker properties.</div>")
 	setTimeout(function(){
 	popup.destroy();		
+	console.log(obj);
 	obj.updateFeatureInfo();
 	}, 2500);
 	

@@ -48,7 +48,7 @@ global $post;
 	foreach($value as $v){	
 	$json = stripcslashes ($v);
 	$j = json_decode($json);
-	//echo $key."<br/>";
+	
 	$features[]= $j;
 	}
 	//print_r($features);
