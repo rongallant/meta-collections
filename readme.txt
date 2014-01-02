@@ -1,20 +1,20 @@
 === Meta Collections ===
 Contributors: bastiaaaan
 
-Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference
+Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference, open layer, google maps
 Requires at least: 3.0
 Tested up to: 3.8
 Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
-Stable tag: 2.0
+Stable tag: 2.0.1
 Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by creating your own metadata schema's.
 
 == Description ==
 <h4>Meta Collections</h4>
 Meta Collections is developed to turn Wordpress into a Collection manager.
 Beside 'Posts' and 'Pages' you can add your own post type (a Collection e.g. 'Films'). 
-For that particular post type you can add you own Metadata schema. So for example, if you want a Dublin Core metadata schema you can.
+For that particular post type you can add you own Metadata schema. So for example, if you want a Dublin Core metadtata schema you can.
 That schema can be a mixture of system and custom fields or a completely customized metadataschema.
 On top of that you can intuitively compose the user interface for the post type by dragging and dropping metafields in the right places using neat metaboxes.
  
@@ -36,6 +36,8 @@ You can also add metafields in the overview table.
 * Taxonomy (adds a 'Wordpress own' taxonomy to your post type)
 * Select (for selecting one or multiple values in a dropdownmenu)
 * Radio (for multiple values in a radio setup)
+* Open Layer New Open Layer field for managing multiple point with a post (or other custom post type) every point can contain a title, date time and amount.
+
 
 
 Future (shortly available)
@@ -63,43 +65,29 @@ The plugin is published in a language supporing two languages, English and Dutch
 
 
 == Installation ==
-1. Upload the plugin folder to the `/wp-content/plugins/` directory 
-1. ...or just download it trough the wordpress add plugin interface searching for 'meta collections'
-1. Activate the plugin through the 'Plugins' menu in WordPress (start using)
+1. Upload the plugin folder` to the `/wp-content/plugins/` directory 
+1. ..or just download it trough the wordpress new plugin interface searching for 'meta collections'
+1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Create a Collection
 1. Create a Metadata Schema
 1. Compose the Collection's User Interface
-1. Edit and compose the collection table overview elements
 1. Start managing your collection
 1. Build your collection details into your template or use shortcode
-
 
 
 == Frequently Asked Questions ==
 
 = I added a metafield but it doesn't show up in the post type edit screen =
 
-You first have to drag it into the user interface. Go to Collections, click on 'User Interface', create a metabox and drag the field into that box  
-
-= I moved some of the system metaboxes (like title or featured image) to other places but nothin happend in my post edit screen =
-
-Some of the System metaboxes have fixed locations. i'll might build some functionality for this restrictions in later releases
-
-= I can't edit or delete the posts or pages collections =
-
-That is because that post types or Core Wordpress post types. You can only add metaboxes and meta fields to that types.
-
-= As a developer, where can i find technical documentation =
-
-Go to http://metacollections.statuur.nl/ for class documentation
+You first have to drag it into the user interface. Go to Collections, click on 'edit user interface' and drag the field in a place you wan't it  
 
 
 == Screenshots ==
 
-1. Add you own Post Type besides 'posts' and 'pages'. 
-2. A Metadata schema composed with numerous custom field types
+1. Edit screen Collections
+2. Metadataschema
 3. Edit Screen Collections
-4. Compose your own Wordpres' edit screen User Interface
+4. Compose your user Interface
 5. Start managing your collection
 6. The new Vimeo field
 
@@ -128,7 +116,7 @@ Go to http://metacollections.statuur.nl/ for class documentation
 * Fixed and bug in georeference field.
 * Added field type: Vimeo API field which enables users to add vimeo video with a single video id.
 * Added field type: radio-buttons field.
-
+ 
 = 2.0. =
 * Wordpress 3.8 compatible (not tested yet on downwards compatibility)
 * Fixed compatibility issues with Wordpress 3.8
@@ -138,6 +126,14 @@ Go to http://metacollections.statuur.nl/ for class documentation
 * Bug drag and drop function in the user interface edit screen
 * missing collections.css 
 * added renewed custom vimeo field. communicates trought the Vimeo Api 
+
+
+= 2.0.1 =
+* Added the Openlayer field with lots of options. Possibility to add multiple point on a map, use all google maps layers
+* Fixed numerous bugs 
+* Removed unnecessary field options.
+* Added more structure in folders.
+* Change the loading of javascript files. They only load when the have to now.
  
 
 == Upgrade Notice ==
@@ -166,4 +162,19 @@ Go to http://metacollections.statuur.nl/ for class documentation
  
 = 2.0. =
 * Wordpress 3.8 compatible (not tested yet on downwards compatibility)
+* Fixed compatibility issues with Wordpress 3.8
+* Fixed google maps, javascript loads without a specific api key
+* Added local javascript libraries instead of using my own.
+* Fixed numerous bugs 
+* Bug drag and drop function in the user interface edit screen
+* missing collections.css 
+* added renewed custom vimeo field. communicates trought the Vimeo Api 
+
+
+= 2.0.1 =
+* Added the Openlayer field with lots of options. Possibility to add multiple point on a map, use all google maps layers
+* Fixed numerous bugs 
+* Removed unnecessary field options.
+* Added more structure in folders.
+* Change the loading of javascript files. They only load when the have to now.
 
