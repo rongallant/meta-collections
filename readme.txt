@@ -4,10 +4,10 @@ Contributors: bastiaaaan
 Tags: collection, collection management, post type, custom taxonomy, custom post type, register_post_type, custom fields, custom, taxonomy, edit screen, vimeo API, georeference, open layer, google maps
 Requires at least: 3.0
 Tested up to: 3.8 
-Version: 2.0.1
+Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
-Stable tag: 2.0.1
+Stable tag: 2.0
 Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by creating your own metadata schema's.
 
 == Description ==
