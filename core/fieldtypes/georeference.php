@@ -30,10 +30,10 @@ class Georeference extends Basics{
 	
 function showfield($post=null, $element=null, $c=null){
 			
-			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
+			//if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
 			wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user only for the georeference field
-			wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
-			}
+			wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/georeference/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
+			//}
 
 			$element 			= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
@@ -48,7 +48,7 @@ function showfield($post=null, $element=null, $c=null){
 			
 			$map 		= "map_{$element[ID]}";
 			$addressval	= ($values[address]=="") ? $element[default_value] : $values[address];
-//print_r($value[addr);
+//print_r($element );
 			
 			$latval		= ($values[latitude]=="")? $element[latitude]: $values[latitude];
 
@@ -61,12 +61,17 @@ function showfield($post=null, $element=null, $c=null){
 			}
 			
 		
-		
+			$mapheight	= ($element[height]!="")?  $element[height] : 250;
+			
 			$html = "";
 
+			if($element[description]!=""){
+			$html.="<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			}
+//<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
+			
 		//foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
 			<table class=\"widefat metadata metafield\" id=\"table_{$element[ID]}\" cellspacing=\"0\" cellpadding=\"10\">	
 			<tr>
 			<td style=\"width:15%\">".__("Location", "_coll").":</td>
@@ -92,7 +97,7 @@ function showfield($post=null, $element=null, $c=null){
 					
 			
 			
-			<div id=\"{$map}\" style=\"height:200px;background:#f3\">loading...</div>";
+			<div id=\"{$map}\" style=\"height:{$mapheight}px;background:#f3\">loading...</div>";
 				if($element[multiple]==1){
 					$html.="<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>";
 				}		
@@ -129,7 +134,10 @@ function showfield($post=null, $element=null, $c=null){
 function fieldOptions($element){
 
 
-	echo"<table class=\"widefat metadata\" id=\"another\" cellspacing=\"0\" cellpadding=\"10\">";
+			
+	echo"
+	<script type='text/javascript' src='http://localhost/collections/wp-content/plugins/meta-collections/js/georeference/jquery.googlemaps.js'></script>
+	<table class=\"widefat metadata\" id=\"another\" cellspacing=\"0\" cellpadding=\"10\">";
 	
 	$statusc = ($element[status]==1)? "checked":"";
 	$this->Field->getID($element);
@@ -179,6 +187,14 @@ function fieldOptions($element){
 	
 	</td>
 	</tr>
+
+	<tr>
+	<td>".__("Field height", "_coll").":</td>
+	<td><input type=\"text\" name=\"height\" value=\"{$element[height]}\"/> px
+	
+	</td>
+	</tr>
+
 	
 	<tr>
 	<td valign=\"top\"><br/>".__("Default Location", "_coll").":</td>
@@ -198,6 +214,7 @@ function fieldOptions($element){
 	<tr>
 	<td>".__("Geocode").":</td>
 	<td>
+	
 	<a class=\"button\" onclick=\"googleMaps.geocode(
 	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #default_value'),
 	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #latitude'),
@@ -295,12 +312,29 @@ function fieldOptions($element){
 echo"<script>
 jQuery(document).ready(function(){
 	jQuery('{$formID}').validate();
+	//gewoon script tags!
+	/*
+	if(gmscript===undefined){
+	
+	gmscript =$.getScript(\"http://maps.google.com/maps/api/js?sensor=false\", function( data, textStatus, jqxhr ) {
+	$.getScript(\"".plugins_url()."/meta-collections/js/georeference/jquery.googlemaps.js\", function( data, textStatus, jqxhr ) {
+	googleMaps = googleMaps.init();
+	console.log(googleMaps);
+	});
+	});
+	
+	}
+	*/
 });
    
    </script>";
 
 }
-
+/*
+wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user only for the georeference field
+			wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
+				
+*/
 }
 
 ?>

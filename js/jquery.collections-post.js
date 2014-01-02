@@ -1,4 +1,4 @@
-var colortitle='';
+var colortitle='', olscript, olfscript, gmscript, gmfscript;
 var wysiwyg_num = new Array();
 
 function add_value_instance(wrapperID, fieldtype){

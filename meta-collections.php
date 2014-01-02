@@ -3,7 +3,7 @@
 * Plugin Name: Meta Collections
 * Plugin URI: http://wordpress.org/extend/plugins/meta-collections
 * Author: Bastiaan Blaauw <statuur@gmail.com>	 
-* Version: 2.0
+* Version: 2.0.1
 * @see http://metacollections.statuur.nl/ 
 * @category Wordpress Plugin
 * @package  Collections Wordpress plugin
@@ -32,7 +32,8 @@ class Basics{
 		//var $pagenow;
 		var $postmetaprefix					= "collections_";//makes all the postmeta generated in this plugin unique		
 		var $systemprefix 					= "__system__" ; //makes all the system metaboxes unique / distinguishes it from user generated (used for supports in register_post_type)
-		var $wysiwygs_string 				= "----------" ;
+		var $wysiwygs_string 				= "----------" ;		
+		var $openlayerstring				= "--------ol";
 		var $nodrag 						= "_nodrag";
 		
 		var $system_columns 				= array(
@@ -305,7 +306,8 @@ public function load_admin_scripts(){ //for configuring Collections
 	 wp_enqueue_style('css.dd',  plugins_url('/css/msdropdown/dd.css', __FILE__)); //admin
 	 wp_enqueue_style('collections-admin',  plugins_url('/css/collections-admin.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_style('wp-pointer');//admin
-	 
+	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
+ 	 
 	 $this->load_user_scripts();
 }
 
@@ -314,13 +316,19 @@ public function load_admin_scripts(){ //for configuring Collections
     * @access public
     */
 public function load_user_scripts(){ //for Collections management one function for overlapping
- 	 
  	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
  	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
  	 wp_enqueue_script('jquery.widget', plugins_url('/js/jquery.ui.widget.min.js', __FILE__), '', '1.0');	//admin
 	 wp_enqueue_style( 'msDropDown',  plugins_url('/css/msdropdown/dd.css', __FILE__), ''); //admin
+	 wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user only for the georeference field
+	 //wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/georeference/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
+	
+	  //wp_enqueue_style( 'openlayers',  plugins_url('/css/openlayers/jquery.openlayers.css', __FILE__), ''); //admin
+	 
+	
+		
 
 }
 

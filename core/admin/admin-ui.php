@@ -172,14 +172,14 @@ echo "
     * @access public
     */
 public function do_meta_fields($page, $context, $object){
-	//do_meta_boxes($pagenow, 'elements', $data)
-		printf('<div id="%s-sortables" class="meta-field-sortables">', htmlspecialchars($context));
+	
+	printf('<div id="%s-sortables" class="meta-field-sortables">', htmlspecialchars($context));
 	
 	
 	if(is_array($this->metafields[$context])){
 	
 	foreach($this->metafields[$context] as $box){
-	//print_r($box);
+	
 	$classname 		= (preg_match("/system-element-/", $box[id]) ) ? "meta-field-system-box" : "meta-field-box";
 	$system_text 	= (preg_match("/system-element-/", $box[id]) ) ? "<span class=\"description\">".__("system metafield","")."</span>" : "";
 		echo '<div id="' . $box['id'] . '" class="'.$classname.' ' . postbox_classes($box['id'], $page) . $hidden_class . '" ' . '> ' ."\n";
@@ -187,8 +187,10 @@ public function do_meta_fields($page, $context, $object){
 						echo '<div class="handlediv" title="' . esc_attr__('Click to toggle') . '"><br /></div>';
 					echo "<h3 class='meta-field-hndle'><span>{$box['title']}</span> {$system_text}</h3>\n";
 					echo '<div class="inside">' . "\n";
-					call_user_func($box['callback'], $object, $box);
-					echo "</div>\n";
+					//print_r($box['callback']);
+					//echo"<<<<";
+					//call_user_func($box['callback'], $object, $box);
+					echo "&nbsp;No field preview here</div>\n";
 					echo "</div>\n";
 		
 	}
@@ -442,6 +444,8 @@ function saveuserinterface(){
 public function editOverviewTable(){
 global $pagenow;
 $this->metadataset 	= get_option("metadata_".$_POST[cpt]);	
+$this->ui			= get_option("userinterface_".$_POST[cpt]);
+//print_r($this->ui);
 $this->tableorder	= get_option("tableorder_".$_POST[cpt]);
 
 //<a onclick=\"save_uinterface('{$_POST[cpt]}', '".__("Settings updated", "_coll")."', '');\"  class=\"button-primary\" href=\"#\">".__('Save','_coll')."</a>
@@ -451,13 +455,17 @@ echo "
 ".screen_icon('options-general')."<h2>
 ".__("Edit Collection Overview Table",'_coll')."
 </h2>
+<iv class=\"tool-box\">
+<p>".__("Note: in order to use fields please add them to the user interface first.", "_coll")."</p>
+</div>
+
 <br/>
 {$buttons}
 
  <div style=\"height:30px;width:100%;padding:7px;\"><div class=\"updated settings-error\" style=\"display:none;\" id=\"setting-error-settings_updated\"></div></div>";
+
+
 /****** LOOPING METADATASET ***********/
-
-
 $this->metaelements = array_merge($this->metadataset, $this->system_columns);
 
 
@@ -479,10 +487,10 @@ $label 				= (preg_match("/system-element-/", $rawmetafieldID))? __($label) : $l
 
 $this->add_meta_field("{$prefix}{$metafieldID}", $label, array($typeclass, 'showfield'), $pagenow, $state, 'core', $metafield);
 
-//echo "{$state} - {$metafieldID} - {$check_with_meta}<br/>";
+
 }
 }
-//print_r($this->metadataset);
+
 foreach($this->metadataset as $metafieldID => $metafield){//all the inactive metafield not in option tableorder
 $this->add_meta_field("meta-element-{$metafieldID}", $metafield[label], array($typeclass, 'showfield'), $pagenow, 'inactive', 'core', $metafield);
 }
@@ -584,6 +592,7 @@ call_user_func(array($this->SystemElements, $function), $mside); //system elemen
 
 }else{
 //print_r($metabox);
+
 add_meta_box($ID, "<span class=\"{$ID}\">{$metabox[name]}</span>".$this->metaboxoptions, array($this, 'getFields'), $pagenow, $side, 'core', array($metabox, $_POST[cpt]));	
 
 }
@@ -594,8 +603,7 @@ add_meta_box($ID, "<span class=\"{$ID}\">{$metabox[name]}</span>".$this->metabox
 
 
 
-echo "<div class=\"wrap\" id=\"collections_wrapper\">
-".screen_icon('options-general')."<h2>
+echo "<div class=\"wrap\" id=\"collections_wrapper\"><h2>
 ".__("Edit User Interface for:",'_coll')." {$_POST[cpt]} 
 </h2>
 <br/>

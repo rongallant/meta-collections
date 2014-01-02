@@ -22,7 +22,7 @@ class OpenLayers extends Basics{
 	
 	
 /**
-    * Shows the specific fieldtype in UI::edituserinterface, post(-new).php or edit.php. 
+    * Shows the specific fieldtype in UI::edituserinterface, post(-new).php or edit.php. This openlayers field stores objects in an input type is hidden. These objects contain latitude, longitude, title, date,, time and amount.      
     * @access public
     * @param object $post the post info
     * @param array $element info about the metadata field
@@ -30,11 +30,20 @@ class OpenLayers extends Basics{
 	
 function showfield($post=null, $element=null, $c=null){
 
+			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
+			wp_enqueue_script( 'openlayers', 'http://openlayers.org/api/OpenLayers.js', '', '1.0'); 
+			wp_enqueue_script( 'jquery.json', plugins_url().'/meta-collections/js/openlayers/jquery.json.js', '', '1.0'); 						
+			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.js', '', '1.0'); 
+			wp_enqueue_style( 'openlayers',  get_option('siteurl').'/wp-content/plugins/meta-collections/css/openlayers/jquery.openlayers.css', ''); 
+			}
+						///meta-collections/css/openlayers/
 
 			$element 	= ($element[id]!="") ? $element[args]: $element;
-			$name	 	= $this->postmetaprefix.$element[ID];
+			$name	 	= $this->postmetaprefix.$element[ID]."--------ol";
+			$id	 		= $this->postmetaprefix.$element[ID];
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
+			
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;
 
@@ -44,7 +53,7 @@ function showfield($post=null, $element=null, $c=null){
 			
 			$map 		= "map_{$element[ID]}";
 			$addressval	= ($values[address]=="") ? $element[default_value] : $values[address];
-//print_r($value[addr);
+
 			
 			$latval		= ($values[latitude]=="")? $element[latitude]: $values[latitude];
 
@@ -59,59 +68,30 @@ function showfield($post=null, $element=null, $c=null){
 		
 		
 			$html = "";
-
-		//foreach ($values as $value){
+			
+			
+			$mapheight	= ($element[height]!="")?  $element[height] : 250;
+			//$ivalues = http_build_query($values);
+			
+			$patterns = '/%5B/';
+			$replacements = '=';
+			
+			
+			$values = json_encode($values);
+			
 			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<table class=\"widefat metadata metafield\" id=\"table_{$element[ID]}\" cellspacing=\"0\" cellpadding=\"10\">	
-			<tr>
-			<td style=\"width:15%\">".__("Location", "_coll").":</td>
-			<td><input type=\"text\" name=\"{$name}[address]\" id=\"address\" $required value=\"{$addressval}\" style=\"min-width:200px;width:100%;\"/></td>
-			<td style=\"width:260px;\">
-			<a class=\"button\" onclick=\"googleMaps.geocode(
-			jQuery('#address'),
-			jQuery('#latitude'),
-			jQuery('#longitude'),
-			'map_{$element[ID]}'
-			)\">".__("Geocode","_coll")." &rarr;</a>  
-			
-			
-			<a class=\"button\" onclick=\"googleMaps.reversegeocode(
-			jQuery('#address'),
-			jQuery('#latitude').val(),
-			jQuery('#longitude').val()
-			
-			)\">".__("Reverse Geocode","_coll")." &larr;</a></td>
-			<td><input type=\"text\" name=\"{$name}[latitude]\" id=\"latitude\" value=\"{$latval}\"/> &deg; <input type=\"text\" name=\"{$name}[longitude]\" id=\"longitude\" value=\"{$longval}\"/> &deg;</td>
-			</tr>
-			</table> 
-					
-			
-			
-			<div id=\"{$map}\" style=\"height:200px;background:#f3\">loading...</div>";
-				if($element[multiple]==1){
-					$html.="<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>";
-				}		
-			$html.="</div>";
-	//			}
-		//echo $html;
-			$this->Field->metafieldBox($html, $element);
+			<div id=\"{$map}\" style=\"height:{$mapheight}px;background:#f3\">loading...</div><br/>
+			<input type=\"hidden\" size=\"120\" {$required} {$max_length} {$length} name=\"{$name}[]\" id=\"{$id}\" value=\"\"/> ";
+				$html.="</div>";
 
-			echo"<script>";
-	
-			$map 		= "map_{$element[ID]}";
-			$zoom 		= ($element[zoom]=="")? 10 : $element[zoom];
-	
-			 echo"
-			 var {$map};
+			$this->Field->metafieldBox($html, $element);
+			$element['input'] = $id;
+			$element[features] = $values;
+			$options = json_encode($element);
+			echo"<script>
 			
 			 jQuery(document).ready(function () {
-			 		
-			 		placeMarks = [{title: '{$element[ID]}', latitude: '{$latval}', longitude: '{$longval}'}];
-			 		{$map} = googleMaps;
-			        mapOptions = {zoom: {$zoom},center: new google.maps.LatLng('{$latval}', '{$longval}'), mapTypeId: google.maps.MapTypeId.ROADMAP};
-			        {$map}.showmap({mapOptions:mapOptions, name:'{$map}', elementID: '{$element[ID]}' ,placeMarks: placeMarks}); 
-			         
+			 	$('#{$map}').OpenLayer({$options}); 	
 			        
 		           });
 		</script>";
@@ -119,13 +99,16 @@ function showfield($post=null, $element=null, $c=null){
 }
 
 /**
-    * Shows the specific form for the fieldtype iwith all the options related to that field. 
+    * Shows the specific form for the fieldtype with all the options related to that field. 
     * @access public
     */	
 function fieldOptions($element){
-
-
-	echo"<table class=\"widefat metadata\" id=\"another\" cellspacing=\"0\" cellpadding=\"10\">";
+		
+		
+	 
+	echo"
+	<link rel='stylesheet' id='openlayers-css'  href='".plugins_url()."/meta-collections/css/openlayers/jquery.openlayers.css?ver=3.8' type='text/css' media='all' />
+	<table class=\"widefat metadata\" id=\"another\" cellspacing=\"0\" cellpadding=\"10\">";
 	
 	$statusc = ($element[status]==1)? "checked":"";
 	$this->Field->getID($element);
@@ -162,8 +145,8 @@ function fieldOptions($element){
 	$r_checked_yes	= ($element[required]==1)? "checked": "";
 	$r_checked_no	= ($element[required]==0)? "checked": "";
 				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
+                <li><label><input type=\"radio\" value=\"1\" name=\"required\" disabled {$r_checked_yes}> ".__("Yes")."</label></li>
+                <li><label><input type=\"radio\" value=\"0\" name=\"required\" disabled {$r_checked_no}> ".__("No")."</label></li>
                 </ul>
 	
 	</td>
@@ -171,50 +154,27 @@ function fieldOptions($element){
 	
 	<tr>
 	<td>".__("Required Error Message", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
+	<td><input type=\"text\" disabled name=\"required_err\" value=\"{$element[required_err]}\"/>
 	
 	</td>
 	</tr>
 	
 	<tr>
+	<td>".__("Field height", "_coll").":</td>
+	<td><input type=\"text\" name=\"height\" value=\"{$element[height]}\"/> px
+	
+	</td>
+	</tr>
+	
+	
+	
+	<tr>
 	<td valign=\"top\"><br/>".__("Default Location", "_coll").":</td>
 	<td valign=\"top\"><br/>
-	<table cellspacing=\"0\" cellpadding=\"5\" border=\"0\">
-	<tr>
-	<td width=\"130\">".__("Address").":</td>
-	<td><input type=\"text\" onblur=\"
-	googleMaps.geocode(
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #default_value'),
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #latitude'),
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #longitude')
-	
-	)\" size=\"80\" name=\"default_value\" id=\"default_value\" value=\"{$element[default_value]}\"/></td>
-	</tr>
-		
-	<tr>
-	<td>".__("Geocode").":</td>
-	<td>
-	<a class=\"button\" onclick=\"googleMaps.geocode(
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #default_value'),
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #latitude'),
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #longitude')
-	
-	)\">".__("Geocode","_coll")." &darr;</a> 
-	<a class=\"button\" onclick=\"googleMaps.reversegeocode(
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #default_value'),
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #latitude').val(),
-	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #longitude').val()
-	
-	)\">".__("Reverse Geocode","_coll")." &uarr;</a>
-	<div id=\"default_value_errors\"></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Location").":</td>
-	<td>".__("Latitude").":<br/><input type=\"text\" name=\"latitude\" id=\"latitude\" value=\"{$element[latitude]}\" size=\"23\"> &deg;<br/><br/>".__("Longitude").":<br/><input type=\"text\" name=\"longitude\" value=\"{$element[longitude]}\" id=\"longitude\"size=\"23\"> &deg;</td>
-	</tr>
-	</table>
-	
+	<div id=\"fieldmap\" style=\"width:100%;height:300px;\"></div>	<br/>
+Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"latitude\">° Longitude: <input id=\"longitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"longitude\"> °
+
+
 	 <br/>
 	
 	
@@ -228,12 +188,11 @@ function fieldOptions($element){
 	</tr>
 	
 	<tr>
-	<td>".__("Default Zoom level", "_coll").":</td>
-	<td><select name=\"zoom\">";
+	<td>".__("Default Zoom level", "_coll")." :</td>
+	<td><select name=\"zoom\" id=\"fieldzoom\" onchange=\"$('#fieldmap').data('olmap').setZoom(this.value)\">";
 	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
 	for ($i=0; $i<19; $i++){
 	$selected = ($i==$element[zoom])? "selected":"";	
-	
 	$selected = ($element[zoom]=="" && $i==7)? "selected" : $selected ;	
 	
 	echo"<option value=\"{$i}\" {$selected}>$i</option>";
@@ -241,7 +200,35 @@ function fieldOptions($element){
 	echo"</select>
 	
 	</td>
+	</tr>";
+	
+	$layers = array(
+	"OpenStreetMap"		=> "osm", 
+	"Google Physical"	=> "google_terrain",
+	"Google Streets" 	=> "google_streets",
+	"Google Hybrid"		=> "google_hybrid",
+	"Google Satellite"	=> "google_satellite"
+	);
+	
+	echo"<tr>
+	<td>".__("Choose layers", "_coll")." :<br/>";
+	
+	echo $this->helpicon(__("Choose layers", "_coll"), __("Choose the layers with tile distributors.", "_coll"));
+
+	echo"</td>
+	<td>";
+	//print_r($element);
+	// [layers] => Array ( [google_hybrid] => 1 [google_satellite] => 1 
+	foreach($layers as $name=>$code){//$code
+	$checked = ($element[layers][$name]==1) ? "checked":"";
+	echo"<input type=\"checkbox\" name=\"layers[$name]\" {$checked} value=\"1\"/> {$name}<br/>
+	";	
+	}
+	
+	
+	echo"</td>
 	</tr>
+	
 	
 	<tr>
 	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
@@ -249,31 +236,17 @@ function fieldOptions($element){
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-
+	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
 	
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"multiple\" disabled> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"multiple\" disabled checked> ".__("No")."</label></li>
+	
+echo"<ul class=\"radio_list radio vertical\">
+                <li><label><input type=\"radio\" value=\"1\" name=\"multiple\" checked disabled> ".__("Yes")."</label></li>
+                <li><label><input type=\"radio\" value=\"0\" name=\"multiple\" disabled> ".__("No")."</label></li>
                 </ul>
 	
 	</td>
 	</tr>	
 
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-
-	
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\">
@@ -287,16 +260,36 @@ function fieldOptions($element){
 	
 	
 	</table>";
-
+	//wp_enqueue_script( 'openlayers', 'http://openlayers.org/api/OpenLayers.js', '', '1.0'); //user only for the georeference field
+			//wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.js', '', '1.0'); //user only for the georeference field
+		
 echo"<script>
+	
+	
 jQuery(document).ready(function(){
+	
 	jQuery('{$formID}').validate();
+	
+	if(olscript===undefined){
+	olscript =$.getScript(\"http://openlayers.org/api/OpenLayers.js\", function( data, textStatus, jqxhr ) {
+	
+	olfscript =$.getScript(\"".plugins_url()."/meta-collections/js/openlayers/jquery.openlayersfield.js\", function( data, textStatus, jqxhr ) {
+	
+	$('#fieldmap').OpenLayerField(".json_encode($element).");
+		
+	});
+
+	
+	});
+	}else{
+	$('#fieldmap').OpenLayerField(".json_encode($element).");
+
+	}	
 });
    
    </script>";
 
 }
-
 }
 
 ?>

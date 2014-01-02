@@ -126,27 +126,14 @@ $statusc = ($element[status]==1)? "checked":"";
 	$r_checked_yes	= ($element[required]==1)? "checked": "";
 	$r_checked_no	= ($element[required]==0)? "checked": "";
 	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
+                <li><label><input type=\"radio\" value=\"1\" name=\"required\"  disabled {$r_checked_yes}> ".__("Yes")."</label></li>
+                <li><label><input type=\"radio\" value=\"0\" checked disabled name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
                 </ul>
 	
 	</td>
 	</tr>
 	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Default Value", "_coll").":</td>
-	<td><input type=\"text\" name=\"default_value\" value=\"{$element[default_value]}\"/>
-	
-	</td>
-	</tr>
-	
+		
 	<tr>
 	<td>".__("Max Length", "_coll").":<br/>".__("maximum character length of the field value", "_coll")."</td>
 	<td><select name=\"max_length\">";
@@ -169,6 +156,7 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
+	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
 
 	
 	echo"<ul class=\"radio_list radio vertical\">
@@ -179,21 +167,6 @@ $statusc = ($element[status]==1)? "checked":"";
 	</td>
 	</tr>	
 
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">

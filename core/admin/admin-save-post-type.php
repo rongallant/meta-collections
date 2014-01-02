@@ -35,10 +35,26 @@ global $post;
 	 
 	if(preg_match($searchfor, $key)){
 	//collections_description----------2
+	
 	if(preg_match("/{$this->wysiwygs_string}/", $key)){///wysiwyg fields need special attention
 	//1: rebuild the names make a new key and array collections_description----------1
 	$wkey = explode($this->wysiwygs_string, $key);
 	$wysiwygs[$wkey[0]][] = $value;
+	
+	}else if(preg_match("/{$this->openlayerstring}/", $key)){///openlayer fields need special attention too
+	
+	$features = array();
+	
+	foreach($value as $v){	
+	$json = stripcslashes ($v);
+	$j = json_decode($json);
+	//echo $key."<br/>";
+	$features[]= $j;
+	}
+	//print_r($features);
+	//die();
+	update_post_meta($post->ID, $key, $features);
+	
 	}else{
 	update_post_meta($post->ID, $key, $value); 
 	}

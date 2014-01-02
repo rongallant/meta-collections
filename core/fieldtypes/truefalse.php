@@ -36,14 +36,19 @@ function showfield($post=null, $element=null){
 			//print_r($value);
 			
 			$element_c 	= ($value==1) ? "checked":"";
+			$html ="";
 			
-			echo"
-			<table class=\"metadata metafield\" width=\"100%\" cellspacing=\"0\" cellpadding=\"2\">	
-			<tr>
-			<td style=\"width:15%\"> <label for=\"{$element[ID]}\">{$element[label]}:</label></td>
-			<td><input type=\"checkbox\" {$element_c} name=\"{$name}\" value=\"1\"/> {$element[message]}</td>
-			</tr>
-			</table>";
+			
+			
+			if($element[description]!=""){
+			$html.= "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span><br/>";	
+			}
+			
+			$html.="
+			<input type=\"checkbox\" {$element_c} name=\"{$name}\" value=\"1\"/> {$element[message]}";
+			
+			
+			$this->Field->metafieldBox($html, $element);
 }
 
 
@@ -89,7 +94,8 @@ $this->Field->getID($element);
 	<tr>
 	<td>".__("Required", "_coll").":</td>
 	<td>";
-	
+	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
+
 	$r_checked_yes	= ($element[required]==1)? "checked": "";
 	$r_checked_no	= ($element[required]==0)? "checked": "";
 	echo"<ul class=\"radio_list radio vertical\">
@@ -114,21 +120,6 @@ $this->Field->getID($element);
 	</td>
 	</tr>
 	
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">

@@ -35,9 +35,10 @@ function showfield($post=null, $element=null){
 					
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
 			wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url().'/meta-collections/js/date/mobiscroll-2.0.2.custom.min.js', '', '2.0.1');  	//user only for the date field
-			wp_enqueue_style( 'mobiscroll.core-2.0.2',  plugins_url('/css/mobiscroll.core-2.0.2.css', __FILE__), '', '2.0.1');  					//user only for the date field
+			wp_enqueue_style( 'mobiscroll.core-2.0.2',   get_option('siteurl').'/wp-content/plugins/meta-collections//css/date/mobiscroll.core-2.0.2.css', '', '2.0.2');  				
 			}
-					
+			//			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.js', '', '1.0'); 
+		
 					
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
@@ -55,10 +56,18 @@ function showfield($post=null, $element=null){
 	
 			$html = "";
 
+			if($element[description]!=""){
+			$html.= "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			}
+
 			foreach ($values as $value){
-			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" {$required} name=\"{$name}[]\" value=\"{$value}\"/> 
+			$html.="<div class=\"metafield-value\">";
+			
+
+			
+			
+			
+			$html.="<input type=\"text\" {$required} name=\"{$name}[]\" value=\"{$value}\"/> 
 			<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>
 			</div>";
 			}
@@ -178,22 +187,6 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	</td>
 	</tr>	
-
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-
-	
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">

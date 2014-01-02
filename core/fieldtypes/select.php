@@ -49,8 +49,12 @@ public function showfield($post=null, $element=null){
 			$html = "";
 
 			$multiples = ($element[multiple]==1)?"multiple=\"true\"":""; 
-			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
+			$html.="<div class=\"metafield-value\">";
+			
+			if($element[description]!=""){
+			echo "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			}
+			$html.="<br/>
 						<select {$required} name=\"{$name}[]\" {$multiples}>";
 			
 			if($element[multiple]!=1){
@@ -180,6 +184,7 @@ echo"
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
+	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
 
 	
 				echo"<ul class=\"radio_list radio vertical\">
@@ -189,22 +194,6 @@ echo"
 	
 	</td>
 	</tr>	
-
-<tr>
-	<td valign=\"top\">".__("Show in Collection overview", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">

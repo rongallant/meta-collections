@@ -303,12 +303,16 @@ $this->Field->getID($element);
 	</td>
 	</tr>";
 	
-	$apicheckedy =($element[api]==1)? "checked": "";
-	$apicheckedn =($element[api]==0)? "checked": "";
+	//$apicheckedy =($element[api]==1)? "checked": "";
+	//$apicheckedn =($element[api]!=1)? "" : "checked";
+	//$apicheckedy =($element[api]=="") ?  "checked": $apicheckedy ;
 
 
-	$apicheckedy =($element[api]=="") ?  "checked": $apicheckedy ;
-	$apicheckedn =($element[api]=="") ?  "" : "checked";
+	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
+	
+	$apicheckedy = ($element[api]==1 || $element[api]=="")? "checked":"";
+	$apicheckedn = ($element[api]==0)? "checked" : "";
+	
 	echo"<tr>
 	<td>".__("Use Vimeo's API to acquire the footage's metadata and store it in seperate fields", "_coll").":</td>
 	<td>
@@ -318,21 +322,6 @@ $this->Field->getID($element);
 	</td>
 	</tr>
 	
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">

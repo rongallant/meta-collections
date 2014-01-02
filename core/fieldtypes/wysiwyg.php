@@ -50,7 +50,8 @@ function showfield($post=null, $element=null){
 		
 			
 			$html = "";
-
+			
+			
 			foreach ($values as $value){
 			$html="<div class=\"metafield-value\">
 			
@@ -66,8 +67,14 @@ function showfield($post=null, $element=null){
 			echo"<div id=\"{$element[ID]}_wysiwyg\">";
 			$s=0;
 			foreach ($values as $value){
-			echo "<div id=\"wysiwyg_{$element[ID]}_{$s}\"><label for=\"{$element[ID]}\" onclick=\"console.log(jQuery('#wp-collections_description-wrap'));\">{$element[label]}:</label>
-			<a class=\"delete_metavalue\" style=\"float:right\"  title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"jQuery('#wysiwyg_{$element[ID]}_{$s}').remove();return false;\">&nbsp;</a>
+			echo "<div id=\"wysiwyg_{$element[ID]}_{$s}\">";
+			
+			if($element[description]!=""){
+			echo "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			}
+
+			
+			echo"<a class=\"delete_metavalue\" style=\"float:right\"  title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"jQuery('#wysiwyg_{$element[ID]}_{$s}').remove();return false;\">&nbsp;</a>
 ";
 			wp_editor($value, $name.$this->wysiwygs_string.$s, array('dfw' => false, 'tabindex' => $s) );
 			
@@ -166,6 +173,7 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
+	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
 
 	
 	echo"<ul class=\"radio_list radio vertical\">
@@ -176,21 +184,6 @@ $statusc = ($element[status]==1)? "checked":"";
 	</td>
 	</tr>	
 
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
-	
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">

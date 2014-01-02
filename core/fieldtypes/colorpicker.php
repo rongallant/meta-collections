@@ -169,6 +169,7 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
+	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
 
 	
 	echo"<ul class=\"radio_list radio vertical\">
@@ -179,23 +180,6 @@ $statusc = ($element[status]==1)? "checked":"";
 	</td>
 	</tr>	
 
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
-
-	
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">
 	<a href=\"#\" onclick=\"

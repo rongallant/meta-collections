@@ -73,16 +73,16 @@ update_option( "userinterface_".$_POST[cpt], $userinterface, '', 'no');
     * @access public
     */
 public function save_metafield(){
-	$metadataset = get_option("metadata_".$_POST[cpt]); //{}
-	
+	$metadataset = get_option("metadata_".$_POST[cpt]); 
+	print_r($_POST);	
 	$_POST['ID'] = ($_POST['ID']=="new")? $this->slugify($_POST[label]) : $_POST['ID'];
 	
 	foreach($_POST as $key=>$value){
 	
 	if($key!="action" && $key!="cpt"){
 	
-	
-		$metadataset[$_POST['ID']][$key] = htmlentities($value);
+	$value = (is_array($value)) ? $value : htmlentities($value);
+		$metadataset[$_POST['ID']][$key] = $value;
 
 	}
 	
