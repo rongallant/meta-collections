@@ -292,10 +292,10 @@ public function postformvalidation(){
 public function load_admin_scripts(){ //for configuring Collections
 	 wp_enqueue_script('jquery');
 	
-	 wp_enqueue_script('jquery.collections', plugins_url('/js/jquery.collections.js', __FILE__), '', '1.0'); //admin
-	 wp_enqueue_script('jquery.tabs', plugins_url('/js/jquery.tabs.js', __FILE__), '', '1.0');	//admin
+	 wp_enqueue_script('jquery.collections', plugins_url('/js/jquery.collections.min.js', __FILE__), '', '1.0'); //admin
+	 wp_enqueue_script('jquery.tabs', plugins_url('/js/jquery.tabs.min.js', __FILE__), '', '1.0');	//admin
 	 
-	 wp_enqueue_script('metafield', plugins_url('/js/metafield.dev.js', __FILE__), '');	//admin
+	 wp_enqueue_script('metafield', plugins_url('/js/metafield.dev.min.js', __FILE__), '');	//admin
 	 wp_enqueue_script('jquery.dd', plugins_url('/js/jquery.dd.min.js', __FILE__), '', '2.38.4');	//admin
 	 wp_enqueue_script('widgets'); //?
 	 wp_enqueue_script('postbox'); //admin
@@ -316,7 +316,7 @@ public function load_admin_scripts(){ //for configuring Collections
     * @access public
     */
 public function load_user_scripts(){ //for Collections management one function for overlapping
- 	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
+ 	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.min.js', __FILE__), '', '1.0'); //admin
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
  	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');

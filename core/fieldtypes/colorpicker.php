@@ -26,7 +26,7 @@ class Colorpicker extends Basics{
 function showfield($post=null, $element=null){
 
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
-			wp_enqueue_script('jquery.colorpicker.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.js', '', '1.0.6'); 							//user only for the colorpicker field
+			wp_enqueue_script('jquery.colorpicker.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.min.js', '', '1.0.6'); 							//user only for the colorpicker field
 			wp_enqueue_style('css.colorpicker', plugins_url().'/meta-collections/css/colorpicker/jquery.colorpicker.css'); 											//user only for the colorpicker field
 			
 			 if(get_bloginfo( 'language')=="nl-NL"){ 	

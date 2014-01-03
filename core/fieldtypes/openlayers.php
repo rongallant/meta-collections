@@ -33,7 +33,7 @@ function showfield($post=null, $element=null, $c=null){
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
 			wp_enqueue_script( 'openlayers', 'http://openlayers.org/api/OpenLayers.js', '', '1.0'); 
 			wp_enqueue_script( 'jquery.json', plugins_url().'/meta-collections/js/openlayers/jquery.json.js', '', '1.0'); 						
-			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.js', '', '1.0'); 
+			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.min.js', '', '1.0'); 
 			wp_enqueue_style( 'openlayers',  get_option('siteurl').'/wp-content/plugins/meta-collections/css/openlayers/jquery.openlayers.css', ''); 
 			}
 						///meta-collections/css/openlayers/
