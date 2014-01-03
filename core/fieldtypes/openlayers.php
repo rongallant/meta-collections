@@ -87,7 +87,28 @@ function showfield($post=null, $element=null, $c=null){
 			$this->Field->metafieldBox($html, $element);
 			$element['input'] = $id;
 			$element[features] = $values;
+			
+			//, "date", "time", "amount"
+			$element[lang] = array(
+			"title" 		=> __("title","_coll"),
+			"date" 			=> __("date","_coll"),
+			"time" 			=> __("time","_coll"),
+			"amount"		=> __("amount","_coll"),
+			"Navigation"	=> __("Pan / Zoom","_coll"),
+			"ModifyFeature"	=> __("Edit points"),
+			"DrawFeature"	=> __("Add points","_coll"),
+			"DeleteFeature"	=> __("Delete points","_coll"),
+			"SelectFeature"	=> __("Edit point's metadata","_coll"),
+			"Baselayer"		=> __("Base layer","_coll"),
+			"properties"	=> __("Properties","_coll"),
+			"properties_mod"=> __("Properties modified...<br/>Save the page in order to save modifies marker properties.","_coll")
+			
+			
+			
+			);
+			
 			$options = json_encode($element);
+			
 			echo"<script>
 			
 			 jQuery(document).ready(function () {

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Collections\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-28 21:11+0100\n"
-"PO-Revision-Date: 2013-12-29 10:49+0100\n"
+"POT-Creation-Date: 2014-01-03 10:10+0100\n"
+"PO-Revision-Date: 2014-01-03 10:17+0100\n"
 "Last-Translator: Bastiaan Blaauw - Statuur <bastiaan@statuur.nl>\n"
 "Language-Team: Bastiaan Blaauw <statuur@gmail.com>\n"
 "Language: nl_NL\n"
@@ -17,23 +17,23 @@ msgstr ""
 "X-Poedit-SearchPath-0: /Users/bastiaanblaauw/Sites/collections/wp-content/"
 "plugins/meta-collections\n"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:644
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:653
 msgid "Search"
 msgstr "Zoeken"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:645
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:654
 msgid "All"
 msgstr "Alle"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:646
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:655
 msgid "Parent "
 msgstr "Bovenliggende"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:647
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:656
 msgid "Parent"
 msgstr "Bovenliggende"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:648
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:657
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-collections.php:163
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-collections.php:354
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-media-metadata.php:135
@@ -41,24 +41,24 @@ msgstr "Bovenliggende"
 msgid "Edit"
 msgstr "Bewerken"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:649
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:658
 msgid "Update"
 msgstr "Update"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:650
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:659
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-collections.php:161
 msgid "Add New"
 msgstr "Nieuwe %n toevoegen "
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:651
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:660
 msgid "New Name:"
 msgstr "Nieuw Naam:"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:683
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:692
 msgid "Collections"
 msgstr "Collecties"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:812
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/meta-collections.php:821
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -188,86 +188,64 @@ msgstr "Wil je de gehele inhoud van de collectie ook wissen?"
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-collections.php:125
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:129
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:157
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:175
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:192
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:176
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:147
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:202
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:218
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:135
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:175
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:191
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:169
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:259
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:275
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:144
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:184
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:177
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:276
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:292
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:129
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:175
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:191
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:175
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:255
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:271
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:128
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:186
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:202
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:163
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:169
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:264
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:132
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:191
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:95
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:109
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:126
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:114
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:160
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:176
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:111
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:174
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:190
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:96
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:126
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:161
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:115
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:178
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:102
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:292
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:315
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:330
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:141
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:172
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:188
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:319
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:148
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:180
 msgid "Yes"
 msgstr "Ja"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-collections.php:126
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:130
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:158
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:176
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:193
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:177
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:148
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:203
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:219
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:136
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:176
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:192
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:170
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:260
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:276
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:145
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:185
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:178
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:277
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:293
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:130
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:176
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:192
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:176
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:256
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:272
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:129
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:187
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:203
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:164
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:170
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:265
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:133
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:192
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:96
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:110
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:127
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:115
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:161
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:177
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:112
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:175
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:191
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:97
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:127
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:162
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:116
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:179
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:103
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:293
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:316
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:331
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:142
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:173
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:189
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:320
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:149
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:181
 msgid "No"
 msgstr "Nee"
 
@@ -352,16 +330,16 @@ msgstr "Nieuwe Collectie toevoegen"
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-metadata.php:170
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:113
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:131
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:118
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:153
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:127
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:161
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:112
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:159
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:111
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:153
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:115
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:97
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:94
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:78
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:98
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:83
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:274
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:123
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:130
 msgid "Label"
 msgstr "Label"
 
@@ -440,8 +418,8 @@ msgstr "Dat is een goeie!"
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-media-metadata.php:43
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-metadata.php:114
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-metadata.php:148
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:448
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:540
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:453
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:549
 msgid "Back"
 msgstr "Terug"
 
@@ -497,17 +475,17 @@ msgstr "Korte omschrijving van de inhoud van de Collectie"
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-collections.php:525
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:118
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:136
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:123
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:158
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:132
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:166
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:117
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:164
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:116
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:158
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:120
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:102
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:99
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:83
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:103
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:88
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:93
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:279
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:128
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:135
 msgid "Description"
 msgstr "Omschrijving"
 
@@ -575,17 +553,17 @@ msgstr "Media Metadata"
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-metadata.php:172
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:108
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:126
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:113
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:148
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:122
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:156
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:107
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:154
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:106
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:148
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:110
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:68
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:92
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:89
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:73
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:93
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:78
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:269
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:118
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:125
 msgid "Status"
 msgstr "Status"
 
@@ -593,17 +571,17 @@ msgstr "Status"
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-metadata.php:174
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:99
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:117
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:105
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:139
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:114
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:147
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:98
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:145
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:96
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:139
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:100
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:57
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:83
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:79
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:64
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:83
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:69
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:260
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:110
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:117
 msgid "Type"
 msgstr "Type"
 
@@ -662,11 +640,11 @@ msgstr "Metabox gewist"
 msgid "system metafield"
 msgstr "systeem metaveld"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:250
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:253
 msgid "Inactive System Elements Wordpress"
 msgstr "Inactieve Systeem Elementen van Wordpress"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:250
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:253
 msgid ""
 "The standard user interface of Wordpress have some things that can't be "
 "changed. For instance the position of title and description."
@@ -675,68 +653,75 @@ msgstr ""
 "niet veranderd kunnen worden. Bijvoorbeeld de positie van titel of "
 "omschrijving."
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:287
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:614
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:290
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:623
 msgid "Add Metabox"
 msgstr "Metabox toevoegen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:288
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:291
 msgid "Inserted in preview area"
 msgstr "toegevoegd aan voorvertoon gebied"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:296
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:299
 msgid "Name"
 msgstr "Naam"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:302
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:305
 msgid "Position"
 msgstr "Positie"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:317
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:320
 msgid "Metabox is beeing placed. One moment."
 msgstr "Metabox wordt geplaatst, Even wachten aub...."
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:317
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:320
 msgid "Insert Metabox"
 msgstr "Metabox Plaatsen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:452
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:457
 msgid "Edit Collection Overview Table"
 msgstr "Bewerk Collection Overzichtstabel"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:541
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:460
+msgid ""
+"Note: in order to use fields please add them to the user interface first."
+msgstr ""
+"N.B. Om velden te kunnen gebruiken moet je ze eerst in de user interface "
+"toevoegen."
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:550
 msgid "Settings updated"
 msgstr "Instellingen opgeslagen..."
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:541
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:550
 msgid "Save user Interface"
 msgstr "User interface Opslaan"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:543
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:552
 msgid "Toggle help"
 msgstr "Help in-uitschakelen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:599
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:608
 msgid "Edit User Interface for:"
 msgstr "Bewerkt User Interface voor:"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:611
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:620
 msgid "Inactive Metafields"
 msgstr "Inactieve Metaboxen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:612
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:621
 msgid "Inactive System Metaboxes"
 msgstr "Inactieve systeem Metaboxen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:646
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:655
 msgid "This is the preview area of you Collection edit interface"
 msgstr "Dit is het voorvertoon gebied van de Collectie bewerk interface"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:667
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:676
 msgid "Drag elements to this area"
 msgstr "Sleep Metaboxen in dit gebied"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:762
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/admin/admin-ui.php:771
 msgid "Order saved"
 msgstr "Volgorde opgeslagen"
 
@@ -746,13 +731,12 @@ msgstr "Kleurenkiezer"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:60
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:66
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:62
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:97
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:71
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:102
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:60
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:100
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:62
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:54
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:70
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:58
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:77
 msgid "delete this"
 msgstr "wis deze"
 
@@ -762,29 +746,28 @@ msgstr "Kies een kleur"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:123
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:141
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:129
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:163
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:138
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:171
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:123
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:169
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:122
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:163
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:126
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:108
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:105
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:90
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:109
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:95
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:286
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:135
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:142
 msgid "Required"
 msgstr "Vereist"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:137
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:155
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:143
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:137
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:136
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:152
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:140
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:122
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:119
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:104
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:123
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:110
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:300
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:149
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:156
 msgid "Required Errormessage"
 msgstr "Vereist Foutmelding"
 
@@ -798,63 +781,46 @@ msgstr "Gebruik Alpha transparantie"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:167
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:194
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:167
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:251
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:167
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:247
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:178
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:176
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:268
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:154
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:255
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:182
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:152
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:166
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:164
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:170
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:171
 msgid "Allow multiple values / instances of this element"
 msgstr "Sta meerde waarden / instanties toe van dit element"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:183
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:210
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:183
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:267
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:183
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:263
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:118
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:168
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:182
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:118
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:322
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:180
-msgid ""
-"Show this field in Collection overview<br/>(this field has to be dragged in "
-"user interface before showing up)"
-msgstr "Bekijk dit veld in Collectie overzicht."
-
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:203
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:227
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:200
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:286
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:202
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:282
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:216
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:187
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:212
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:193
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:303
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:175
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:276
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:205
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:137
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:187
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:201
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:137
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:341
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:199
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:173
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:191
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:128
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:330
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:192
 msgid "Field Options Saved"
 msgstr "Veld Opties Opgeslagen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:205
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:227
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:200
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:288
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:204
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:284
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:218
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/colorpicker.php:189
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date.php:212
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:193
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:305
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:177
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:278
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:207
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:139
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:189
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:203
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:139
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:343
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:201
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:175
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:193
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:130
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:332
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:194
 msgid "Save"
 msgstr "Opslaan"
 
@@ -870,7 +836,7 @@ msgstr "Format"
 msgid "Date and / or Time"
 msgstr "Datum en / of Tijd"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:156
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/date_and_or_time.php:165
 msgid "Date type"
 msgstr "Type Datum"
 
@@ -878,51 +844,60 @@ msgstr "Type Datum"
 msgid "Georeference"
 msgstr "Georeferentie"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:72
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:217
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:75
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:77
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:234
 msgid "Location"
 msgstr "Locatie"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:80
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:199
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:206
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:83
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:85
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:215
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:223
 msgid "Geocode"
 msgstr "Geocode"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:88
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:212
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:91
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:93
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:229
 msgid "Reverse Geocode"
 msgstr "Omgekeerd Geocoderen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:177
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:183
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:185
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:177
 msgid "Required Error Message"
 msgstr "Vereist Foutmeldingstekst"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:184
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:190
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:192
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:184
+msgid "Field height"
+msgstr "Veld hoogte"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:200
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:193
 msgid "Default Location"
 msgstr "Standaard Locatie"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:188
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:204
 msgid "Address"
 msgstr "Adres"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:218
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:235
 msgid "Latitude"
 msgstr "Latitude"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:218
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:235
 msgid "Longitude"
 msgstr "Longitude"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:235
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:209
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:252
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:212
 msgid "Default Zoom level"
 msgstr "Standaard Zoom niveau"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/georeference.php:284
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:118
+msgid ""
+"Show this field in Collection overview<br/>(this field has to be dragged in "
+"user interface before showing up)"
+msgstr "Bekijk dit veld in Collectie overzicht."
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:20
 msgid "Image field"
@@ -932,20 +907,12 @@ msgstr "Afbeeldings veld"
 msgid "get / upload image"
 msgstr "afbeeldingen ophalen / uploaden"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:144
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:152
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:129
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:126
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:156
-msgid "Default Value"
-msgstr "Standaard Waarde"
-
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:151
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:138
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:136
 msgid "Max Length"
 msgstr "Max Lengte"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:151
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/imagef.php:138
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:136
 msgid "maximum character length of the field value"
 msgstr "maximale tekstlengte van de de veldwaarde"
@@ -954,30 +921,90 @@ msgstr "maximale tekstlengte van de de veldwaarde"
 msgid "OpenLayers"
 msgstr "OpenLayers"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:233
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:93
+msgid "title"
+msgstr "titel"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:94
+msgid "date"
+msgstr "datum"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:95
+msgid "time"
+msgstr "tijd"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:96
+msgid "amount"
+msgstr "hoeveelheid"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:97
+msgid "Pan / Zoom"
+msgstr "Bewegen / Zoomen"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:98
+msgid "Edit points"
+msgstr "Markering bewerken"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:99
+msgid "Add points"
+msgstr "Markering toevoegen"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:100
+msgid "Delete points"
+msgstr "Markering wissen"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:101
+msgid "Edit point's metadata"
+msgstr "Markering metadata bewerken"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:102
+msgid "Base layer"
+msgstr "Basis laag"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:103
+msgid "Properties"
+msgstr "Eigenschappen"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:104
+msgid ""
+"Properties modified...<br/>Save the page in order to save modifies marker "
+"properties."
+msgstr ""
+"Eigenschappen aangepast...<br/>Sla de pagina op om de veranderingen in de "
+"markeringen permanent op te slaan"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:235
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:237
 msgid "Choose layers"
 msgstr "Kies lagen"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/openlayers.php:237
+msgid "Choose the layers with tile distributors."
+msgstr "Kies de lagen met de tile aanbieders."
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:20
 msgid "Select"
 msgstr "Select"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:39
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:142
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:146
 msgid "Choose"
 msgstr "Kies"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:145
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:149
 msgid "First option text"
 msgstr "Eerste keuze tekst"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:159
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:156
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/text.php:129
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:130
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/wysiwyg.php:163
+msgid "Default Value"
+msgstr "Standaard Waarde"
+
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:163
 msgid "Options"
 msgstr "Opties"
-
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/select.php:194
-msgid "Show in Collection overview"
-msgstr "Toon in Collectie overzicht"
 
 #: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/taxonomy.php:18
 msgid "Taxonomy"
@@ -1040,15 +1067,15 @@ msgstr "Tekst veld"
 msgid "Textarea"
 msgstr "Textarea"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:135
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:139
 msgid "Columns"
 msgstr "Kolommen"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:135
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:139
 msgid "Columns length of the textarea field"
 msgstr "Kolomlengte van het textarea veld"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:151
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/textarea.php:155
 msgid "Rows"
 msgstr "Rijen"
 
@@ -1056,7 +1083,7 @@ msgstr "Rijen"
 msgid "True false"
 msgstr "Waar / niet waar"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:111
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/truefalse.php:117
 msgid "Message with field (e.g. contains nuclear waste)"
 msgstr "Bericht bij veld: (bijv. bevat afval)"
 
@@ -1136,7 +1163,7 @@ msgstr "Intro"
 msgid "Other"
 msgstr "Andere"
 
-#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:313
+#: /Users/bastiaanblaauw/Sites/collections/wp-content/plugins/meta-collections/core/fieldtypes/vimeo.php:317
 msgid ""
 "Use Vimeo's API to acquire the footage's metadata and store it in seperate "
 "fields"
@@ -1146,14 +1173,14 @@ msgstr "Gebruik Vimeo's API om metadata op te halen en sla op in aparte velden"
 msgid "Wysiwyg"
 msgstr "Wysiwyg"
 
+#~ msgid "Show in Collection overview"
+#~ msgstr "Toon in Collectie overzicht"
+
 #~ msgid "Collection"
 #~ msgstr "Collecties"
 
 #~ msgid "Inactive Elements Metadataset"
 #~ msgstr "Inactieve Elementen Metadataset"
-
-#~ msgid "Delete Collection"
-#~ msgstr "Collectie Wissen"
 
 #~ msgid "Save the User interface to save the created Metabox."
 #~ msgstr "Sla eerst de User Interface op om de gemaakte Metabox op te slaan."
