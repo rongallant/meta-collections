@@ -1,6 +1,6 @@
 <?php
 /**
-  * Handles all functions for the Vimeo field, in combination with javascript it gets its data from the vimeo api
+  * Handles all functions for the Youtubefield, in combination with javascript it gets its data from a Youtube json call
   *
   *
   * @author  Bastiaan Blaauw <statuur@gmail.com>
@@ -29,7 +29,6 @@ public function showfield($post=null, $element=null){
 				
 			if(sizeof($post) > 0){//only load scripts when the function is called from the edot screen
 				wp_enqueue_script( 'jquery.youtube', plugins_url().'/meta-collections/js/youtube/jquery.youtube.min.js', '', '1.0');  
-				//wp_enqueue_script( 'jquery.vimeo.min.js', plugins_url().'/meta-collections/js/vimeo/jquery.vimeo.min.js', '', '2.0.1');  
 			}
 			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
@@ -58,13 +57,12 @@ public function showfield($post=null, $element=null){
 			
 			
 			
-			/*onkeydown=\"(jQuery(this).val().length<1)? jQuery('#getvimeometadata').removeClass('button-disabled') :  jQuery('#getvimeometadata').addClass('button-disabled');\"
-			onchange=\"(jQuery(this).val().length<1)? jQuery('#getvimeometadata').removeClass('button-disabled') :  jQuery('#getvimeometadata').addClass('button-disabled');\"  */
+			
 			//if($element[api]==1){
 			$button_title 		= ($values[url]=="") ? __("Get metadata for this url", "_coll"): __("Renew metadata for this url", "_coll");
 			$button_disabled	= ($values[url]=="button-disabled") ? "" : "";
 			$html.="&nbsp;<a onclick=\"if(this.className!='button-disabled'){get_yt_metadata('url_{$element[ID]}')};\"  class=\"button\">{$button_title}</a><br/>
-			e.g. http://www.youtube.com/watch?v=jDQH0Le3dx0";	
+			e.g. http://www.youtube.com/watch?v=UAvm9jIv9LQ";	
 			//}
 			//{$button_disabled}
 			$html.="</div>
