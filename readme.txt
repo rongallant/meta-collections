@@ -124,7 +124,6 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * missing collections.css 
 * added renewed custom vimeo field. communicates trought the Vimeo Api 
 
-
 = 2.0.1 =
 * Added the Openlayer field with lots of options. Possibility to add multiple point on a map, use all google maps layers
 * Fixed numerous bugs 
@@ -132,6 +131,10 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added more structure in folders.
 * Change the loading of javascript files. They only load when the have to now.
  
+= 2.0.2 =
+* Added the YouTube field with lots of options. 
+* Fixed a bug in the open layer field 
+* Added a input radio field
 
 == Upgrade Notice ==
 = 1.0 =
