@@ -28,7 +28,7 @@ class Vimeo extends Basics{
 public function showfield($post=null, $element=null){
 				
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
-			wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url().'/meta-collections/js/vimeo/jquery.vimeo.min.js', '', '2.0.1');  
+			wp_enqueue_script( 'jquery.vimeo.min.js', plugins_url().'/meta-collections/js/vimeo/jquery.vimeo.min.js', '', '2.0.1');  
 			}
 			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
