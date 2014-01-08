@@ -185,5 +185,6 @@ You first have to drag it into the user interface. Go to Collections, click on '
 
 
 = 2.0.3 =
-* Added the Combination field with lots of options. 
+* Added a Combination field with lots of options. 
+* Added a User field. 
 * Updated the Image field. 
