@@ -2,13 +2,64 @@
 a.delete_metavalue{
 	display:inline-block;
 	text-decoration:none;
-	width:10px;
-	/* background: url('/collections/wp-admin/images/xit.gif')no-repeat;*/
+	width:16px;
+}
+/* imagef */
+.image_container{
+	width:150px;
+	height:150px;
+	border-radius: 3px;
+	border:1px solid #f1f1f1;
+	display:none;
 }
 
-a.delete_metavalue:hover{
-	background-position: -10px 0px;
+.image_container ul{
+	position:relative;
+	left:10px;
+	top:0px;
+	display:none;
 }
+
+.image_container:hover ul{
+	display:block;
+}
+
+.image_container li{
+	border-radius: 50%;
+	border:1px solid #c0c0c0;
+	background:white;
+	text-align: center;
+	cursor:pointer;
+}
+
+.image_container li:hover{
+	color:#2EA2CC;
+	border:1px solid #2EA2CC;
+}
+
+.image_container li.genericon-trash:hover{
+	color:#E17341;
+	border:1px solid #E17341;
+}
+}
+
+
+/* combination */
+
+.combitable td{
+	vertical-align: top;
+	border-bottom:1px solid #DFDFDF;
+	
+}
+.combitable td:last-child a{
+display:none	
+}
+
+.combitable:hover td:last-child a{
+display:block;	
+}
+
+
 
 /****** METAFIELD CSS ***********/
 .metafield-wrapper{
@@ -37,7 +88,9 @@ a.delete_metavalue:hover{
 
 .metafield-wrapper  .metafield-value{
 	padding:4px;
-	border-bottom:1px solid #DFDFDF;
+	border-bottom:0px solid #DFDFDF;
+	sheight:inherit;
+	margin-bottom:6px;
 }
 
 .metafield-wrapper  .metafield-value label{

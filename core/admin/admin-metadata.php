@@ -74,7 +74,8 @@ update_option( "userinterface_".$_POST[cpt], $userinterface, '', 'no');
     */
 public function save_metafield(){
 	$metadataset = get_option("metadata_".$_POST[cpt]); 
-	print_r($_POST);	
+	//print_r($_POST);
+	//die("no fanhieruit");	
 	$_POST['ID'] = ($_POST['ID']=="new")? $this->slugify($_POST[label]) : $_POST['ID'];
 	
 	foreach($_POST as $key=>$value){
@@ -124,14 +125,12 @@ echo"<div class=\"icon32\" id=\"icon-options-general\"><br></div><h2>
 {$buttons}<br/><br/>";
 
 	$metafield[cpt] = $_POST[cpt];
-	$metafield[type]= 'text';
+	$metafield[type]= 'combination';
 	$metafield[ID] 	= 'new';
-	
 	
 	$this->getfieldform($metafield);
 
 }
-
 
 /**
     * Generates a table overview with the metadata fields related to the collection
@@ -148,9 +147,8 @@ $collection 	= $cpts[$_POST['cpt']];
 $buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>
 <a rel=\"action:add_metafield, cpt:{$_POST[cpt]}\" class=\"button-primary ajaxify\" href=\"admin-ajax.php\">".__("Add Metafield")."</a>";			
 			
-echo"<div class=\"icon32\" id=\"icon-options-general\" ><br></div><h2>
-".__("Edit Metadata Set: {$collection[labels][name]}",'_coll')." 
-</h2>
+echo"<div class=\"icon32\" id=\"icon-options-general\" ><br></div>
+<h2>".__("Edit Metadata Set: {$collection[labels][name]}",'_coll')."</h2>
 
 
 
@@ -164,7 +162,7 @@ echo"
 
 <div class=\"form-wrap\" >
                    
- <table class=\"widefat metadata\" cellspacing=\"0\">
+ <table class=\"widefat metadata\" cellspacing=\"0\" id=\"metadataoverview\">
             <thead class=\"content-types-list\">
               <tr>
               <th class=\"manage-column column-fields\" id=\"headtype\" scope=\"col\">".__('Label','_coll')."</th>
@@ -177,69 +175,37 @@ echo"
             </thead>
            ";
 
-/*
 
-*/
 if(is_array($metadataset))
             foreach($metadataset as $metafield){ 
            //rel=\"action:editcollection,cpt:{$cpt[post_type]}\"   <span class=\"duplicate\"><a class=\"ajaxify\" href=\"admin-ajax.php}\">".__('Duplicate')."</a> | </span>
-             echo"<tr id=\"content_{$metafield['ID']}\" class=\"\">
-               
-               
-                
-                
-                
-                <td class=\"column-name\">
+           //column-categories
+            $status 	= ($metafield[status]==1)? __("Active", "_coll"):__("Deactivated", "_coll");
+			$c 			= ucfirst($metafield[type]);
+			$typeclass 	= new $c();
+			//print_r($metafield);
+echo"<tr id=\"content_{$metafield['ID']}\">
+                <td class=\"row\">
                   <strong>
                     
-                    <a class=\"row-title\" onclick=\"jQuery('#{$metafield['ID']}_edit').slideToggle(200, function(){
-                    
-                    
-                    if (jQuery(this).is(':hidden')) {
-                    jQuery('#content_{$metafield['ID']}').removeClass('on');
-                    }else{
-                    jQuery('#content_{$metafield['ID']}').addClass('on');                    }
-                    
-                    });return false;\" href=\"#\" title=\"Edit {$metafield['label']} {$metafield['ID']}  \">".stripslashes($metafield['label'])."</a></strong>
+                    <a class=\"row-title\" onclick=\"toggle_metadata_row('{$metafield['ID']}');\" href=\"#\" title=\"Edit {$metafield['label']} {$metafield['ID']}  \">".stripslashes($metafield['label'])."</a></strong>
                     
                     <div class=\"row-actions\">
-                    <span class=\"edit\"><a onclick=\"jQuery('#{$metafield['ID']}_edit').slideToggle(200, function(){
-                    
-                    
-                    if (jQuery(this).is(':hidden')) {
-                    jQuery('#content_{$metafield['ID']}').removeClass('on');
-                   
-                    }else{
-                    jQuery('#content_{$metafield['ID']}').addClass('on');
-                                        }
-                    
-                    });return false;\" href=\"#\">".__('Edit')."</a> | </span>
+                    <span class=\"edit\"><a onclick=\"toggle_metadata_row('{$metafield['ID']}');\" href=\"#\">".__('Edit')."</a> | </span>
                    
                     <span class=\"delete\"><a onclick=\"deletemetafield('{$_POST[cpt]}', '{$metafield['ID']}', '".__("Are you sure to delete this Metafield?","_coll")."', '".__("Metafield deleted","_coll")."')\" href=\"#\">".__('Delete')."</a></span>
                   </div>
-                  </td>";                
-                
-                /*
-                $ochecked =($metafield[overview]==1)? "checked":"";
-                echo"<td><input type=\"checkbox\" onclick=\"jQuery.post('admin-ajax.php',  {action:'changeinoverview', cpt:'{$_POST[cpt]}', metafieldID: '{$metafield[ID]}', status:this.checked}, function(){setMessage('".__("Settings updated...","_coll")."')});\" name=\"show_in_overview\" $ochecked value=\"1\">
-                <div class=\"row-actions\">
-                 <span class=\"edit\"><a href=\"".get_bloginfo('url')."/wp-admin/edit.php?post_type={$_POST[cpt]}\" target=\"_blank\"> ".__("Show overview","_coll")."</a></span></div>
-                </td>
-                ";
-                */
-                $status = ($metafield[status]==1)? __("Active", "_coll"):__("Deactivated", "_coll");
-                echo"<td class=\"categories column-categories\">{$status}</td>
-                <td class=\"categories column-categories\">";
-                $c = ucfirst($metafield[type]);
-                $typeclass = new $c();
+                  </td>
+                  
+                  <td class=\"row column\">{$status}</td>
+                <td class=\"row\">";
+               
                 echo $typeclass->fieldname;
-                //{$metafield[type]}
-                //print_r($typeclass);
+              
                 echo"</td>
-
-                            </tr>
+					</tr>
                             <tr>
-                            <td colspan=\"4\" style=\"display:none;\" class=\"metadataform\" id=\"{$metafield['ID']}_edit\">";
+                            <td colspan=\"3\" style=\"display:none;\" class=\"metadataform\" id=\"{$metafield['ID']}_edit\">";
                            
                              
                             $this->getfieldform($metafield);
@@ -251,7 +217,7 @@ if(is_array($metadataset))
 	
 	 echo"<tr id=\"no-collections\">
                
-                <td class=\"name column-name\" colspan=\"4\" style=\"text-align:center;padding:30px;font-style:italic\">".__("No Metadata set defined yet, click on ","_coll")." '".__("Add Metafield")."' ".__("to create one.",'_coll')."
+                <td class=\"name column-name\" colspan=\"3\" style=\"text-align:center;padding:30px;font-style:italic\">".__("No Metadata set defined yet, click on ","_coll")." '".__("Add Metafield")."' ".__("to create one.",'_coll')."
                 </td></tr>
                 ";   
 }
@@ -292,13 +258,37 @@ update_option( "metadata_".$_POST[cpt], $metadataset, '', 'no');
     * @access public
     */
 function changemetafieldtype(){
-	$metafield[ID] 		= $_POST[ID];
-	$metafield[type] 	= $_POST[fieldtype];
-	$metafield[cpt] 	= $_POST[cpt];
-	$metafield[noform] 	= 1;
-	$this->getfieldform($metafield);
+	//$metafield[ID] 	= $_POST[ID];
+	//$metafield[type] 	= $_POST[fieldtype];
+	//$metafield[cpt] 	= $_POST[cpt];
+	//$metafield[noform]= 1;
+	$_POST[noform] 	= 1;
 	//print_r($_POST);
+	$this->getfieldform($_POST);
+	
 }
+
+
+
+/**
+    * Changes the form for editing or adding a subfield. 
+    *
+    * @access public
+    */
+function changesubfieldtype(){
+
+	//print_r($_POST);
+	if($_POST[type]!=""){	
+
+	$c = ucfirst($_POST[type]);
+	//echo $c;
+	$typeclass = new $c();
+	echo $typeclass->subfieldOptions($_POST);
+	}
+	
+}
+
+
 
 
 /**
@@ -326,37 +316,30 @@ echo"
 <input type=\"hidden\" name=\"ID\" id=\"ID\" value=\"{$metafield[ID]}\"/>
 ";
 	       
-	                   echo $typeclass->fieldOptions($metafield);
-	             if($metafield[noform]!=1){      
-	                   echo"</form>";
+echo $typeclass->fieldOptions($metafield);
+if($metafield[noform]!=1){      
+	echo"</form>";
 	                   
-				if($metafield[ID]!="new"){                   
-	                   echo"<script>
-	                   
-	                   jQuery('form :input').change(function() {
-  						
-  						if(changedanger==undefined){
-  						setMessage('".__("Changing a fieldtype or other variables while there is already saved date can result in data loss. Beware of that fact.","_coll")."', 10000);
-  						changedanger = 1;
-  						}
-						
-  						});
-
-	                   
-	                   </script>
-	                   
-	                   ";
-	                   }
-}
-	                       
-	 }   
+if($metafield[ID]!="new"){                   
 	
+	echo"<script>
+	jQuery('form :input').change(function() {
+  						
+  	if(changedanger==undefined){
+  	setMessage('".__("Changing a fieldtype or other variables while there is already saved date can result in data loss. Beware of that fact.","_coll")."', 10000);
+  	changedanger = 1;
+  	}
+						
+  	});
+  	</script>";
+	}
+}
+}   	
 }
 
 
 
 public function add_wysiwyg_field(){
-	//echo"<textarea>herere</textarea>";__("save the post first in order to use the wysiwyg please","_coll")
 	wp_editor('', $this->postmetaprefix.$_POST[metafieldID], array('dfw' => false, 'tabindex' => $_POST[tabindex]) );
 }
 

@@ -1,9 +1,34 @@
-var fieldsort, cp, date_time_preset, date_preset, changedanger, mypointer;
+var fieldsort, cp, date_time_preset, date_preset, changedanger, mypointer, cbscript;
 var $ = jQuery.noConflict();
 
 $(document).ready(function() {
 addlisteners();
 });
+
+
+
+
+function toggle_metadata_row(metafieldID){
+	tdID 	= metafieldID+"_edit"
+	rowID	= "content_"+metafieldID;
+	hidden	=$('#'+tdID).is( ":hidden" );
+	$( ".metadataform" ).each(function( index ) {
+	
+		if($(this).attr("id")!=tdID){
+		$(this).slideUp(200)
+		}
+	
+	});
+	
+	
+	$('#'+tdID).slideToggle(200);
+	$('#metadataoverview > tbody > tr').removeClass('on');
+	
+	
+	if(hidden){
+	$("#"+rowID).addClass('on');
+	}
+}
 
 
 
@@ -24,6 +49,7 @@ $(document).on("click",".ajaxify",function(event){
 	$('#collections_wrapper').load(this.href, postedVars);
 	
 });
+
 
 $(document).on("mouseenter",".tooltips",function(event){
 	

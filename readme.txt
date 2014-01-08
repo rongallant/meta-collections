@@ -182,3 +182,8 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added the YouTube field with lots of options. 
 * Fixed a bug in the open layer field 
 * Added a input radio field
+
+
+= 2.0.3 =
+* Added the Combination field with lots of options. 
+* Updated the Image field. 

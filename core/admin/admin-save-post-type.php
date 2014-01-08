@@ -27,7 +27,11 @@ class savePostMeta extends Basics{
 public function __construct(){
 global $post;
 	$this->init();
-
+	
+	
+	//$_POST = array_merge()
+	//print_r($_POST);
+	//die();
 	$wysiwygs = array();
 	foreach($_POST as $key=>$value){
 	

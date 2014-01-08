@@ -166,8 +166,13 @@ public function __construct(){
 	add_action('wp_ajax_metadata', array($this, 'metadata'));
 	add_action('wp_ajax_delete_metafield', array($this, 'metadata'));
 	add_action('wp_ajax_add_metafield', array($this, 'metadata'));
+	add_action('wp_ajax_add_subfield', array($this, 'combination'));
+	
 	add_action('wp_ajax_save_metafield', array($this, 'metadata'));
 	add_action('wp_ajax_changemetafieldtype', array($this, 'metadata'));
+	add_action('wp_ajax_changesubfieldtype', array($this, 'metadata'));
+	
+	
 	add_action('wp_ajax_changeinoverview', array($this, 'metadata'));
 	add_action('wp_ajax_add_wysiwyg_field', array($this, 'metadata'));
 	
@@ -292,7 +297,7 @@ public function postformvalidation(){
 public function load_admin_scripts(){ //for configuring Collections
 	 wp_enqueue_script('jquery');
 	
-	 wp_enqueue_script('jquery.collections', plugins_url('/js/jquery.collections.min.js', __FILE__), '', '1.0'); //admin
+	 wp_enqueue_script('jquery.collections', plugins_url('/js/dev/jquery.collections.js', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script('jquery.tabs', plugins_url('/js/jquery.tabs.min.js', __FILE__), '', '1.0');	//admin
 	 
 	 wp_enqueue_script('metafield', plugins_url('/js/metafield.dev.min.js', __FILE__), '');	//admin
@@ -316,7 +321,7 @@ public function load_admin_scripts(){ //for configuring Collections
     * @access public
     */
 public function load_user_scripts(){ //for Collections management one function for overlapping
- 	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/jquery.collections-post.min.js', __FILE__), '', '1.0'); //admin
+ 	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/dev/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
  	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
@@ -325,6 +330,8 @@ public function load_user_scripts(){ //for Collections management one function f
 	 wp_enqueue_script( 'googleapis', 'http://maps.google.com/maps/api/js?sensor=false', '', '3.0'); //user only for the georeference field
 	 //wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/georeference/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
 	
+	 wp_enqueue_style( 'genericons',  plugins_url('/css/genericons/genericons.css', __FILE__), ''); //admin
+
 	  //wp_enqueue_style( 'openlayers',  plugins_url('/css/openlayers/jquery.openlayers.css', __FILE__), ''); //admin
 	 
 	
@@ -699,6 +706,20 @@ public function collection_menu() {
 			
 			}
 
+/**
+    * Portals all actions related to metadata management (defined in Basics::__construct()) to admin-metadata.php <b>Class Metadata</b>
+    * 
+    * All actions are calles trough an ajax request
+    * @access public
+    */	
+public function combination(){
+	$this->includes();
+	include('core/fieldtypes/combination.php');
+	//print_r($_POST);
+	
+	$this->Metadata	= new Combination($_POST);
+	die();
+}	
 	
 /**
     * Portals all actions related to metadata management (defined in Basics::__construct()) to admin-metadata.php <b>Class Metadata</b>

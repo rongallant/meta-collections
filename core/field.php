@@ -23,22 +23,31 @@ function __construct(){
     * Since it is the same in every form it is a shred function    
     * @access private
     */
-function getFieldSelect($element){
+function getFieldSelect($element, $subfield=null){
 $this->getFields();
 $this->getClasses();
- 
-$othervars		= "fieldtype: this.value, action:'changemetafieldtype'";
+$this->getClassesWithSubfields(); 
+
+unset($element[action]);
+$action 		= ($subfield==1) ? "changesubfieldtype" :  "changemetafieldtype";
+
+$othervars		= "type: this.value, action:'{$action}'";
+
+
 $elementinfo	= json_encode($element);
 $elementinfo	= preg_replace("/\"/","'",$elementinfo);
 $elementinfo 	= preg_replace("/}/",", $othervars}",$elementinfo);
 
- 
-echo"<select name=\"type\" onchange=\"jQuery('#edit_options_{$element[ID]}_{$element[cpt]}').load('admin-ajax.php', {$elementinfo});\">";
+$row 			= $element[row]+1; 
+$fieldID 		= ($subfield==1) ? "#td_{$element[nonce]}" :  "#edit_options_{$element[ID]}_{$element[cpt]}" ;
+$fields 		= ($subfield==1) ? $this->ClassesWithSubfields : $this->entries;
+$name 			= ($subfield==1) ? "subfields[".$element[nonce]."][type]" : "type";
+
+echo"<select name=\"{$name}\" onchange=\"jQuery('{$fieldID}').load('admin-ajax.php', {$elementinfo});\">";
 	
-	foreach($this->entries as $metatype=>$metafile){
+	foreach($fields as $metatype=>$metafile){
 	$c = ucfirst($metatype);
 	$typeclass = new $c();
-
 	$checked = ($metatype == $element[type]) ? "selected": "";
 	echo"<option $checked value=\"{$metatype}\">{$typeclass->fieldname}</option>";
 	}
@@ -93,10 +102,28 @@ public function getClasses(){
      }
 	}
   
-  
+  }
+
+
+public function getClassesWithSubfields(){
+	$entries	= array();
+
+	foreach($this->entries as $name=>$entry){
+	//print_r();
+	//echo $name."=>".$entry."<br/>";
+	$c 				= ucfirst($name);
+	$typeclass 		= new $c();
+	if(method_exists($typeclass, 'subfieldOptions')){
+	$entries[$name] = $entry;  
+   //  die("bg");   	
+	}
 	
+	}
+	$this->ClassesWithSubfields = array_unique($entries);
 	
-}	
+}
+	
+
 
 /**
     * Puts a metafield in a neat box (not a metabox but a metafieldbox)   
@@ -115,15 +142,17 @@ public function metafieldBox($html, $element){
 			
 			
 			if($element[multiple]==1){
-			$metafieldBox .= "<div class=\"metafield-add\"><a href=\"#\" onclick=\"add_value_instance('{$element[ID]}_wrapper', '{$element[type]}');return false\" class=\"button-primary\">".__("+ add %s", "_coll")."</a></div>";
+			$buttontitle = ($element[addtitle]!="") ? "+ ".$element[addtitle] : __("+ add %s", "_coll");
+			$metafieldBox .= "<div class=\"metafield-add\"><a href=\"#\" onclick=\"add_value_instance('{$element[ID]}_wrapper', '{$element[type]}');return false\" class=\"button-primary\">{$buttontitle}</a></div>";
+			
 			}
 			$metafieldBox .= "</div>
 			</div>";
   
   /* replace all %s and %n with labels name to ensure proper translation */
   $metafieldBox  = preg_replace("/%s/", $element[label],  $metafieldBox);
-  echo $metafieldBox;
-
+  //echo $metafieldBox;
+  return $metafieldBox;
 }
 
 /**
