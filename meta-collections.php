@@ -132,7 +132,7 @@ public function __construct(){
 	
 	if($pagenow=="post-new.php" || ($pagenow=="post.php" && $_GET[action]=="edit" && !isset($_POST[post_ID]) ) ){//only on post edit pages && get_post_type( $_GET[post])==""
 	add_action('admin_init', array( $this, 'buildinterface') );
-	add_action('admin_footer', array( $this, 'postformvalidation') );
+	//add_action('admin_footer', array( $this, 'postformvalidation') );
 
 	}
 	
@@ -205,6 +205,21 @@ public function init(){
 	$this->basedir 	= plugins_url('',__FILE__);
 	$this->action	= (isset($_POST[action]))? $_POST[action] : $_REQUEST[action] ;
 	$this->searchfor= "/{$this->systemprefix}/";
+	
+	$this->validation_options = array(
+	"required"		=> array(__("Makes the element required.", "_coll"), "c"), 
+	"email"			=> array(__("Makes the element require a valid email.", "_coll"), "c"),  
+	"url"			=> array(__("Makes the element require a valid url.", "_coll"), "c"),  
+	"date"			=> array(__("Makes the element require a date.", "_coll"), "c"),  
+	"dateISO"		=> array(__("Makes the element require an ISO date.", "_coll"), "c"), 
+	"number"		=> array(__("Makes the element require a decimal number.", "_coll"), "c"),  
+	"digits"		=> array(__("Makes the element require digits only.", "_coll"), "c"), 
+	"creditcard"	=> array(__("Makes the element require a credit card number.", "_coll"), "c"),
+	"minlength"		=> array(__("Makes the element require a given minimum length.", "_coll"), "i"),  
+	"maxlength"		=> array(__("Makes the element require a given maxmimum length.", "_coll"), "i"),  
+	"min"			=> array(__("Makes the element require a given minimum.", "_coll"), "i"),  
+	"max"			=> array(__("Makes the element require a given maximum.", "_coll"), "i")
+	);
 }
      
          
@@ -240,56 +255,6 @@ public function convertShortcode($attributes){
 }
 
 /**
-    * Adds validation support to the post form for the Collection.
-    *
-    * All required fields and error messages are stored in $_SESSION[required] by an Field ID and an error message
-    * This function generated the proper javascript. 
-    * @access public    
-    */
-public function postformvalidation(){
-	echo"<script>
-	jQuery(document).ready(function(){
-	
-	jQuery('#post').submit(function(){
-	return dopost()
-	});
-	
-	jQuery('#publish').mousedown(function(){
-	return dopost()
-	});
-		
-   });
-   
-   function dopost(){
-   if(
-   jQuery('#post').validate(";
-	
-	if(count($_SESSION[required])>0){
-	echo"{messages: {\n";
-	
-		
-	$c=1;
-	foreach($_SESSION[required] as $ID=>$message){
-	$comma = ($c==count($_SESSION[required]))? "":", \n";
-	echo"{$postmetaprefix}{$ID}: '{$message}' {$comma}"	;
-	$c++;
-	}
-	
-	echo"}}";
-	}	
-	echo").form()
-	){
-	
-	}else{
-	return false;
-	}
-   }
-	
-	</script>";
-}
-
-
-/**
     * Loads all the javascripts and css necessary for collection configuration management.
     *
     * @access public
@@ -311,8 +276,8 @@ public function load_admin_scripts(){ //for configuring Collections
 	 wp_enqueue_style('css.dd',  plugins_url('/css/msdropdown/dd.css', __FILE__)); //admin
 	 wp_enqueue_style('collections-admin',  plugins_url('/css/collections-admin.css', __FILE__), '', '1.0'); //admin
 	 wp_enqueue_style('wp-pointer');//admin
-	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
- 	 
+	 //wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.11.1');//user					
+
 	 $this->load_user_scripts();
 }
 
@@ -323,7 +288,7 @@ public function load_admin_scripts(){ //for configuring Collections
 public function load_user_scripts(){ //for Collections management one function for overlapping
  	 wp_enqueue_script('jquery.collections.post', plugins_url('/js/dev/jquery.collections-post.js', __FILE__), '', '1.0'); //admin
  	 wp_enqueue_style( 'collections-post',  plugins_url('/css/collections-post.css', __FILE__), '', '1.0'); //admin
-	 wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.7');//user					
+     wp_enqueue_script( 'jquery.validate.min', plugins_url('/js/jquery.validate.min.js', __FILE__), '', '1.11.1');//user					
  	 wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/overcast/jquery-ui.css');
  	 wp_enqueue_script('jquery.widget', plugins_url('/js/jquery.ui.widget.min.js', __FILE__), '', '1.0');	//admin
 	 wp_enqueue_style( 'msDropDown',  plugins_url('/css/msdropdown/dd.css', __FILE__), ''); //admin
@@ -331,8 +296,12 @@ public function load_user_scripts(){ //for Collections management one function f
 	 //wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/georeference/jquery.googlemaps.js', '', '1.0'); //user only for the georeference field
 	
 	 wp_enqueue_style( 'genericons',  plugins_url('/css/genericons/genericons.css', __FILE__), ''); //admin
-
-	  //wp_enqueue_style( 'openlayers',  plugins_url('/css/openlayers/jquery.openlayers.css', __FILE__), ''); //admin
+	 
+	 if(get_bloginfo('language')=="nl-NL"){
+		 wp_enqueue_script( 'jquery.validate.message', plugins_url('/js/i18n/jquery.validate.messages-nl.js', __FILE__), '');
+	}
+	
+	
 	 
 	
 		
@@ -835,7 +804,7 @@ function buildinterface(){
     * 
     * Not used yet
     * @access public
-    * @todo Develope functionality if necessary and make faq site.s
+    * @todo Develope functionality if necessary and make faq site.
     */	
 public function addSettingsLink($links){
 			array_unshift( $links, '<a href="http://collections.statuur.nl/faq/">Help</a>' );

@@ -22,8 +22,11 @@ function __construct(){
     * Generates the html for the field type select in a metafield form.
     * Since it is the same in every form it is a shred function    
     * @access private
+    * @param array $element
+    * @param bool $subfield 
+    * @param bool $new
     */
-function getFieldSelect($element, $subfield=null){
+function getFieldSelect($element, $subfield=null, $new=null){
 $this->getFields();
 $this->getClasses();
 $this->getClassesWithSubfields(); 
@@ -43,6 +46,8 @@ $fieldID 		= ($subfield==1) ? "#td_{$element[nonce]}" :  "#edit_options_{$elemen
 $fields 		= ($subfield==1) ? $this->ClassesWithSubfields : $this->entries;
 $name 			= ($subfield==1) ? "subfields[".$element[nonce]."][type]" : "type";
 
+
+
 echo"<select name=\"{$name}\" onchange=\"jQuery('{$fieldID}').load('admin-ajax.php', {$elementinfo});\">";
 	
 	foreach($fields as $metatype=>$metafile){
@@ -56,6 +61,145 @@ echo"<select name=\"{$name}\" onchange=\"jQuery('{$fieldID}').load('admin-ajax.p
 	
 }
 
+public function getAttributesAndClasses($element){
+			$classnames = array(); 
+			$attributes = array(); 
+
+			if($element[placeholder]!=""){
+				$attributes [] = "placeholder=\"{$element[placeholder]}\" ";
+			}
+			//print_r($element);
+			if($element[format]!=""){
+				$attributes [] = "rel=\"{$element[format]}\" ";
+			}
+			
+			if($element[length]!=""){
+				$attributes [] = "size=\"{$element[length]}\" ";
+			}
+			
+			if($element[type]=="date"){
+				$classnames[] = "datepicker"; 
+			}
+
+			if($element[type]=="date_and_or_time"){
+				$classnames[] = "datetimepicker"; 
+				
+				$options 	  = array();
+				
+				if(get_bloginfo( 'language')=="nl-NL"){
+					 $options['lang']	  	= "nl";
+				}	  
+				
+				if($element[preset]=="time"){
+					$options[datepicker]	= false;
+					$options[format]	  	= "H:i";
+				}
+				
+				if($element[preset]=="date"){
+					$options[timepicker]	= false;
+					$options[format]	  	= "d/m/Y";
+				}
+				
+				//timepicker:false,
+				//format:'d/m/Y'
+				//print_r($options);
+				$attributes [] = "data='".json_encode($options)."'";
+			}
+
+
+			if($element[type]=="colorpicker"){
+				$classnames[] = "colorpickers"; 
+			}
+			
+			
+			foreach($this->validation_options as $vname=>$options){
+				
+				if($element['validation'][$vname]==1 || $element['validation'][$vname]!=""){
+					switch($options[1]){
+						case "c":
+					if($element['validation'][$vname]==1){//items that need some sort of validation
+						
+							$classnames[] = $vname; 
+						}
+						break;
+						
+						case "i":
+						if ($vname=="max" || $vname=="min" || $vname=="minlength" || $vname=="maxlength"){
+							
+							$attributes [] = "{$vname}=\"{$element['validation'][$vname]}\" "; //"$name=\" \" ";
+						}
+						
+						break;
+						}
+				}
+			}
+			
+			return array($classnames, $attributes);
+}
+/**
+    * Loads validation option in form for field options
+    * @access public
+    * @param array $element
+    */	
+    
+public function getValidationOptions($element){
+	
+	echo"<tr>
+	<td>".__("Validation", "_coll").":<br/>
+	<i style=\"color:#aaa\">For more information about validation check: <a href=\"http://jqueryvalidation.org/documentation/\" target=\"_blank\">http://jqueryvalidation.org/documentation/</a></i>
+	</td>
+	<td>";
+	//print_r($element);
+	foreach($this->validation_options as $name=>$options){
+	
+	
+	switch($options[1]){
+	case "c":
+	$o_checked	= ($element['validation'][$name]==1)? "checked": "";
+	echo "<input type=\"checkbox\" value=\"1\" {$o_checked} name=\"validation[{$name}]\"/> {$options[0]}<br/>";
+	break;	
+	
+	case "i":
+	echo"<input type=\"text\" value=\"{$element['validation'][$name]}\" size=\"12\" name=\"validation[{$name}]\" placeholder=\"".__("enter a number", "_coll")."\" /> {$options[0]}<br/>";
+	break;	
+	
+	case "r":
+	echo"<input type=\"text\" value=\"{$element['validation'][$name]}\" size=\"8\" name=\"validation[{$name}]\"  placeholder=\"e.g. [13,23]\"/> {$options[0]}<br/>";
+	break;	
+	}
+	
+	
+	}
+	
+	echo"</td>
+	</tr>";
+
+}
+
+
+/**
+    * Loads basic form values for fieldoptions
+    * status, label and description are always the same
+    * @access public
+    * @param array $element
+    */	
+public function getBasics($element){
+	$statusc = ($element[status]==1)? "checked":"";
+	echo"<tr>
+	<td style=\"width:25%\">".__("Status").":</td>
+	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
+	</tr>
+	
+	<tr>
+	<td style=\"width:25%\">".__("Label").": *</td>
+	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
+	</tr>
+	
+	<tr>
+	<td>".__("Description").":</td>
+	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
+	</tr>";
+}
 
 /**
     * Reads trough the field types folder an generates an array with entries. Every field (php) found is added to the array

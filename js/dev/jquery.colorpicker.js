@@ -12,7 +12,8 @@
  * Sourcecode created from scratch by Martijn W. van der Lee.
  */
 
-;(function ($) {
+
+(function ($) {
 	"use strict";
 
 	var _colorpicker_index = 0,

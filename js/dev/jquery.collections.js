@@ -7,7 +7,6 @@ addlisteners();
 
 
 
-
 function toggle_metadata_row(metafieldID){
 	tdID 	= metafieldID+"_edit"
 	rowID	= "content_"+metafieldID;
@@ -95,13 +94,20 @@ return false;
 }
 
 function save_metafield(elementID, cpt, message){
-jQuery.post(ajaxurl, jQuery('#edit_options_'+elementID+'_'+cpt).serialize(), function(){
 
-jQuery('#collections_wrapper').load(ajaxurl, {action: 'editmetadata', cpt: cpt}, function() {
+postobj =$('#edit_options_'+elementID+'_'+cpt+' *:not([type="checkbox"]').serialize();
+postobj += "&";
+postobj += $("#edit_options_"+elementID+"_"+cpt+" input[type='checkbox']").map(function () {
+    return this.name + "=" + ((this.checked)?1:0);
+}).get().join("&");
+
+
+
+$.post(ajaxurl, postobj, function(){
+
+$('#collections_wrapper').load(ajaxurl, {action: 'editmetadata', cpt: cpt}, function() {
 				setMessage(message);
 			});
-
-
 });
 
 return false;

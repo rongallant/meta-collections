@@ -283,7 +283,7 @@ echo"
     * Shows the specific form for the fieldtype with all the options related to that subfield. 
     * @access public
     */	
-public function subfieldOptions($element){
+public function subfieldOptions($element, $new=null){
 	$parent 	= ($element[parent]=="") ? $element[ID] : $element[parent]; 
 	$statusc 	= ($element[status]==1)? "checked":"";
 	
@@ -299,6 +299,10 @@ public function subfieldOptions($element){
 	<td>".__("Type").":</td>
 	<td>";
 	
+	if($new==1){
+	unset($element[label]);	
+	unset($element[description]);	
+	}
 	$this->Field->getfieldSelect($element, 1);
 
 	
@@ -401,7 +405,7 @@ public function subfieldOptions($element){
 	
 	
 	
-	<a href=\"#\" onclick=\"toggle_row(event, '{$element[nonce]}')\" class=\"button-primary closefield\">".__("Close Field")."</a>	</td>
+	<a href=\"#\" onclick=\"toggle_row(event, '{$element[nonce]}')\" class=\"button closefield\">".__("Close Field")."</a>	</td>
 	</tr>
 	
 	

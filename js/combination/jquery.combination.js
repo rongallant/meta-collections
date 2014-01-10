@@ -28,13 +28,9 @@ function add_subfield(event, element){
 	element['row'] = rows;
 	
 	$('#no-collections').css({"display":"none"});
-	//console.log($('.subfields>table').length);
-	//$("<tr><td>nij1</td></tr>").appendTo('#subfieldoverview');
-	$.post( ajaxurl, element, function( data ) {
-	//$(data).find('.rownumber').text(rnumber);
 	
+	$.post( ajaxurl, element, function( data ) {
 	$(data).appendTo('#subfield_'+element['ID']);
-	//console.log($('#subfieldoverview>tbody>tr:last').find('.rownumber'));//.find('.rownumber').text()
 	
 	
 		});
@@ -48,10 +44,3 @@ setTimeout(function(){
  $('.spanlabel_'+nonce).html($('#label_'+nonce).val()) }, 200)
 
 });
-
-
-/*
-$( ".subfields" ).on( "sortupdate", function( event, ui ) {
-console.log(ui.item.parent());
-});
-*/

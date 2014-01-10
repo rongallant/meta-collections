@@ -126,14 +126,7 @@ div.editPanel {
 	 font-family: "Open Sans",helvetica,sans-serif !important;
     font-size: 12px !important;
 }
-/*, .gm-style div, .gm-style span, .gm-style label, .gm-style a 
-.olControlLayerSwitcher .layersDiv{
-    font-family: "Open Sans",helvetica,sans-serif !important;
-    font-size: 12px !important;
-    font-weight: normal !important;
-   
-}
-*/
+
 .olControlLayerSwitcher label{
 	font-size: 12px !important;
 }

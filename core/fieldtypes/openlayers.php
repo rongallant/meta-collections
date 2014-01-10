@@ -36,7 +36,7 @@ function showfield($post=null, $element=null, $c=null){
 			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.min.js', '', '1.0'); 
 			wp_enqueue_style( 'openlayers',  get_option('siteurl').'/wp-content/plugins/meta-collections/css/openlayers/jquery.openlayers.css', ''); 
 			}
-						///meta-collections/css/openlayers/
+
 
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID]."--------ol";

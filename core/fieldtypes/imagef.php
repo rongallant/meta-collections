@@ -28,15 +28,18 @@ class Imagef extends Basics{
     */	
 public function showsubfield($post=null, $element=null, $value){
 			global $post;		
-			//wp_enqueue_script( 'zebra_tooltips', plugins_url('/js/zebra_tooltips.js', __FILE__), '', '2.0.1');  	//test
-
+			
+			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen		
+			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/imagef/jquery.imagef.js', '', '1.0'); 
+			}
+			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
 			$hiddenid 	= $this->postmetaprefix.$element['parent']."_".$element[instance]."_".$element['nonce'];
 			$img_container_id = $this->postmetaprefix.$element['parent']."_".$element[instance]."_".$element['nonce']."_img";
 			$element[postmetaprefix] = $this->postmetaprefix;
 			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
+			
 			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
 			$rel 		= json_encode($element );
 
@@ -44,26 +47,33 @@ public function showsubfield($post=null, $element=null, $value){
 			$_SESSION[required][$element[ID]] = $element[required_err]	;
 			}
 			
-		
-			//onclick=\"tb_show('Test', 'media-upload.php?post_id={$post->ID}&type=image&wpcf-fields-media-insert=1&TB_iframe=true');return false;\"
-			//<img src=\"\" id=\"{$img_container_id}\" style=\"display:none\"/> 
+			$element[return_value] = ($element[return_value]=="") ? "object": $element[return_value];
+			$showimagediv	= ($value!="")?"block":"none";
+			$showbutton		= ($value=="")?"inline-block":"none";
+
+			if($showimagediv=="block"){
+				$valueO 		= json_decode($value);
+				$return_value 	= ";background: url('{$valueO->sizes->thumbnail->url}')";
+			}
 			
+
 			$html = "";
 
 			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"hidden\" {$required} size=\"90\" {$length} name=\"{$name}\" id=\"{$hiddenid}\" rel='$rel' value=\"{$value}\"/> 
-			<div class=\"image_container\" id=\"{$img_container_id}\">
+			<label for=\"{$element[ID]}\">{$element[label]}: </label><br/>
+			<input type=\"hidden\" {$required} size=\"90\" {$length} name=\"{$name}\" id=\"{$hiddenid}\" rel='$rel' value='{$value}'/> 
+			
+			<div class=\"image_container\" style=\"display:{$showimagediv}$return_value\" id=\"{$img_container_id}\">
 			<ul>
-			<li class=\"genericon genericon-edit edit_image\"></li>
-			<li class=\"genericon genericon-trash delete_image\"></li>
+			<li class=\"genericon genericon-edit edit_image\" rel=\"upload-image-button_{$element[nonce]}\" title=\"".__("Select other image","_coll")."\"></li>
+			<li class=\"genericon genericon-trash delete_image\" title=\"".__("Delete image","_coll")."\"></li>
 			</ul>
 			
 			</div>
 			
 			
 			
-			<a class=\"button-secondary upload-image-button\">".__("get / upload image","_coll")."</a>			
+			<a class=\"button-secondary upload-image-button\" style=\"display:{$showbutton}\" id=\"upload-image-button_{$element[nonce]}\" rel=\"{$hiddenid}\">".__("get / upload image","_coll")."</a>			
 			</div>
 			
 			<script>
@@ -268,31 +278,30 @@ $statusc = ($element[status]==1)? "checked":"";
     * Shows the specific form for the fieldtype with all the options related to that subfield. 
     * @access public
     */	
-public function subfieldOptions($element){
+public function subfieldOptions($element, $new=null){
+global $_wp_additional_image_sizes;
+	
 	$statusc 	= ($element[status]==1)? "checked":"";
 	$parent 	= ($element[parent]=="") ? $element[ID] : $element[parent]; 
 	echo"
 	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][parent]\" value=\"{$parent}\"/>
 	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][nonce]\" value=\"{$element[nonce]}\"/>
-	<table class=\"widefat metadata\" cellpadding=\"10\">";
-
-	
-	//$this->Field->getID($element);
-	
-	echo"
-	
-	<tr>
-	<td>".__("Type").":</td>
+	<table class=\"widefat metadata\" cellpadding=\"10\"><tr>
+	<td>".__("Type").": {$new}</td>
 	<td>";
 	
-	 $this->Field->getfieldSelect($element, 1);
+	if($new==1){
+	unset($element[label]);	
+	unset($element[description]);	
+	}
+	$this->Field->getfieldSelect($element, 1, $new);
 	
 	echo"</td>
 	</tr>
 
 <tr>
 	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"subfields[{$element[nonce]}][status]\" value=\"1\" onclick=\"$('.rowstatus_{$element[nonce]}').html((this.checked) ? 'enabled'  :  'disabled')\" /></td>
+	<td><input type=\"checkbox\" {$statusc} name=\"subfields[{$element[nonce]}][status]\" value=\"1\" onclick=\"$('.rowstatus_{$element[nonce]}').addClass((this.checked)? 'genericon-show' : 'genericon-hide').removeClass((this.checked)? 'genericon-hide' : 'genericon-show')\" /></td>
 	</tr>	
 	<tr>
 	<td style=\"width:25%\">".__("Label").": *</td>
@@ -336,29 +345,30 @@ public function subfieldOptions($element){
                 </ul>
 	
 	</td>
-	</tr>
+	</tr>";
 	
-		
-	<tr>
-	<td>".__("Max Length", "_coll").":<br/>".__("maximum character length of the field value", "_coll")."</td>
-	<td><select name=\"subfields[{$element[nonce]}][max_length]\">";
-	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
-	$selector = ($element[max_length]=="")? 20 : $element[max_length];
-	for ($i=1; $i<100; $i++){
-	$selected = ($i==$selector)? "selected":"";	
-	echo"<option value=\"{$i}\" {$selected}>$i</option>";
+		/*	
+	echo"<tr>
+	<td valign=\"top\">".__("Return size", "_coll").":</td>
+	<td valign=\"top\">";
+	//print_r($_wp_additional_image_sizes);
+	
+	echo"<select name=\"subfields[{$element[nonce]}][return_size]\">";
+	
+	$sizes = $this->list_thumbnail_sizes();
+	foreach ($sizes as $size => $atts){
+	$selected = ($size==$element[return_value])? "selected":"";	
+	echo"<option value=\"{$size}\" {$selected}>{$size} ".implode( 'x', $atts )."</option>";
 	}
 	echo"</select>
 	
-	
-	
 	</td>
-	</tr>	
+	</tr>		
+	*/
 	
-	
-	<tr>
+	echo"<tr>
 	<td colspan=\"2\" style=\"padding:10px\">
-	<a href=\"#\" onclick=\"toggle_row(event, '{$element[nonce]}')\" class=\"button-primary closefield\" id=\"savesubfield\">".__("Close Field")."</a>
+	<a href=\"#\" onclick=\"toggle_row(event, '{$element[nonce]}')\" class=\"button closefield\" id=\"savesubfield\">".__("Close Field")."</a>
 	</td>
 	</tr>
 	
@@ -370,5 +380,30 @@ public function subfieldOptions($element){
 	 });
 	</script>";
 }
+
+
+public function list_thumbnail_sizes(){
+     global $_wp_additional_image_sizes;
+     	$sizes = array();
+ 		foreach( get_intermediate_image_sizes() as $s ){
+ 			$sizes[ $s ] = array( 0, 0 );
+ 			if( in_array( $s, array( 'thumbnail', 'medium', 'large' ) ) ){
+ 				$sizes[ $s ][0] = get_option( $s . '_size_w' );
+ 				$sizes[ $s ][1] = get_option( $s . '_size_h' );
+ 			}else{
+ 				if( isset( $_wp_additional_image_sizes ) && isset( $_wp_additional_image_sizes[ $s ] ) )
+ 					$sizes[ $s ] = array( $_wp_additional_image_sizes[ $s ]['width'], $_wp_additional_image_sizes[ $s ]['height'], );
+ 				//unset($sizes[ $s ]);
+ 			}
+ 		}
+ 
+ 		//foreach( $sizes as $size => $atts ){
+ 		//	echo $size . ' ' . implode( 'x', $atts ) . "\n";
+ 		//}
+ 		
+ 		
+ 		return $sizes;
+ }
+
 }
 ?>

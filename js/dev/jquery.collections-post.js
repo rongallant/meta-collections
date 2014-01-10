@@ -1,52 +1,61 @@
-var colortitle='', olscript, olfscript, gmscript, gmfscript, file_frame;
+var colortitle='', olscript, olfscript, gmscript, gmfscript, rFields;
 var wysiwyg_num = new Array();
 var $ = jQuery.noConflict();
-
-//IMAGEF!!!!
 $(document).ready(function() {
 
-$(document).on("click",".delete_image",function(event){
-//console.log($(event.currentTarget).parent().parent());
-$(event.currentTarget).parent().parent().css({"display": "none", 'background': 'transparent'});
-$(event.currentTarget).parent().parent().prev().val('');
-$(event.currentTarget).parent().parent().next().css({'display':'inline-block'});
-
-//console.log($(event.currentTarget).parent().parent().prev());
-
+$('#post').validate({
+//	errorPlacement: function(error, element) {
+//	error.html($(element).attr('data'));
+//	error.insertAfter(element);
+//	}
+	
+});
 
 });
 
-$(document).on("click",".upload-image-button",function(event){
-event.preventDefault();
- 
-file_frame 	= wp.media.frames.file_frame = wp.media({
-title: "choose image",
-button: {
-text: "insert image",
-},
-multiple: false,
-editing: true,
-image_container:$(event.currentTarget).prev(),
-currentTarget: $(event.currentTarget)
-});
- 
+$(document).on("submit","#post",function(event){
+errors = true;
 
-// When an image is selected, run a callback.
-file_frame.on( 'select', function() {
-
-attachment = file_frame.state().get('selection').first().toJSON();
-file_frame.options.image_container.css({"display": "block", 'background': 'url('+attachment.sizes.thumbnail.url+') no-repeat'});
-file_frame.options.currentTarget.css({'display':'none'});
-});
- 
-// Finally, open the modal
-file_frame.open();
+$('#post .required, #post .date, #post .creditcard').each(function (index, element) {
+if(false===$('#post').validate().element($(element))){
+errors = false;
+$('#publish').removeClass("button-primary-disabled");//
+}
 
 
 });
+//console.log(errors);
+return errors;	
+});
+
+/*
+$(document).on("submit","#post",function(event){
+
+//$('#post').validate();
+
+$('#post .required').each(function (index, element) {
+
+$(element).rules('add', {
+            messages: {
+                required: $(this).attr('data')
+            }
+        });
+console.log($(element));
+
+});
+
+$('#post').validate().form();
+	
+
+return false;
 });
 
 
+$(document).on("blur",".required",function(event){
+//console.log($(this));
+$('#post').validate().element($(this));
+});
+*/
 
 function add_value_instance(wrapperID, fieldtype){
 
@@ -57,19 +66,21 @@ function add_value_instance(wrapperID, fieldtype){
 	switch(fieldtype){
 		default:
 
-				//jQuery('#'+wrapperID+' .metafield-value:last input').val('');
+		$('#'+wrapperID+' .metafield-value:last input').val('');
 				//jQuery('#'+wrapperID+' .metafield-value:last textarea').val('');
 
 		break;
 	
 	case "combination":
 		$('#'+wrapperID+' .metafield-body>table:last-child').clone().appendTo($('#'+wrapperID+' .metafield-body') );
-		//$('#'+wrapperID+' .metafield-body>table:last-child select').children()[0].selected=true;
-		
+		$('#'+wrapperID+' .metafield-body>table:last-child .image_container').css({"display": "none"});
+		$('#'+wrapperID+' .metafield-body>table:last-child .upload-image-button').css({"display": "inline-block"});
+	
 		$('#'+wrapperID+' .metafield-body>table:last-child input, #'+wrapperID+' .metafield-body>table:last-child select').each(function(index, el ) {
+		$(this).val('');		
 		
 		elementinfo = $.parseJSON( $(el).attr('rel'));
-		newname = elementinfo['postmetaprefix']+""+elementinfo['parent']+"["+(parseFloat(elementinfo['instance']+1))+"]["+elementinfo['nonce']+"]"
+		newname 	= elementinfo['postmetaprefix']+""+elementinfo['parent']+"["+(parseFloat(elementinfo['instance']+1))+"]["+elementinfo['nonce']+"]"
 		$(el).attr('name', newname);//give all the instances a new name and a new row!
 			
 		$.each(elementinfo, function(key, value){
@@ -82,17 +93,27 @@ function add_value_instance(wrapperID, fieldtype){
 		});
 		
 		
-		parts = $('#'+wrapperID+' .metafield-body>table:last-child').attr("id").split("_");
-		newID = parts[0]+"_"+parts[1]+"_"+(parseFloat(parts[2])+1);
+		parts 			= $('#'+wrapperID+' .metafield-body>table:last-child').attr("id").split("_");
+		newTableID 		= parts[0]+"_"+parts[1]+"_"+(parseFloat(parts[2])+1);
+		newInputID	 	= elementinfo.postmetaprefix+"_"+elementinfo.parent+"_"+elementinfo.instance+"_"+elementinfo.nonce;
 		
-		$('#'+wrapperID+' .metafield-body>table:last-child').attr("id",newID);
+		$('#'+wrapperID+' .metafield-body>table:last-child').attr("id",newTableID);
 		$('#'+wrapperID+' .metafield-body>table:last-child td:last-child').css({"display":"block"});
-		$('#'+wrapperID+' .metafield-body>table:last-child td:last-child a').attr("rel",newID);
+		$('#'+wrapperID+' .metafield-body>table:last-child input[type=hidden]').attr("id",newInputID);
+		$('#'+wrapperID+' .metafield-body>table:last-child .upload-image-button').attr("rel",newInputID);
 		
 		break;
-		
-	case "text":
 	
+	case "date":
+
+	//if (!false == $('#'+wrapperID+' .metafield-value:last .datepicker').hasClass('hasDatepicker')) {
+	$('#'+wrapperID+' .metafield-value:last .datepicker').removeClass('hasDatepicker').datepicker('destroy').attr("id","").val("");		
+	//$('#'+wrapperID+' .metafield-value:last .datepicker').attr('rel');
+	//}
+	break;	
+	
+	case "tsssext":
+	break;
 	}
 }
 
@@ -174,11 +195,11 @@ function add_value_instanceold(wrapperID, fieldtype){
 	
 }
 
-function remove_value_instance(event){
+function remove_value_instance(event, element){
 event.preventDefault();
-//console.log();
-$('#'+$(event.currentTarget).attr('rel')).remove();
-//jQuery(inputEL).parent().remove();inputEL
+//console.log(element)
+element.remove();
+
 
 }
 

@@ -28,6 +28,14 @@
  * All Genericons
  */
 
+.genericon_{
+	font-size: 18px;
+	font-family: 'Genericons';
+	text-decoration: inherit;
+	font-weight: normal;
+	font-style: normal;
+}
+
 .genericon {
 	display: inline-block;
 	width: 16px;

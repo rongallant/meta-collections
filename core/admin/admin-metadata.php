@@ -73,27 +73,29 @@ update_option( "userinterface_".$_POST[cpt], $userinterface, '', 'no');
     * @access public
     */
 public function save_metafield(){
-	$metadataset = get_option("metadata_".$_POST[cpt]); 
-	//print_r($_POST);
-	//die("no fanhieruit");	
+	$metadataset = get_option("metadata_".$_POST[cpt]); 	
 	$_POST['ID'] = ($_POST['ID']=="new")? $this->slugify($_POST[label]) : $_POST['ID'];
 	
 	foreach($_POST as $key=>$value){
+	if($_POST[$key]==""){
+	$_POST[$key] = 0;
+	}
+	
 	
 	if($key!="action" && $key!="cpt"){
 	
-	$value = (is_array($value)) ? $value : htmlentities($value);
-		$metadataset[$_POST['ID']][$key] = $value;
+	$value = (is_array($value)) ? $value : htmlentities($value);	
+	$metadataset[$_POST['ID']][$key] = $value;
 
 	}
 	
-	if(!isset($_POST['status'])){
-		$metadataset[$_POST['ID']]['status'] = 0;
-	}
+	//if($_POST[$key]==""){
+		//echo $key."<<";
+		//$metadataset[$_POST['ID']][$key] = 0;
+	//}
 	
 	}
 	
-		
 	
 	update_option( "metadata_".$_POST[cpt], $metadataset, '', 'no'); 
 }
@@ -125,7 +127,7 @@ echo"<div class=\"icon32\" id=\"icon-options-general\"><br></div><h2>
 {$buttons}<br/><br/>";
 
 	$metafield[cpt] = $_POST[cpt];
-	$metafield[type]= 'combination';
+	$metafield[type]= 'text';
 	$metafield[ID] 	= 'new';
 	
 	$this->getfieldform($metafield);

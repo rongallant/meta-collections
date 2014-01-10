@@ -19,9 +19,9 @@ class Combination extends Basics{
 	$this->Field 		= new Field();
 	$this->fieldname 	= __("Combination field", "_coll");
 	
-	if($meta!=null){
-		echo $this->$meta[action]($meta);
-	}
+	//if($meta!=null){
+		//echo $this->$meta[action]($meta);
+	//}
 }
 	
 	
@@ -87,14 +87,14 @@ public function showfield($post=null, $element=null){
 			$c 				= ucfirst($element[subfields][$nonce][type]);
 			$typeclass 		= new $c();	
 			
-			
+			//print_r($value);
 			$html.= $typeclass->showsubfield($post, $element[subfields][$nonce], $value);	
 			$html.="</td>";	
 			}			
 			}
 			$display ="block";
-			$html.="<td style=\"width:16px;display:$display\">
-			   <a class=\"delete_metavalue genericon genericon-trash\" rel=\"table_{$element[ID]}_$instance\" title=\"".__("delete this row", "_coll")."\" href=\"#\" onclick=\"remove_value_instance(event);return false;\">&nbsp;</a>
+			$html.="<td style=\"width:16px;display:$display\" onclick=\"remove_value_instance(event, $(this).parent());\">
+			   <a class=\"delete_metavalue genericon_ genericon-trash\" rel=\"table_{$element[ID]}_$instance\" title=\"".__("delete this row", "_coll")."\" href=\"#\">&nbsp;</a>
 			   </td></tr></table>";
 			   $instance++;//
 			}
@@ -139,7 +139,7 @@ public function add_subfield($element){
 	
 	<tr>
 	<td colspan=\"4\" id=\"td_{$element[nonce]}\">";
-	echo $typeclass->subfieldOptions($element);//extra variable new and than true false values
+	echo $typeclass->subfieldOptions($element, 1);//extra variable new and than true false values
 	echo"</td></tr></table>
 	<script>
 	$('.subfield_{$element[ID]}').sortable('refresh');
@@ -223,7 +223,8 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	$this->Field->getClassesWithSubfields();
     $row=1;
     foreach($element[subfields] as $nonce=>$elementinfo){
-    $cstatus =($elementinfo[status]==1) ? "enabled":"disabled";
+    $cstatus =($elementinfo[status]==1) ? "genericon-show":"genericon-hide";
+    
     //print_r($elementinfo[status]);
     echo"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" ><tr id=\"tr_{$nonce}\" class='on'>
 	<td class=\"row rownumber\" style=\"width:5%\"><span class=\"sorthandle\" title=\"Drag to sort\">".$row."</span></td>
@@ -231,12 +232,12 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	<td class=\"row rowlabel\" style=\"width:65%\"><span class=\"spanlabel spanlabel_{$nonce}\">{$elementinfo[label]}</span>
 	
 	<div class=\"srow-actions\">
-		<span class=\"edit\"><a href=\"#\" id=\"close_{$nonce}\" onclick=\"toggle_row(event, '{$nonce}');\">Close</a></span>&nbsp;
+		<span class=\"edit\"><a href=\"#\" id=\"close_{$nonce}\" onclick=\"toggle_row(event, '{$nonce}');\">".__("Edit")."</a></span>&nbsp;
 		<span class=\"delete\"><a href=\"#\" onclick=\"delete_row(event, this);\">Verwijderen</a></span>
 	</div>
 	</td>
 	
-	<td class=\"row rowstatus_{$nonce}\"  style=\"width:15%\">{$cstatus}</td>
+	<td class=\"row rowstatus_{$nonce} genericon_ {$cstatus} \"  style=\"width:15%\">&nbsp;</td>
 	<td class=\"row rowtype_{$nonce}\" style=\"width:15%\">{$elementinfo[type]}</td>
 	</tr>
 	

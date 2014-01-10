@@ -34,11 +34,13 @@ class Date_and_or_time extends Basics{
 function showfield($post=null, $element=null){
 					
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
-			wp_enqueue_script( 'jquery.mobiscroll-2.0.2.custom.min', plugins_url().'/meta-collections/js/date/mobiscroll-2.0.2.custom.min.js', '', '2.0.1');  	//user only for the date field
-			wp_enqueue_style( 'mobiscroll.core-2.0.2',   get_option('siteurl').'/wp-content/plugins/meta-collections//css/date/mobiscroll.core-2.0.2.css', '', '2.0.2');  				
-			}
-			//			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.js', '', '1.0'); 
+			wp_enqueue_script( 'datetimepicker.min', plugins_url().'/meta-collections/js/datetime/jquery.datetimepicker.min.js', '', '2.1.5');
+			wp_enqueue_script( 'datetimepicker', plugins_url().'/meta-collections/js/datetime/jquery.datetimepicker.js', '');
 		
+			wp_enqueue_style( 'datetimepicker',   get_option('siteurl').'/wp-content/plugins/meta-collections/css/datetime/jquery.datetimepicker.css', '');  				
+			}
+			
+			//MOBISCROLL WEGHALEN
 					
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
@@ -60,36 +62,22 @@ function showfield($post=null, $element=null){
 			$html.= "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
 			}
 
-			foreach ($values as $value){
-			$html.="<div class=\"metafield-value\">";
-			
 
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
+			$addonclass = ($element[preset]=="time")? "time" : "week";
+			$addonclass = ($element[preset]=="datetime")? "month" : $addonclass;
+
+			foreach ($values as $value){
+			$html.="<div class=\"metafield-value\">
+			<input type=\"text\" name=\"{$name}[]\" class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/><span class=\"add-on genericon_ genericon-{$addonclass} datetimebutton\"></span> 
 			
-			
-			
-			$html.="<input type=\"text\" {$required} name=\"{$name}[]\" value=\"{$value}\"/> 
-			<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>
 			</div>";
+			//<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
+			
 			}
 		
-			$this->Field->metafieldBox($html, $element);
-			//minDate: new Date(now.getFullYear(), now.getMonth(), now.getDate()),var now = new Date();
-			echo"<script>
+			echo $this->Field->metafieldBox($html, $element);
 			
-			date_time_preset = '{$element[preset]}';
-			jQuery(document).ready(function () {
-			
-			jQuery('.date_time').scroller({
-			preset: date_time_preset,
-			
-			display: 'modal',
-			mode: 'mixed'
-			
-			});
-
-			});
-			
-			</script>";
 			
 			}
 
@@ -99,8 +87,94 @@ function showfield($post=null, $element=null){
     * @access public
     */	
 function fieldOptions($element){
-//$element (){
+
 	
+	echo"<table class=\"widefat metadata\" cellpadding=\"10\">
+	
+	<tr>
+	<td>".__("Type").":</td>
+	<td>";
+	
+	 $this->Field->getfieldSelect($element);
+	
+	echo"</td>
+	</tr>";
+
+$this->Field->getBasics($element);
+	$this->Field->getValidationOptions($element);
+	
+	
+	$date_c		= ($element[preset]=="date")? "checked": "";
+	$date_c		= ($element[preset]=="")? "checked": "";
+	$time_c		= ($element[preset]=="time")? "checked": "";
+	$datetime_c	= ($element[preset]=="datetime")? "checked": "";	
+
+	echo"<tr>
+	<td>".__("Date type", "_coll").":</td>
+	<td>
+	<input type=\"radio\" name=\"preset\" value=\"date\" {$date_c}/> Date<br/>
+	<input type=\"radio\" name=\"preset\" value=\"time\" {$time_c}/> Time<br/>
+	<input type=\"radio\" name=\"preset\" value=\"datetime\" {$datetime_c}/> Datetime<br/>
+	
+	
+	</td>
+	</tr>
+
+
+
+	<tr>
+	<td>".__("Default Value", "_coll").":</td>
+	<td><input type=\"text\" name=\"default_value\" value=\"{$element[default_value]}\"/>
+	
+	</td>
+	</tr>
+	
+	<tr>
+	<td>".__("Placeholder value", "_coll").":<br/> 
+	<i style=\"color:#aaa\">".__("A greyed out value when the field is empty. Ideal to use for hints.","")."</i></td>
+	<td><input type=\"text\" name=\"placeholder\" value=\"{$element[placeholder]}\"/>
+	
+	</td>
+	</tr>
+	
+	
+	
+	<tr>
+	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
+	<td valign=\"top\">";
+	
+	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
+	$m_checked_no	= ($element[multiple]==0)? "checked": "";
+
+	
+	echo"<ul class=\"radio_list radio vertical\">
+                <li><label><input type=\"radio\" value=\"1\" name=\"multiple\" {$m_checked_yes}> ".__("Yes")."</label></li>
+                <li><label><input type=\"radio\" value=\"0\" name=\"multiple\" {$m_checked_no}> ".__("No")."</label></li>
+                </ul>
+	
+	</td>
+	</tr>	
+
+	
+	<tr>
+	<td colspan=\"2\" style=\"padding:10px\">
+	<a href=\"#\" onclick=\"save_metafield('{$element[ID]}', '{$element[cpt]}', '".__("Field Options Saved")."...');\" class=\"button-primary\" id=\"savemetafield\">".__("Save")."</a></td>
+	</tr>
+	
+	
+	</table>
+	
+	<script>
+	 jQuery(document).ready(function(){
+	jQuery('{$formID}').validate();
+   });
+   
+   </script>";
+	
+
+}
+
+function oldfieldOptions($element){	
 echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 $statusc = ($element[status]==1)? "checked":"";
 	
