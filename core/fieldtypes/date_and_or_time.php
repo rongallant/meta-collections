@@ -66,14 +66,19 @@ function showfield($post=null, $element=null){
 			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			$addonclass = ($element[preset]=="time")? "time" : "week";
 			$addonclass = ($element[preset]=="datetime")? "month" : $addonclass;
-
+			
+			$i=0;
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
-			<input type=\"text\" name=\"{$name}[]\" class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/><span class=\"add-on genericon_ genericon-{$addonclass} datetimebutton\"></span> 
+			<input type=\"text\" name=\"{$name}[]\" class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/><span class=\"add-on genericon_ genericon-{$addonclass} datetimebutton\"></span>";  
 			
-			</div>";
-			//<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
-			
+			if($element[multiple]==1){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}
+			$html.="</div>";
+
+			$i++;			
 			}
 		
 			echo $this->Field->metafieldBox($html, $element);
@@ -89,9 +94,12 @@ function showfield($post=null, $element=null){
 function fieldOptions($element){
 
 	
-	echo"<table class=\"widefat metadata\" cellpadding=\"10\">
+	echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	
-	<tr>
+	$this->Field->getID($element);
+
+
+	echo"<tr>
 	<td>".__("Type").":</td>
 	<td>";
 	

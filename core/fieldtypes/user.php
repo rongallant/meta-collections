@@ -28,25 +28,14 @@ class User extends Basics{
     * @param array $element info about the metadata field
     */	
 public function showfield($post=null, $element=null){
-				//$editable_roles = get_editable_roles();
-				//$label = translate_user_role( $editable_roles[ $role ]['name'] );
 			
-				// get users			
-			//	'role' => $role	
-			//));
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
-			$values	 	= (!is_array($values)) ? array($values) : $values;
-
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-
-	
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
+			$values	 	= (!is_array($values)) ? array($values) : $values;			
+			
 			
 			$html = "";			
 			if($element[description]!=""){
@@ -67,8 +56,9 @@ public function showfield($post=null, $element=null){
 
 			$return_value 			= $element[return_value];
 			$htmlelement 			= "";
-
-
+			$i=0;
+			foreach ($values as $value){
+			
 			switch ($element[field_type]) {
 			    case "radio":			    
 			    foreach($users as $user){
@@ -78,7 +68,7 @@ public function showfield($post=null, $element=null){
 			    break;
 
 				case "select":
-				$htmlelement.= "<select name=\"{$name}\">";			    
+				$htmlelement.= "<select name=\"{$name}[]\">";			    
 			    foreach($users as $user){
 			    	$htmlelement.= "<option value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})</option>";
 			    }
@@ -87,7 +77,7 @@ public function showfield($post=null, $element=null){
 
 				case "select_multiple":
 				
-				$htmlelement.= "<select name=\"{$name}\" multiple=\"true\">";			    
+				$htmlelement.= "<select name=\"{$name}[]\" multiple=\"true\">";			    
 			    foreach($users as $user){
 			    	$checked 		= (is_array($values) && in_array($user->$return_value, $values)) ? "selected" : "";
 			    	$htmlelement.= "<option {$checked} value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})</option>";
@@ -103,17 +93,23 @@ public function showfield($post=null, $element=null){
 			    break;
 
 			}	
-			    
+			   
 			    
 			    		
 			
 			$html.="<div class=\"metafield-value\">
-			{$htmlelement}
-			<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>
-			</div>";
+			{$htmlelement}";
 			
+			if($element[multiple]==1 && $element[field_type]!="radio"){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}
 			
-			$this->Field->metafieldBox($html, $element);
+			$html.="</div>";
+			$i++;
+			}
+			
+			echo $this->Field->metafieldBox($html, $element);
 			}
 
 /**

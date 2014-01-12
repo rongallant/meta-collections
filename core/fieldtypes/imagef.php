@@ -160,7 +160,7 @@ public function showfield($post=null, $element=null){
 </script>
 ";
 
-			return $this->Field->metafieldBox($html, $element);
+			echo $this->Field->metafieldBox($html, $element);
 			
 			}
 
@@ -184,56 +184,12 @@ $statusc = ($element[status]==1)? "checked":"";
 	 $this->Field->getfieldSelect($element);
 	
 	echo"</td>
-	</tr>
-
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Label").": *</td>
-	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
-
-	
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\"  disabled {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" checked disabled name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
+	</tr>";
 	
 		
-	<tr>
-	<td>".__("Max Length", "_coll").":<br/>".__("maximum character length of the field value", "_coll")."</td>
-	<td><select name=\"max_length\">";
-	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
-	$selector = ($element[max_length]=="")? 20 : $element[max_length];
-	for ($i=1; $i<100; $i++){
-	$selected = ($i==$selector)? "selected":"";	
-	echo"<option value=\"{$i}\" {$selected}>$i</option>";
-	}
-	echo"</select>
+	$this->Field->getBasics($element);
 	
-	
-	
-	</td>
-	</tr>	
-	
-	<tr>
+	echo"<tr>
 	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
 	<td valign=\"top\">";
 	

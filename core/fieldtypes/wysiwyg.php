@@ -29,76 +29,65 @@ class Wysiwyg extends Basics{
     * @param object $post the post info
     * @param array $element info about the metadata field
     */	
-	
 function showfield($post=null, $element=null){
 			
+			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
+			wp_enqueue_script( 'datetimepicker.min', plugins_url().'/meta-collections/js/wysiwyg/jquery.wysiwyg.js', '', '2.1.5');
+			}
+			
+			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;
 
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
+			
+			//$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
 			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
-		
-
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
-			
-		
-			
-			$html = "";
-			
-			
-			foreach ($values as $value){
-			$html="<div class=\"metafield-value\">
-			
-			<div class=\"reciever\"></div>
-			
-			
-			</div>";
-			}
-			
-			
-			
-			
-			echo"<div id=\"{$element[ID]}_wysiwyg\">";
-			$s=0;
-			foreach ($values as $value){
-			echo "<div id=\"wysiwyg_{$element[ID]}_{$s}\">";
+			$html 		= "";
+	
 			
 			if($element[description]!=""){
-			echo "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			$html.="<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
 			}
 
+						
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			
-			echo"<a class=\"delete_metavalue\" style=\"float:right\"  title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"jQuery('#wysiwyg_{$element[ID]}_{$s}').remove();return false;\">&nbsp;</a>
-";
-			wp_editor($value, $name.$this->wysiwygs_string.$s, array('dfw' => false, 'tabindex' => $s) );
+			$num=0;			
+			echo"<div id=\"wysiwygs\" rel=\"$name\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1]).">";
 			
-			if(($s+1)<count($values)){
-			echo"<div style=\"border-bottom: 1px solid #DFDFDF;margin:5px 0px 15px 0px;\">&nbsp;</div>";
+			
+			$html.="<div class=\"metafield-value\">
+			<div id=\"wysiwygcontainer\"></div>
+			</div>";
+			
+			$w_opts 	= array("textarea_name" 	=> $name."[]");
+			$config_opts= array("teeny", "wpautop", "media_buttons");
+			
+			foreach($config_opts as $o){
+				$w_opts[$o] = $element[$o]; 	
+			}
+			
+			//print_r($w_opts);
+			foreach ($values as $value){
+			echo"<div>";//<label for=\"{$element[ID]}\">{$element[label]}:</label>
+			
+			wp_editor($value, $name, $w_opts);
+			echo"
+			<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent())\">&nbsp;</a>
+			</div>";
+			$num++;
 			}
 			echo"</div>";
-			$s++;
-			}
-			echo "</div>";
+			echo $this->Field->metafieldBox($html, $element);
 			
-		
-		
-		
-		
-		echo"<script>
-		jQuery(document).ready(function () {
-		wysiwyg_num['{$element[ID]}'] = {$s};
-		jQuery('#{$element[ID]}_wysiwyg').appendTo('.reciever');
-		});
-			</script>";
-			$this->Field->metafieldBox($html, $element);
+			
 
 }
+
+	
 
 /**
     * Shows the specific form for the fieldtype iwith all the options related to that field. 
@@ -114,60 +103,56 @@ $statusc = ($element[status]==1)? "checked":"";
 	echo"
 	
 	<tr>
-	<td>".__("Type").":</td>
+	<td>".__("Type").":<br/>
+	<i class=\"hint\">".__("Technical reference","_coll").":<br/><a href=\"http://codex.wordpress.org/Function_Reference/wp_editor\" target=\"_blank\">http://codex.wordpress.org/Function_Reference/wp_editor</a></i>
+	</td>
 	<td>";
 	
 	 $this->Field->getfieldSelect($element);
 	
 	echo"</td>
-	</tr>
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
+	</tr>";
 	
-	<tr>
-	<td style=\"width:25%\">".__("Label").":</td>
-	<td><input type=\"text\" name=\"label\" value=\"{$element[label]}\"/></td>
-	</tr>
+	$this->Field->getBasics($element);
+	//$this->Field->getValidationOptions($element);
+	$a_checked	= ($element[wpautop]==1)? "checked": "";
+	//$t_checked	= ($element[toolbar]==1)? "checked": "";
+	$m_checked	= ($element[media_buttons]==1)? "checked": "";
 	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
-
+	echo"
 	
 
 	<tr>
-	<td>".__("Required", "_coll").":</td>
+	<td>".__("Automatic Paragraph Tags (wpautop)", "_coll").":</td>
+	<td>
+	<input type=\"checkbox\" name=\"wpautop\" {$a_checked} value=\"1\"/>
+	</td>
+	</tr>
+
+	<tr>
+	<td>".__("Media buttons", "_coll").":</td>
+	<td>
+	<input type=\"checkbox\" name=\"media_buttons\" {$m_checked} value=\"1\"/>
+	</td>
+	</tr>
+
+
+	<tr>
+	<td>".__("Toolbar", "_coll").":</td>
 	<td>";
 	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
+	$t_checked_yes	= ($element[teeny]==0)? "checked": "";
+	$t_checked_no	= ($element[teeny]==1)? "checked": "";
+
+	
+	echo"<input type=\"radio\" name=\"teeny\" value=\"0\" {$t_checked_yes}/> ".__("Full", "_coll")."<br/>
+	<input type=\"radio\" name=\"teeny\" value=\"1\" {$t_checked_no}/> ".__("Simple", "_coll")." 
 	
 	</td>
 	</tr>
+	
 	
 	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Default Value", "_coll").":</td>
-	<td><input type=\"text\" name=\"default_value\" value=\"{$element[default_value]}\"/>
-	
-	</td>
-	</tr>
-	
-	
-<tr>
 	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
 	<td valign=\"top\">";
 	

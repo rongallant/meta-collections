@@ -35,24 +35,19 @@ public function showfield($post=null, $element=null){
 			$name	 	= $this->postmetaprefix.$element[ID];
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
-			
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;
-			//print_r($values	);	
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
-		
-
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
 			
-		//get_yt_metadata
+			
+			
+			
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
+		
+			
 			$html="
 			<div style=\"position:relative;float:left;width:100%;margin:10px 0px 25px 4px;\">
 			<label for=\"{$element[ID]}\">Url:</label> 
-			<input type=\"text\" name=\"{$name}[url]\" id=\"url_{$element[ID]}\" onblur=\"(jQuery(this).val().length<1) ? jQuery('#get_yt_data').addClass('button-disabled') : jQuery('#get_yt_data').removeClass('button-disabled')\" size=\"30\" value=\"{$values[url]}\"/>";
+			<input type=\"text\" name=\"{$name}[url]\" id=\"url_{$element[ID]}\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." onblur=\"(jQuery(this).val().length<1) ? jQuery('#get_yt_data').addClass('button-disabled') : jQuery('#get_yt_data').removeClass('button-disabled')\" size=\"30\" value=\"{$values[url]}\"/>";
 			
 			
 			
@@ -219,7 +214,7 @@ public function showfield($post=null, $element=null){
 			";
 			
 					
-			$this->Field->metafieldBox($html, $element);
+			echo $this->Field->metafieldBox($html, $element);
 			}
 
 
@@ -245,57 +240,37 @@ $this->Field->getID($element);
 	 $this->Field->getfieldSelect($element);
 	
 	echo"</td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
-		
-	<tr>
-	<td style=\"width:25%\">".__("Label").":</td>
-	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
-
-	
-
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
 	</tr>";
 	
-	//$apicheckedy =($element[api]==1)? "checked": "";
-	//$apicheckedn =($element[api]!=1)? "" : "checked";
-	//$apicheckedy =($element[api]=="") ?  "checked": $apicheckedy ;
+	$this->Field->getBasics($element);
+	$this->Field->getValidationOptions($element);
+	
+	
 
-
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
+	$formID 	= "#edit_options_{$element[ID]}_{$element[cpt]}";
 	
 	$apicheckedy = ($element[api]==1 || $element[api]=="")? "checked":"";
 	$apicheckedn = ($element[api]==0)? "checked" : "";
 	
 	echo"
+	<tr>
+	<td>".__("Default Value", "_coll").":<br/>
+	<i class=\"hint\">".__("use al valid Youtube url here if you want to use a default value", "_coll")."</i>
+	</td>
+	<td><input type=\"text\" name=\"default_value\" value=\"{$element[default_value]}\"/>
+	
+	</td>
+	</tr>
+	
+	<tr>
+	<td>".__("Placeholder value", "_coll").":<br/> 
+	<i class=\"hint\">".__("A greyed out value when the field is empty. Ideal to use for hints.","_coll")."</i></td>
+	<td><input type=\"text\" name=\"placeholder\" value=\"{$element[placeholder]}\"/>
+	
+	</td>
+	</tr>
+	
+	
 	<tr>
 	<td colspan=\"2\" style=\"padding:10px\">
 	<a href=\"#\" onclick=\"

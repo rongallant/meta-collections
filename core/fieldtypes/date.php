@@ -43,11 +43,11 @@ public function showsubfield($post=null, $element=null, $value){
 			if($element[required]==1){
 			$_SESSION[required][$element[ID]] = $element[required_err]	;
 			}
-	die("aap");
+	
 	
 			$html="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\"/> 
+			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\"/>
 			<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>
 			</div>";
 			
@@ -93,8 +93,7 @@ function showfield($post=null, $element=null){
 			$values	 	= (!is_array($values)) ? array($values) : $values;
 
 			
-			//$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			//$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
+			
 			$html 		= "";
 	
 			
@@ -104,13 +103,19 @@ function showfield($post=null, $element=null){
 
 			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			
+			$i=0;
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$name}[]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." data=\"toch nog even hoor\"/> 
-			<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" 
-			onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
-			</div>";			
+			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\" class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-week\"></span>";  
+			
+			if($element[multiple]==1){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}
+			
+			$html.="</div>";			
+			$i++;
 			}
 			
 			echo $this->Field->metafieldBox($html, $element);
@@ -150,7 +155,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	
 	<tr>
 	<td>".__("Placeholder value", "_coll").":<br/> 
-	<i style=\"color:#aaa\">".__("A greyed out value when the field is empty. Ideal to use for hints.","")."</i></td>
+	<i class=\"hint\">".__("A greyed out value when the field is empty. Ideal to use for hints.","")."</i></td>
 	<td><input type=\"text\" name=\"placeholder\" value=\"{$element[placeholder]}\"/>
 	
 	</td>
@@ -174,7 +179,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 
 	echo"<tr>
 	<td>".__("Format", "_coll").":<br/>
-	<i style=\"color:#aaa\">for more info on formats see:<br/> <a href=\"http://docs.jquery.com/UI/Datepicker/formatDate\" target=\"_blank\">http://docs.jquery.com/UI/Datepicker/formatDate</a></i>
+	<i class=\"hint\">for more info on formats see:<br/> <a href=\"http://docs.jquery.com/UI/Datepicker/formatDate\" target=\"_blank\">http://docs.jquery.com/UI/Datepicker/formatDate</a></i>
 	</td>
 	<td><select name=\"format\">";
 	

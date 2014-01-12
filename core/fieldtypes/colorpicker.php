@@ -64,14 +64,21 @@ function showfield($post=null, $element=null){
 						
 			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			
-			
+			$i=0;
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
 			
-			 <div class=\"colordiv\" style=\"background:#{$value}\">&nbsp;</div><input type=\"text\" name=\"{$name}[]\" id=\"{$name}\" value=\"{$value}\" class=\"sspecial ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-pinned colorpickerbutton\"></span> 
+			 <div class=\"colordiv\" style=\"background:#{$value}\">&nbsp;</div><input type=\"text\" name=\"{$name}[]\" id=\"{$name}\" value=\"{$value}\" class=\"sspecial ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-pinned colorpickerbutton\"></span>";
 			 
-			</div>";
+			if($element[multiple]==1){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" style=\"opacity:{$visibility}\"
+			onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}
+
+			$html.="</div>";
+			$i++;			
 			}
 			//			 
 
@@ -98,6 +105,9 @@ function fieldOptions($element){
 	echo"<tr>
 	<td>".__("Type").":</td>
 	<td>";
+	$this->Field->getfieldSelect($element);
+	echo"</td>
+	</tr>";
 	
 	$this->Field->getBasics($element);
 	$this->Field->getValidationOptions($element);

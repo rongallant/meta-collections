@@ -73,8 +73,8 @@ function showfield($post=null, $element=null, $c=null){
 			$mapheight	= ($element[height]!="")?  $element[height] : 250;
 			//$ivalues = http_build_query($values);
 			
-			$patterns = '/%5B/';
-			$replacements = '=';
+			//$patterns = '/%5B/';
+			//$replacements = '=';
 			
 			
 			$values = json_encode($values);
@@ -109,14 +109,16 @@ function showfield($post=null, $element=null, $c=null){
 			
 			$options = json_encode($element);
 			
-			echo"<script>
+			$html.="<script>
 			
 			 jQuery(document).ready(function () {
 			 	$('#{$map}').OpenLayer({$options}); 	
 			        
 		           });
 		</script>";
-
+		
+		echo $this->Field->metafieldBox($html, $element);
+			
 }
 
 /**
@@ -143,44 +145,12 @@ function fieldOptions($element){
 
 	
 	echo"</td>
-	</tr>
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Label").":</td>
-	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
+	</tr>";
+	$this->Field->getBasics($element);
 
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
 	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" disabled {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" disabled {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
 	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Error Message", "_coll").":</td>
-	<td><input type=\"text\" disabled name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-	
-	<tr>
+	echo"<tr>
 	<td>".__("Field height", "_coll").":</td>
 	<td><input type=\"text\" name=\"height\" value=\"{$element[height]}\"/> px
 	
@@ -190,7 +160,10 @@ function fieldOptions($element){
 	
 	
 	<tr>
-	<td valign=\"top\"><br/>".__("Default Location", "_coll").":</td>
+	<td valign=\"top\"><br/>".__("Default Location", "_coll").":<br/>
+	<i class=\"hint\">".__("Sometimes the map doesn't show at startup, click the + control to fix the problem.", "_coll")."</i>
+	
+	</td>
 	<td valign=\"top\"><br/>
 	<div id=\"fieldmap\" style=\"width:100%;height:300px;\"></div>	<br/>
 Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"latitude\">° Longitude: <input id=\"longitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"longitude\"> °
@@ -232,11 +205,9 @@ Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly n
 	);
 	
 	echo"<tr>
-	<td>".__("Choose layers", "_coll")." :<br/>";
-	
-	echo $this->helpicon(__("Choose layers", "_coll"), __("Choose the layers with tile distributors.", "_coll"));
-
-	echo"</td>
+	<td>".__("Choose layers", "_coll")." :<br/>
+	<i class=\"hint\">".__("Choose the layers with tile distributors.", "_coll")."</i>
+	</td>
 	<td>";
 	//print_r($element);
 	// [layers] => Array ( [google_hybrid] => 1 [google_satellite] => 1 

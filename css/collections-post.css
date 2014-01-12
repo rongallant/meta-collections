@@ -1,6 +1,8 @@
-input[type=text], textarea{
+input[type=text], textarea, select{
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     border-radius: 4px;
+  	border:1px solid #dddddd;
+
 }
 
 input.sspecial[type=text]{
@@ -10,6 +12,62 @@ input.sspecial[type=text]{
 input.special[type=text]{
     border-radius: 4px 0px 0px 4px!important;
 }
+
+.collection_button{
+	border-radius: 4px 0px 0px 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	min-width: 16px;
+	padding: 4px 5px 3px 5px;
+    position:relative;
+   	displays: inline-block;
+    margin: 0px 0px 0px -2px;
+    top:4px;
+    color: #fff;
+    cursor:pointer;
+	
+}
+
+.metafield-value a.uncheck{
+	display:none;
+}
+
+.metafield-value:hover a.uncheck{
+	background: #fe4f10;
+	color: #fff;
+	border-radius: 4px;
+	
+	border: 1px solid #d26037;
+	display:inline;
+}
+
+.metafield-value a.delete_metavalue:link,
+.metafield-value a.delete_metavalue:visited{
+	border-radius: 0 4px 4px 0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	background-color:  #d15d33;
+	border: 1px solid #a94b28;
+	width: 16px;
+	padding: 4px 1px 3px 4px;
+    position:relative;
+   	displays: inline-block;
+    margin: 0px 0px 0px -2px;
+    top:4px;
+    cursor:pointer;
+	display:none;
+}
+
+.metafield-value:hover a.delete_metavalue{
+	background: #fe4f10;
+	color:white;
+	display:inline;
+	border: 1px solid #d26037;
+	}
+
+.metafield-value:hover a.delete_metavalue:hover{
+	background: #d6440f;
+	
+	}
+
 
 .colordiv{
 	position:relative;
@@ -24,8 +82,7 @@ input.special[type=text]{
 
 span.add-on{
 	border-radius: 0 4px 4px 0;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-	
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;	
 	background-color:  #2EA2CC;
 	border: 1px solid #0074A2;
 	min-width: 16px;
@@ -42,26 +99,10 @@ span.add-on:hover{
 	background:#1e8cbe;
 	
 }
-/*
-span.add-on{
-	 border-radius: 0 4px 4px 0;
-	   background-color: #EEEEEE;
-    border: 1px solid #CCCCCC;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: normal;
-    height: 20px;
-    line-height: 20px;
-    min-width: 16px;
-    padding: 4px 5px;
-    text-align: center;
-    text-shadow: 0 1px 0 #FFFFFF;
-    width: auto;
-    position:relative;
-}
-*/
+
+
 /* imagef */
-/*
+
 .image_container{
 	width:150px;
 	height:150px;
@@ -99,7 +140,11 @@ span.add-on{
 	border:1px solid #E17341;
 }
 
-
+option[selected]{
+	background:#1e8cbe;
+	color:white;
+}
+/*
 .metafield-value a.delete_metavalue{
 	display:none;
 	text-decoration:none;

@@ -111,6 +111,19 @@ public function getAttributesAndClasses($element){
 				$classnames[] = "colorpickers"; 
 			}
 			
+			if($element[type]=="select"){
+				if($element[multiple]==1){
+				$attributes [] = "multiple=\"true\"";
+				}
+							
+			}
+
+			if($element[type]=="textarea"){
+				$attributes [] = "cols=\"{$element[columns]}\"";
+				$attributes [] = "rows=\"{$element[rows]}\"";
+			}
+
+			
 			
 			foreach($this->validation_options as $vname=>$options){
 				
@@ -142,15 +155,16 @@ public function getAttributesAndClasses($element){
     * @param array $element
     */	
     
-public function getValidationOptions($element){
+public function getValidationOptions($element, $onlyrequired=mull){
 	
 	echo"<tr>
 	<td>".__("Validation", "_coll").":<br/>
-	<i style=\"color:#aaa\">For more information about validation check: <a href=\"http://jqueryvalidation.org/documentation/\" target=\"_blank\">http://jqueryvalidation.org/documentation/</a></i>
+	<i class=\"hint\">For more information about validation check: <a href=\"http://jqueryvalidation.org/documentation/\" target=\"_blank\">http://jqueryvalidation.org/documentation/</a></i>
 	</td>
 	<td>";
 	//print_r($element);
-	foreach($this->validation_options as $name=>$options){
+	$options = ($onlyrequired==1) ? $this->svalidation_options : $this->validation_options;
+	foreach($options as $name=>$options){
 	
 	
 	switch($options[1]){
@@ -176,6 +190,51 @@ public function getValidationOptions($element){
 
 }
 
+/**
+    * Loads basic form values for subfieldoptions
+    * status, label and description are always the same
+    * @access public
+    * @param array $element
+    */	
+ 
+
+public function getSubBasics($element){
+	$autoselected 	= ($element[width]=="") ? "selected" : "";
+	$statusc 		= ($element[status]==1)? "checked":"";
+	
+	echo"<tr>
+	<td style=\"width:25%\">".__("Status").":</td>
+	<td><input type=\"checkbox\" {$statusc} name=\"subfields[{$element[nonce]}][status]\" value=\"1\" onclick=\"$('.rowstatus_{$element[nonce]}').addClass((this.checked)? 'genericon-show' : 'genericon-hide').removeClass((this.checked)? 'genericon-hide' : 'genericon-show')\" /></td>
+	</tr>
+	
+	<tr>
+	<td style=\"width:25%\">".__("Label").": *</td>
+	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][label]\" id=\"label_{$element[nonce]}\" class=\"required label\" rel=\"{$element[nonce]}\" value=\"{$element[label]}\"/></td>
+	</tr>
+	
+	<tr>
+	<td>".__("Description").":</td>
+	<td><textarea name=\"subfields[{$element[nonce]}][description]\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
+	</tr>
+	
+	<tr>
+	<td>".__("Width").":</td>
+	<td>
+	<select name=\"subfields[{$element[nonce]}][width]\">
+	<option value=\"\" $autoselected>auto</option>
+	";
+	
+	for($i=1;$i<101;$i++){
+	$selected = ($i==$element[width])? "selected": "";
+	echo"<option value=\"{$i}\" {$selected}>{$i}</option>";
+	}
+	
+	
+	echo"</select> %
+	</td>
+	</tr>";
+
+}
 
 /**
     * Loads basic form values for fieldoptions
@@ -183,6 +242,10 @@ public function getValidationOptions($element){
     * @access public
     * @param array $element
     */	
+ 
+
+
+    
 public function getBasics($element){
 	$statusc = ($element[status]==1)? "checked":"";
 	echo"<tr>
@@ -285,7 +348,7 @@ public function metafieldBox($html, $element){
 			
 			
 			
-			if($element[multiple]==1){
+			if($element[multiple]==1 && $element[type]!="select" && $element[field_type]!="radio"){
 			$buttontitle = ($element[addtitle]!="") ? "+ ".$element[addtitle] : __("+ add %s", "_coll");
 			$metafieldBox .= "<div class=\"metafield-add\"><a href=\"#\" onclick=\"add_value_instance('{$element[ID]}_wrapper', '{$element[type]}');return false\" class=\"button-primary\">{$buttontitle}</a></div>";
 			

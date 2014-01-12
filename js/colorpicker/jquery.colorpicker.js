@@ -1,22 +1,28 @@
 var colortitle ;
 
-$(document).on("click","span.colorpickerbutton",function(event){
+$(document).on("focusin",".colorpickers",function(event){//span.colorpickerbutton,
 
-		if($(this).prev().data("colorpicker")!=1){	
-		$(this).prev().colorpicker({
+		//element = ($(this).hasClass('colorpickers')) ? $(this) : $(this).prev();
+
+		//if(element.data("colorpicker")!=1){	
+		$(this).colorpicker({
                 	parts: 'full',
 					alpha: true,
-					color: '#c0c0c0',
+					color: $(this).val(),
 					title: colortitle,
+
 					select: function(data, color){
 					$(this).prev().css({background: '#'+color.formatted});
 					}
 					});
 		
-		$(this).prev().data("colorpicker", 1);
-		}		
+		//element.data("colorpicker", 1);
+		//}		
 		
-		$(this).prev().trigger("focus");
+		//if($(this).hasClass('colorpickers')==false){
+		//$(this).prev().trigger("focusin");
+		//$(this).prev().colorpicker("show");
+		//}
 		  
 		  
 			

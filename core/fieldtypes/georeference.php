@@ -104,14 +104,13 @@ function showfield($post=null, $element=null, $c=null){
 			$html.="</div>";
 	//			}
 		//echo $html;
-			$this->Field->metafieldBox($html, $element);
 
-			echo"<script>";
+			$html.="<script>";
 	
 			$map 		= "map_{$element[ID]}";
 			$zoom 		= ($element[zoom]=="")? 10 : $element[zoom];
 	
-			 echo"
+			 $html.="
 			 var {$map};
 			
 			 jQuery(document).ready(function () {
@@ -124,6 +123,8 @@ function showfield($post=null, $element=null, $c=null){
 			        
 		           });
 		</script>";
+	
+		echo $this->Field->metafieldBox($html, $element);
 
 }
 
@@ -134,9 +135,10 @@ function showfield($post=null, $element=null, $c=null){
 function fieldOptions($element){
 
 
-			
+	//wp_enqueue_script( 'jquery.googlemaps', plugins_url().'/meta-collections/js/georeference/jquery.googlemaps.min.js', '', '1.0'); //user only for the georeference field
+					
 	echo"
-	<script type='text/javascript' src='http://localhost/collections/wp-content/plugins/meta-collections/js/georeference/jquery.googlemaps.js'></script>
+	<script type='text/javascript' src='http://localhost/collections/wp-content/plugins/meta-collections/js/georeference/jquery.googlemaps.min.js'></script>
 	<table class=\"widefat metadata\" id=\"another\" cellspacing=\"0\" cellpadding=\"10\">";
 	
 	$statusc = ($element[status]==1)? "checked":"";
@@ -151,44 +153,11 @@ function fieldOptions($element){
 
 	
 	echo"</td>
-	</tr>
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
+	</tr>";
 	
-	<tr>
-	<td style=\"width:25%\">".__("Label").":</td>
-	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
+	$this->Field->getBasics($element);
 
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Error Message", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-
-	<tr>
+	echo"<tr>
 	<td>".__("Field height", "_coll").":</td>
 	<td><input type=\"text\" name=\"height\" value=\"{$element[height]}\"/> px
 	
@@ -199,7 +168,7 @@ function fieldOptions($element){
 	<tr>
 	<td valign=\"top\"><br/>".__("Default Location", "_coll").":</td>
 	<td valign=\"top\"><br/>
-	<table cellspacing=\"0\" cellpadding=\"5\" border=\"0\">
+	<table cellspacing=\"0\" cellpadding=\"5\" border=\"0\" class=\"widefat metadata\">
 	<tr>
 	<td width=\"130\">".__("Address").":</td>
 	<td><input type=\"text\" onblur=\"
@@ -207,7 +176,6 @@ function fieldOptions($element){
 	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #default_value'),
 	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #latitude'),
 	jQuery('#edit_options_{$element[ID]}_{$element[cpt]} #longitude')
-	
 	)\" size=\"80\" name=\"default_value\" id=\"default_value\" value=\"{$element[default_value]}\"/></td>
 	</tr>
 		
@@ -251,12 +219,11 @@ function fieldOptions($element){
 	<tr>
 	<td>".__("Default Zoom level", "_coll").":</td>
 	<td><select name=\"zoom\">";
-	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
+	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
+
 	for ($i=0; $i<19; $i++){
 	$selected = ($i==$element[zoom])? "selected":"";	
-	
 	$selected = ($element[zoom]=="" && $i==7)? "selected" : $selected ;	
-	
 	echo"<option value=\"{$i}\" {$selected}>$i</option>";
 	}
 	echo"</select>
@@ -264,37 +231,6 @@ function fieldOptions($element){
 	</td>
 	</tr>
 	
-	<tr>
-	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
-	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-
-	
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"multiple\" disabled> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"multiple\" disabled checked> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>	
-
-<tr>
-	<td valign=\"top\">".__("Show this field in Collection overview<br/>(this field has to be dragged in user interface before showing up)", "_coll").":</td>
-	<td valign=\"top\">";
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	$s_checked_yes	= ($element[overview]==1)? "checked": "";
-	$s_checked_no	= ($element[overview]==0)? "checked": "";
-
-	
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"overview\" {$s_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"overview\" {$s_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
 	
 	<tr>
 	<td colspan=\"2\">
@@ -312,6 +248,8 @@ function fieldOptions($element){
 echo"<script>
 jQuery(document).ready(function(){
 	jQuery('{$formID}').validate();
+	
+	
 	//gewoon script tags!
 	/*
 	if(gmscript===undefined){

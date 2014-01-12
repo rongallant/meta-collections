@@ -207,18 +207,22 @@ public function init(){
 	$this->searchfor= "/{$this->systemprefix}/";
 	
 	$this->validation_options = array(
-	"required"		=> array(__("Makes the element required.", "_coll"), "c"), 
-	"email"			=> array(__("Makes the element require a valid email.", "_coll"), "c"),  
-	"url"			=> array(__("Makes the element require a valid url.", "_coll"), "c"),  
-	"date"			=> array(__("Makes the element require a date.", "_coll"), "c"),  
-	"dateISO"		=> array(__("Makes the element require an ISO date.", "_coll"), "c"), 
-	"number"		=> array(__("Makes the element require a decimal number.", "_coll"), "c"),  
-	"digits"		=> array(__("Makes the element require digits only.", "_coll"), "c"), 
-	"creditcard"	=> array(__("Makes the element require a credit card number.", "_coll"), "c"),
-	"minlength"		=> array(__("Makes the element require a given minimum length.", "_coll"), "i"),  
-	"maxlength"		=> array(__("Makes the element require a given maxmimum length.", "_coll"), "i"),  
-	"min"			=> array(__("Makes the element require a given minimum.", "_coll"), "i"),  
-	"max"			=> array(__("Makes the element require a given maximum.", "_coll"), "i")
+	"required"		=> array(__("Make the element required.", "_coll"), "c"), 
+	"email"			=> array(__("Make the element require a valid email.", "_coll"), "c"),  
+	"url"			=> array(__("Make the element require a valid url.", "_coll"), "c"),  
+	"date"			=> array(__("Make the element require a date.", "_coll"), "c"),  
+	"dateISO"		=> array(__("Make the element require an ISO date.", "_coll"), "c"), 
+	"number"		=> array(__("Make the element require a decimal number.", "_coll"), "c"),  
+	"digits"		=> array(__("Make the element require digits only.", "_coll"), "c"), 
+	"creditcard"	=> array(__("Make the element require a credit card number.", "_coll"), "c"),
+	"minlength"		=> array(__("Make the element require a given minimum length.", "_coll"), "i"),  
+	"maxlength"		=> array(__("Make the element require a given maxmimum length.", "_coll"), "i"),  
+	"min"			=> array(__("Make the element require a given minimum.", "_coll"), "i"),  
+	"max"			=> array(__("Make the element require a given maximum.", "_coll"), "i")
+	); 
+	
+	$this->svalidation_options = array(
+		"required"		=> array(__("Make the element required.", "_coll"), "c")
 	);
 }
      

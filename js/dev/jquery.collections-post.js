@@ -3,19 +3,23 @@ var wysiwyg_num = new Array();
 var $ = jQuery.noConflict();
 $(document).ready(function() {
 
+
+//DATE FIELD CHECK!
+
 $('#post').validate({
-//	errorPlacement: function(error, element) {
-//	error.html($(element).attr('data'));
-//	error.insertAfter(element);
-//	}
+	errorPlacement: function(error, element) {
+	//error.html($(element).attr('data'));
+	error.insertBefore(element);
+	error
+	}
 	
 });
 
 });
 
+
 $(document).on("submit","#post",function(event){
 errors = true;
-
 $('#post .required, #post .date, #post .creditcard').each(function (index, element) {
 if(false===$('#post').validate().element($(element))){
 errors = false;
@@ -24,38 +28,10 @@ $('#publish').removeClass("button-primary-disabled");//
 
 
 });
-//console.log(errors);
+
 return errors;	
 });
 
-/*
-$(document).on("submit","#post",function(event){
-
-//$('#post').validate();
-
-$('#post .required').each(function (index, element) {
-
-$(element).rules('add', {
-            messages: {
-                required: $(this).attr('data')
-            }
-        });
-console.log($(element));
-
-});
-
-$('#post').validate().form();
-	
-
-return false;
-});
-
-
-$(document).on("blur",".required",function(event){
-//console.log($(this));
-$('#post').validate().element($(this));
-});
-*/
 
 function add_value_instance(wrapperID, fieldtype){
 
@@ -65,10 +41,10 @@ function add_value_instance(wrapperID, fieldtype){
 	
 	switch(fieldtype){
 		default:
-
+		
 		$('#'+wrapperID+' .metafield-value:last input').val('');
-				//jQuery('#'+wrapperID+' .metafield-value:last textarea').val('');
-
+		$('#'+wrapperID+' .metafield-value:last .delete_metavalue').css({opacity:'1'});
+		
 		break;
 	
 	case "combination":
@@ -108,8 +84,7 @@ function add_value_instance(wrapperID, fieldtype){
 
 	//if (!false == $('#'+wrapperID+' .metafield-value:last .datepicker').hasClass('hasDatepicker')) {
 	$('#'+wrapperID+' .metafield-value:last .datepicker').removeClass('hasDatepicker').datepicker('destroy').attr("id","").val("");		
-	//$('#'+wrapperID+' .metafield-value:last .datepicker').attr('rel');
-	//}
+	$('#'+wrapperID+' .metafield-value:last .delete_metavalue').css({opacity:'1'});
 	break;	
 	
 	case "tsssext":

@@ -89,8 +89,8 @@ public function showfield($post=null, $element=null, $value=null){
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." {$length} name=\"{$name}[]\" value=\"{$value}\"/> 
-			<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
+			<input type=\"text\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." name=\"{$name}[]\" value=\"{$value}\"/> 
+			<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
 			</div>";
 			}
 			
@@ -133,7 +133,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	
 	<tr>
 	<td>".__("Placeholder value", "_coll").":<br/> 
-	<i style=\"color:#aaa\">".__("A greyed out value when the field is empty. Ideal to use for hints.","")."</i></td>
+	<i class=\"hint\">".__("A greyed out value when the field is empty. Ideal to use for hints.","_coll")."</i></td>
 	<td><input type=\"text\" name=\"placeholder\" value=\"{$element[placeholder]}\"/>
 	
 	</td>
@@ -159,7 +159,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
+	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
 	
 	
 	echo"<ul class=\"radio_list radio vertical\">
@@ -217,65 +217,12 @@ echo"
 	$this->Field->getfieldSelect($element, 1);
 	
 	echo"</td>
-	</tr>
-	
-	
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"subfields[{$element[nonce]}][status]\" value=\"1\" onclick=\"$('.rowstatus_{$element[nonce]}').addClass((this.checked)? 'genericon-show' : 'genericon-hide').removeClass((this.checked)? 'genericon-hide' : 'genericon-show')\" /></td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Label").": *</td>
-	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][label]\" id=\"label_{$element[nonce]}\" class=\"required label\" rel=\"{$element[nonce]}\" value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"subfields[{$element[nonce]}][description]\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
 	</tr>";
 	
-	$autoselected = ($element[width]=="") ? "selected" : "";
+	$this->Field->getSubBasics($element);
+	$this->Field->getValidationOptions($element);
+			
 	echo"<tr>
-	<td>".__("Width").":</td>
-	<td>
-	<select name=\"subfields[{$element[nonce]}][width]\">
-	<option value=\"\" $autoselected>auto</option>
-	";
-	
-	for($i=1;$i<101;$i++){
-	$selected = ($i==$element[width])? "selected": "";
-	echo"<option value=\"{$i}\" {$selected}>{$i}</option>";
-	}
-	
-	
-	echo"</select> %
-	</td>
-	</tr>
-
-	
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"subfields[{$element[nonce]}][required]\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"subfields[{$element[nonce]}][required]\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][required_err]\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-	
-	<tr>
 	<td>".__("Default Value", "_coll").":</td>
 	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][default_value]\" value=\"{$element[default_value]}\"/>
 	
@@ -283,7 +230,7 @@ echo"
 	</tr>
 	
 	<tr>
-	<td>".__("Max Length", "_coll").":<br/>".__("maximum character length of the field value", "_coll")."</td>
+	<td>".__("Length", "_coll").":</td>
 	<td><select name=\"subfields[{$element[nonce]}][max_length]\">";
 	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
 	$selector = ($element[max_length]=="")? 20 : $element[max_length];
