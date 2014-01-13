@@ -21,6 +21,44 @@ class Colorpicker extends Basics{
 	$this->fieldname 	= __("Colorpicker", "_coll");
 		}
 	
+
+
+/**
+    * Shows the specific subfieldtype in UI::edituserinterface, post(-new).php or edit.php. 
+    * @access public
+    * @param object $post the post info
+    * @param array $element info about the metadata field
+    */	
+public function showsubfield($post=null, $element=null, $value){
+			
+			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
+			wp_enqueue_script('jquery.colorpicker-min.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.min.js', '', '1.0.6');
+			wp_enqueue_script('jquery.colorpicker.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.js', '', '1.0.6');
+			
+			wp_enqueue_style('css.colorpicker', plugins_url().'/meta-collections/css/colorpicker/jquery.colorpicker.css'); 											//user only for the colorpicker field
+			
+			 if(get_bloginfo( 'language')=="nl-NL"){ 	
+				 wp_enqueue_script('colorpicker.lang', plugins_url().'/meta-collections/js/i18n/jquery.ui.colorpicker-nl.js'); //admin
+			}
+	
+			}
+			
+			$element[postmetaprefix] = $this->postmetaprefix;
+			$element 	= ($element[id]!="") ? $element[args]: $element;
+			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
+			$rel 		= json_encode($element);
+			
+			$html 		= "";			
+			$html.="<div class=\"metafield-value\">
+			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
+			
+			 <div class=\"colordiv\" style=\"background:#{$value}\">&nbsp;</div><input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" class=\"sspecial ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-pinned colorpickerbutton\"></span></div>";
+			
+			
+			return $html;
+
+}	
 	
 /**
     * Shows the specific fieldtype in UI::edituserinterface, post(-new).php or edit.php. 
@@ -90,7 +128,67 @@ function showfield($post=null, $element=null){
 			echo $this->Field->metafieldBox($html, $element);
 
 }
-   
+ 
+ 
+ 
+/**
+    * Shows the specific form for the fieldtype with all the options related to that subfield. 
+    * @access public
+    */	
+public function subfieldOptions($element, $new=null){
+
+$parent 	= ($element['parent']=="") ? $element[ID] : $element[parent]; 
+
+echo"
+	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][parent]\" value=\"{$parent}\"/>
+	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][nonce]\" value=\"{$element[nonce]}\"/>
+	<table class=\"widefat metadata\" cellpadding=\"10\">
+	<tr>
+	<td>".__("Type").": </td>
+	<td>";
+	
+	if($new==1){
+	unset($element[label]);	
+	unset($element[description]);	
+	}
+
+	$this->Field->getfieldSelect($element, 1);
+	
+	echo"</td>
+	</tr>";
+	
+	$this->Field->getSubBasics($element);
+	$this->Field->getValidationOptions($element,1);
+			
+	echo"<tr>
+	<td>".__("Default Value", "_coll").":</td>
+	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][default_value]\" value=\"{$element[default_value]}\"/>
+	
+	</td>
+	</tr>
+	
+
+	<tr>
+	<td>".__("Placeholder value", "_coll").":<br/> 
+	<i class=\"hint\">".__("A greyed out value when the field is empty. Ideal to use for hints.","_coll")."</i></td>
+	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][placeholder]\" value=\"{$element[placeholder]}\"/>
+	
+	</td>
+	</tr>
+	
+	<tr>	
+	<td colspan=\"2\" style=\"padding:10px\">
+	<a href=\"#\" onclick=\"toggle_row(event, '{$element[nonce]}')\" class=\"button closefield\">".__("Close Field")."</a>	</td>
+	</tr>
+	</table>
+	
+	<script>
+	 jQuery(document).ready(function(){
+	 $('.rowtype_{$element[nonce]}').html('{$this->fieldname}');
+	 });
+	</script>";
+	
+}  
    
 /**
     * Shows the specific form for the fieldtype with all the options related to that field. 
@@ -164,113 +262,6 @@ function fieldOptions($element){
 	";
 }
 
-function oldfieldOptions($element){
-//$element (){
-	
-echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
-$statusc = ($element[status]==1)? "checked":"";
-	
-	$this->Field->getID($element);
-	
-	echo"<tr>
-	<td>".__("Type").":</td>
-	<td>";
-	
-	 $this->Field->getfieldSelect($element);
-	
-	echo"</td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Label").":</td>
-	<td><input type=\"text\" name=\"label\" required value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
-
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Default Color", "_coll").":</td>
-	<td><input type=\"text\" name=\"default_value\" value=\"{$element[default_value]}\"/>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Use Alpha transparency", "_coll").":</td>
-	<td>";
-	
-	$a_checked_yes	= ($element[alpha]==1)? "checked": "";
-	$a_checked_no	= ($element[alpha]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"alpha\" {$a_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"alpha\" {$a_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	
-	
-<tr>
-	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
-	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
-
-	
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"multiple\" {$m_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"multiple\" {$m_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>	
-
-	<tr>
-	<td colspan=\"2\" style=\"padding:10px\">
-	<a href=\"#\" onclick=\"
-	if(jQuery('{$formID}').validate().form()){
-	save_metafield('{$element[ID]}', '{$element[cpt]}', '".__("Field Options Saved")."...');
-	}return false;
-	\" class=\"button-primary\" id=\"savemetafield\">".__("Save")."</a>	</td>
-	</tr>
-	
-	
-	</table>";
-
-//Cancel <a href=\"#\" onclick=\"\" class=\"button\">".__("Cancel")."</a>
-}
 
 }
 ?>

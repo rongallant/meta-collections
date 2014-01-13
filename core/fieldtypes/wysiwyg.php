@@ -29,7 +29,7 @@ class Wysiwyg extends Basics{
     * @param object $post the post info
     * @param array $element info about the metadata field
     */	
-public function showsubfield($post=null, $element=null, $value){
+public function sshowsubfield($post=null, $element=null, $value){
 			
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
 			wp_enqueue_script( 'datetimepicker.min', plugins_url().'/meta-collections/js/wysiwyg/jquery.wysiwyg.js', '', '2.1.5');
@@ -149,7 +149,7 @@ function showfield($post=null, $element=null){
     * Shows the specific form for the fieldtype with all the options related to that subfield. 
     * @access public
     */	
-public function subfieldOptions($element, $new=null){
+public function ssubfieldOptions($element, $new=null){
 
 $statusc 	= ($element[status]==1)? "checked":"";
 $parent 	= ($element[parent]=="") ? $element[ID] : $element[parent]; 
