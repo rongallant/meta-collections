@@ -33,25 +33,18 @@ public function showsubfield($post=null, $element=null, $value){
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
 			$element[postmetaprefix] = $this->postmetaprefix;
-
+			
 			//$values	 	= get_post_meta($post->ID, $name, true); 
 			//$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			//$values	 	= (!is_array($values)) ? array($values) : $values;
-
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
+			
 			$first_op 	= ($element[first_option]!="") ? $element[first_option] : __("Choose","_coll");
 			$options 	= explode("\n", $element[options]);
-		
+			$rel 		= json_encode($element );
 
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
-			
-			$rel = json_encode($element );
-			
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			$html = "";
-
-			$multiples = ($element[multiple]==1)?"multiple=\"true\"":""; 
+			
 			$html.="<div class=\"metafield-value\">";
 			
 			
@@ -59,26 +52,27 @@ public function showsubfield($post=null, $element=null, $value){
 			echo "<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
 			}
 			$html.="<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-						<select {$required} name=\"{$name}\" rel='$rel' {$multiples}>";
+					<select name=\"{$name}\" rel='$rel' class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1]).">";
 			
 			if($element[multiple]!=1){
 			$html.="<option>{$first_op}</option>";
 			}
+			
 			foreach($options as $option){			
 			$option 	= trim($option);
 			$key_val	= explode(":", $option);
 			
 			$option_key = (count($key_val)==2) ? $key_val[0] : $option;
 			$option_val = (count($key_val)==2) ? $key_val[1] : $option;
-			$sel 		= ($option_key==$value) ? "selected" : "";
-			$html.="<option {$sel} value=\"{$option_key}\">{$option_val}</option>";
+			$sel 		= ($option_key==$value || $option_val==$value) ? "selected" : "";
+			$html.="<option {$sel} value=\"{$option_val}\">{$option_val}</option>";
 			}
 			$html.="</select>
 			
 			
 			</div>";
 		
-			return  $html;
+			return $html;
 	
 	
 	
@@ -261,61 +255,14 @@ public function subfieldOptions($element, $new=null){
 	echo"</td>
 	</tr>
 
-<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"subfields[{$element[nonce]}][status]\"  onclick=\"$('.rowstatus_{$element[nonce]}').html((this.checked) ? 'enabled'  :  'disabled')\"  value=\"1\"/></td>
-	</tr>
-		
-	<tr>
-	<td style=\"width:25%\">".__("Label").":</td>
-	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][label]\" id=\"label_{$element[nonce]}\" class=\"required label\" rel=\"{$element[nonce]}\" value=\"{$element[label]}\"/></td>
-	</tr>
+<tr>";
 	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"subfields[{$element[nonce]}][description]\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>";
+	
+	$this->Field->getSubBasics($element);
+	$this->Field->getValidationOptions($element);
 	
 	$autoselected = ($element[width]=="") ? "selected" : "";
-	echo"<tr>
-	<td>".__("Width").":</td>
-	<td>
-	<select name=\"subfields[{$element[nonce]}][width]\">
-	<option value=\"\" $autoselected>auto</option>
-	";
 	
-	for($i=1;$i<101;$i++){
-	$selected = ($i==$element[width])? "selected": "";
-	echo"<option value=\"{$i}\" {$selected}>{$i}</option>";
-	}
-	
-	
-	echo"</select> %
-	</td>
-	</tr>
-
-
-	
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-				echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"subfields[{$element[nonce]}][required]\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"subfields[{$element[nonce]}][required]\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][required_err]\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>";
 	
 	$first_option = ($element[first_option]=="")? __("Choose","_coll"): $element[first_option];
 	
@@ -343,11 +290,6 @@ public function subfieldOptions($element, $new=null){
 	key2:value2
 	</td>
 	<td><textarea name=\"subfields[{$element[nonce]}][options]\" rows=\"3\" cols=\"60\">{$element[options]}</textarea>
-	
-	
-	
-	
-	
 	</td>
 	</tr>
 

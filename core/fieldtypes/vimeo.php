@@ -60,14 +60,14 @@ public function showfield($post=null, $element=null){
 			$html="
 			<div style=\"position:relative;float:left;width:100%;margin:10px 0px 25px 4px;\">
 			<label for=\"{$element[ID]}\">Url:</label> 
-			<input type=\"text\" name=\"{$name}[url]\" id=\"url_{$element[ID]}\"  class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." 
+			<input type=\"text\" name=\"{$name}[url]\" id=\"url_{$element[ID]}\" size=\"73\"  class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." 
 			onblur=\"(jQuery(this).val().length<1)? jQuery('#getvimeometadata').addClass('button-disabled') : jQuery('#getvimeometadata').removeClass('button-disabled')\" size=\"30\" value=\"{$values[url]}\"/>";
 			/*onkeydown=\"(jQuery(this).val().length<1)? jQuery('#getvimeometadata').removeClass('button-disabled') :  jQuery('#getvimeometadata').addClass('button-disabled');\"
 			onchange=\"(jQuery(this).val().length<1)? jQuery('#getvimeometadata').removeClass('button-disabled') :  jQuery('#getvimeometadata').addClass('button-disabled');\"  */
 			if($element[api]==1){
 			$button_title 		= ($values[url]=="") ? __("Get metadata for this url", "_coll"): __("Renew metadata for this url", "_coll");
 			$button_disabled	= ($values[url]=="button-disabled") ? "" : "";
-			$html.="&nbsp;<a onclick=\"if(this.className!='button-disabled'){get_metadata('url_{$element[ID]}')};\" class=\"button \" id=\"getvimeometadata\">{$button_title}</a>";	
+			$html.="&nbsp;<a onclick=\"if(this.className!='button-disabled'){get_metadata('url_{$element[ID]}')};\" class=\"button\" id=\"getvimeometadata\"><span class=\"genericon_ genericon-vimeo\"  style=\"vertical-align:bottom;padding:0px 2px 0px 0px;\"></span>{$button_title}</a>";	
 			}
 			//{$button_disabled}
 			$html.="</div>

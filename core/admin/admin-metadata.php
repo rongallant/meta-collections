@@ -340,8 +340,10 @@ if($metafield[ID]!="new"){
 }
 
 
-
 public function add_wysiwyg_field(){
+	echo"en nou door";
+}
+public function sadd_wysiwyg_field(){
 	wp_editor('', $this->postmetaprefix.$_POST[metafieldID], array('dfw' => false, 'tabindex' => $_POST[tabindex]) );
 }
 

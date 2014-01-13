@@ -1,12 +1,15 @@
-$(document).on("focusin",".datepicker",function(event){
-		
-		 if (false == $(this).hasClass('hasDatepicker')) {
-			dateformat = $(this).attr('rel');
-			$(this).datepicker({
+$(document).ready(function() {
+	
+	$("input.datepicker").each(function( index, element ) {
+	dateinfo = $.parseJSON($(this).attr('rel'));
+	dateformat = dateinfo.format;
+	
+	$(this).datepicker({
 			 dateFormat: eval(dateformat)
-			 }).val();			 
-		}
-		
+			 }).val();
+	
+	});
+
 });
 
 

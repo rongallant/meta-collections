@@ -19,9 +19,11 @@ class Combination extends Basics{
 	$this->Field 		= new Field();
 	$this->fieldname 	= __("Combination field", "_coll");
 	
-	//if($meta!=null){
-		//echo $this->$meta[action]($meta);
-	//}
+	if($meta[action]!=null){
+	//	print_r($meta[action]);
+		echo $this->$meta[action]($meta);	
+	//	die();
+	}
 }
 	
 	
@@ -38,22 +40,11 @@ public function showfield($post=null, $element=null){
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
 			//$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
-			//print_r($values);
 			//$values	 	= (!is_array($values)) ? array($values) : $values;
 
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
-		
-
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
-		
-			$html = "";
 
 			if(!is_array($values)){
-				$values[0] = array();//<< elements hierin
+				$values[0] = array();
 				
 				 foreach($element[subfields] as $nonce=>$elementinfo){
 				 $values[0][$nonce] = "";
@@ -61,60 +52,53 @@ public function showfield($post=null, $element=null){
 			}
 			
 			
-			
+			//wysiwyg clonen verder afmaken.
 			$instance=1;
 			$this->Field = new Field();
 			$this->Field->getFields();
 			$this->Field->getClasses();
 			$this->Field->getClassesWithSubfields();
-				
 			
-			
+			$html = "";
+			$instance=1;
 			foreach ($values as $row=>$elements){
-			//$element[subfields][$nonce][]
-			//print_r($elements);
-			
-			$html.="<table cellpadding=\"0\" cellspacing=\"0\" id=\"table_{$element[ID]}_$instance\" rel=\"{$instance}\" border=\"0\" class=\"combitable\" width=\"100%\"><tr>";
-			if(is_array($elements)){
 
-			foreach($elements as $nonce => $value){
-			//print_r($element[subfields][$nonce]);
-			$width = ($element[subfields][$nonce][width]!="") ? "width:{$element[subfields][$nonce][width]}%;" : "";
-			$element[subfields][$nonce][instance] = $instance;
-			if($element[subfields][$nonce][status]==1){
-			$html.="<td style=\"vertical-align:top;{$width}\">";
-			    
-			$c 				= ucfirst($element[subfields][$nonce][type]);
-			$typeclass 		= new $c();	
+			$html.="<div id=\"div_{$element[ID]}_$instance\" rel=\"{$instance}\" data=\"{$name}\">";
 			
-			//print_r($value);
-			$html.= $typeclass->showsubfield($post, $element[subfields][$nonce], $value);	
-			$html.="</td>";	
-			}			
-			}
-			$display ="block";
-			$html.="<td style=\"width:16px;display:$display\" onclick=\"remove_value_instance(event, $(this).parent());\">
-			   <a class=\"delete_metavalue genericon_ genericon-trash\" rel=\"table_{$element[ID]}_$instance\" title=\"".__("delete this row", "_coll")."\" href=\"#\">&nbsp;</a>
-			   </td></tr></table>";
-			   $instance++;//
+			foreach($element[subfields] as $nonce => $elementinfo){//determine earlier if a field is active status
+			//$width 									= ($element[subfields][$nonce][width]!="") ? "width:{$element[subfields][$nonce][width]}%;" : "";
+			$elementinfo[instance] 	= $instance;	
+				
+			$html .="<div class=\"subfield\" style=\"{$elementinfo[width]}\">";
+			$c 				= ucfirst($elementinfo[type]);			
+			$typeclass 		= new $c();							
+			$html.= $typeclass->showsubfield($post, $elementinfo, $elements[$elementinfo[nonce]]);	
+			$html.="</div>";			
 			}
 			
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent())\">&nbsp;</a>
+
+			
+			
+			</div>";
+			$instance++;
 			}
 			
 			echo $this->Field->metafieldBox($html, $element);
 			
 			}
-
+	
 
 public function add_subfield($element){
-	$element[type]= 'text';//= add standard a text field
-	$this->Field = new Field();
+	
 	$this->Field->getFields();
 	$this->Field->getClasses();
 	$this->Field->getClassesWithSubfields();
-
-	$element[nonce] = wp_create_nonce($element[cpt].'_'.rand(0,1000000000));
 	
+	$element[type]	= 'text';//= add standard a text field
+	$this->Field 	= new Field();
+	
+	$element[nonce] = wp_create_nonce($element[cpt].'_'.rand(0,100000000000));	
 	
 	$c 				= ucfirst($element[type]);
 	$typeclass 		= new $c();
@@ -162,7 +146,10 @@ public function fieldOptions($element){
 		
 		$e 					= json_encode($element);
 		$statusc 			= ($element[status]==1)? "checked":"";
-echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
+		
+		
+		
+	echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 
 	$this->Field->getID($element);
 	
@@ -172,32 +159,17 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 	<td>".__("Type").":</td>
 	<td>";
 	
-	 $this->Field->getfieldSelect($element);
+	$this->Field->getfieldSelect($element);
 	
-	$subfields = array(
-	"fieldkey"=>array("the","field","options", "like", "fieldtype", "column width"),
-	"fieldkey"=>array("the","field","options", "like", "fieldtype", "column width")	
-	);
 	
 	echo"</td>
-	</tr>
-
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
+	</tr>";
 	
-	<tr>
-	<td style=\"width:25%\">".__("Label").": *</td>
-	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
-	</tr>
 	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
+	$this->Field->getBasics($element);
 
-	<tr>
+	
+	echo"<tr>
 	<td>".__("Subfields").":</td>
 	<td>
 	
@@ -217,6 +189,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
             ";
   
     if(is_array($element[subfields])){
+    
     $this->Field = new Field();
 	$this->Field->getFields();
 	$this->Field->getClasses();

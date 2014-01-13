@@ -631,11 +631,7 @@ echo"</div>
 <div class=\"tab-content\" id=\"c-1\">";
 $this->inactive_systemelements();
 echo"</div>";
-/*<a href=\"#\" class=\"nav-tab\" id=\"nav-2\">".__('Inactive Metaboxes','_coll')."</a>
-<div class=\"tab-content\" id=\"c-2\">";
-$this->inactive_metaboxes();
-echo"</div>";
-*/ 
+
 echo"<div class=\"tab-content\" id=\"c-2\">";
 $this->add_metabox($_POST[cpt]);
 echo"</div>
@@ -652,7 +648,7 @@ echo"</div>
 echo"</div>
 
 
-<div class=\"helpmessage\">".__("This is the preview area of you Collection edit interface","_coll")."</div>
+<div class=\"helpmessage\">".__("This is the preview area of your Collection Edit Interface","_coll")."</div>
 	<div style=\"float:left;width:100%;margin-top:20px;border-bottom:1px solid #DFDFDF;\"></div>
 	 <div class=\"clear\"></div>";
 
@@ -683,36 +679,6 @@ foreach($this->sides as $side=>$elementID){ //loop though the different UI parts
 	}
 }
 
-/*
-	
-	jtabs.init({tabID: 'ui_controls'});
-
-
-postboxes.add_postbox_toggles(pagenow);
-//metafield.add_postbox_toggles();
-
-
-jQuery('.meta-field-box').addClass('closed');//#meta_elements 
-addPointers();
-
-///jQuery('.postbox').addClass('ui-area');
-
-//if(jQuery('#side-sortables').children().length>0){
-//jQuery('#side-sortables').removeClass('empty-container');
-//}
-//jQuery('#meta_elements .metabox-holder .postbox').addClass('closed');//#meta_elements 
-
-//jQuery('.meta-box-sortables').sortable({cancel: 'div[id$=\"{$this->nodrag}\"]'});
-
-//jQuery('.meta-box-sortables').sortable({
-//				start: function(e,ui) {
-//				jtabs.activate(1);
-//				}
-//				
-//				});
-
-//jQuery('.metabox-holder-collections textarea, .metabox-holder-collections input[type=text], .metabox-holder-collections input[type=checkbox],  .metabox-holder-collections input[type=submit]').prop('disabled', true);	
-*/
 echo"</div>
  
 

@@ -31,7 +31,7 @@ public function showfield($post=null, $element=null){
 			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
-
+			$return_value = $element[return_value];
 			$values	 	= get_post_meta($post->ID, $name, true); 
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;			
@@ -52,65 +52,57 @@ public function showfield($post=null, $element=null){
 			$users[$user->data->ID] = $user->data;
 			}
 			
+			
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 
-
-			$return_value 			= $element[return_value];
+			
 			$htmlelement 			= "";
-			$i=0;
-			foreach ($values as $value){
+			$html.="<div class=\"metafield-value\">";
 			
 			switch ($element[field_type]) {
+			   
 			    case "radio":			    
 			    foreach($users as $user){
 			    	$checked 		= (is_array($values) && in_array($user->$return_value, $values)) ? "checked" : "";			
-			    	$htmlelement.= "<input type=\"radio\" name=\"{$name}\" {$checked} value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})<br/>";
+			    	$html.= "<input type=\"radio\" name=\"{$name}\" {$checked} value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})<br/>";
 			    }
 			    break;
 
 				case "select":
-				$htmlelement.= "<select name=\"{$name}[]\">";			    
+				$html.= "<select name=\"{$name}[]\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1]).">";			    
 			    foreach($users as $user){
-			    	$htmlelement.= "<option value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})</option>";
+			    	$selected = ($user->$return_value == $value)? "selected": "";
+			    	$html.= "<option {$selected} value=\"{$user->$return_value}\">{$user->fullname} ({$user->caps})</option>";
 			    }
-				$htmlelement.= "</select>";			    
+				$html.= "</select>";			    
 			    break;
 
 				case "select_multiple":
 				
-				$htmlelement.= "<select name=\"{$name}[]\" multiple=\"true\">";			    
+				$html.= "<select name=\"{$name}[]\" multiple=\"true\"  class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1]).">";			    
 			    foreach($users as $user){
 			    	$checked 		= (is_array($values) && in_array($user->$return_value, $values)) ? "selected" : "";
-			    	$htmlelement.= "<option {$checked} value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})</option>";
+			    	$html.= "<option {$checked} value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})</option>";
 			    }
-				$htmlelement.= "</select>";			    
+				$html.= "</select>";			    
 			    break;
 
 			    case "checkbox":			    
 			    foreach($users as $user){
 			    	$checked 		= (is_array($values) && in_array($user->$return_value, $values)) ? "checked" : "";			    
-			    	$htmlelement.= "<input type=\"checkbox\" {$checked} name=\"{$name}[]\" value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})<br/>";
+			    	$html.= "<input type=\"checkbox\" {$checked} name=\"{$name}[]\"  class=\"".implode(" ", $fieldfinfo[0])."\" value=\"{$user->$return_value}\"> {$user->fullname} ({$user->caps})<br/>";
 			    }
 			    break;
-
-			}	
-			   
-			    
-			    		
+				}
+		        		
 			
-			$html.="<div class=\"metafield-value\">
-			{$htmlelement}";
-			
-			if($element[multiple]==1 && $element[field_type]!="radio"){
-			$visibility = ($i==0) ? "0": "1";
-			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
-			}
 			
 			$html.="</div>";
-			$i++;
-			}
+						
 			
 			echo $this->Field->metafieldBox($html, $element);
 			}
+
 
 /**
     * Shows the specific form for the fieldtype with all the options related to that field. 
@@ -119,8 +111,8 @@ public function showfield($post=null, $element=null){
 public function fieldOptions($element){
 
 echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
-$statusc = ($element[status]==1)? "checked":"";
-	
+	$statusc = ($element[status]==1)? "checked":"";
+	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
 	$this->Field->getID($element);
 	
 	echo"
@@ -132,53 +124,19 @@ $statusc = ($element[status]==1)? "checked":"";
 	 $this->Field->getfieldSelect($element);
 	
 	echo"</td>
-	</tr>
-
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"status\" value=\"1\"/></td>
-	</tr>
+	</tr>";
 	
-	<tr>
-	<td style=\"width:25%\">".__("Label").": *</td>
-	<td><input type=\"text\" name=\"label\" class=\"required\" value=\"{$element[label]}\"/></td>
-	</tr>
+	$this->Field->getBasics($element);
+	$this->Field->getValidationOptions($element,1);
 	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"description\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
-	</tr>
-
-	
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
-	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"required\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"required\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"required_err\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>
-	
-		
+	/*	
 	<tr>
 	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
 	<td valign=\"top\">";
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
+	
 	
 	
 	echo"<ul class=\"radio_list radio vertical\">
@@ -188,13 +146,14 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 	</td>
 	</tr>	
+	*/
 
-<tr>
+echo"<tr>
 	<td valign=\"top\">".__("Field type", "_coll").":</td>
 	<td valign=\"top\">
 	<select name=\"field_type\">";
-	
-	$types = array("radio"=>"Radio (single choice)", "select"=>"Select (single choice)", "select_multiple"=>"Select (multiple choice)",  "checkbox"=>"Checkbox (multiple choice)");
+	//"radio"=>"Radio (single choice)", 
+	$types = array("select"=>"Select (single choice)", "select_multiple"=>"Select (multiple choice)",  "checkbox"=>"Checkbox (multiple choice)");
 	foreach ($types as $type=>$name){
 	$selected = ($type==$element[field_type])? "selected":"";	
 	echo"<option value=\"{$type}\" {$selected}>{$name}</option>";

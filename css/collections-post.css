@@ -23,8 +23,7 @@ input.special[type=text]{
     margin: 0px 0px 0px -2px;
     top:4px;
     color: #fff;
-    cursor:pointer;
-	
+    cursor:pointer;	
 }
 
 .metafield-value a.uncheck{
@@ -187,6 +186,20 @@ display:inline-block;
 
 
 */
+
+.subfield{
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	border:1px solid #f6f6f6;
+	margin-right:20px;
+	*display: inline;
+	
+	min-height: 100px;
+	_height: 100px;
+	;
+}
 /****** METAFIELD CSS ***********/
 
 .metafield-wrapper{

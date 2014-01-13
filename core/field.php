@@ -162,23 +162,23 @@ public function getValidationOptions($element, $onlyrequired=mull){
 	<i class=\"hint\">For more information about validation check: <a href=\"http://jqueryvalidation.org/documentation/\" target=\"_blank\">http://jqueryvalidation.org/documentation/</a></i>
 	</td>
 	<td>";
-	//print_r($element);
+	echo"<br/>";
 	$options = ($onlyrequired==1) ? $this->svalidation_options : $this->validation_options;
 	foreach($options as $name=>$options){
 	
-	
+	$fieldname = ($element[nonce]!="") ? "subfields[".$element[nonce]."][validation][".$name."]" : "validation[{$name}]";
 	switch($options[1]){
 	case "c":
 	$o_checked	= ($element['validation'][$name]==1)? "checked": "";
-	echo "<input type=\"checkbox\" value=\"1\" {$o_checked} name=\"validation[{$name}]\"/> {$options[0]}<br/>";
+	echo "<input type=\"checkbox\" value=\"1\" {$o_checked} name=\"{$fieldname}\"/> {$options[0]}<br/>";
 	break;	
 	
 	case "i":
-	echo"<input type=\"text\" value=\"{$element['validation'][$name]}\" size=\"12\" name=\"validation[{$name}]\" placeholder=\"".__("enter a number", "_coll")."\" /> {$options[0]}<br/>";
+	echo"<input type=\"text\" value=\"{$element['validation'][$name]}\" size=\"12\" name=\"{$fieldname}\" placeholder=\"".__("enter a number", "_coll")."\" /> {$options[0]}<br/>";
 	break;	
 	
 	case "r":
-	echo"<input type=\"text\" value=\"{$element['validation'][$name]}\" size=\"8\" name=\"validation[{$name}]\"  placeholder=\"e.g. [13,23]\"/> {$options[0]}<br/>";
+	echo"<input type=\"text\" value=\"{$element['validation'][$name]}\" size=\"8\" name=\"{$fieldname}\"  placeholder=\"e.g. [13,23]\"/> {$options[0]}<br/>";
 	break;	
 	}
 	
@@ -316,14 +316,13 @@ public function getClassesWithSubfields(){
 	$entries	= array();
 
 	foreach($this->entries as $name=>$entry){
-	//print_r();
-	//echo $name."=>".$entry."<br/>";
+	
 	$c 				= ucfirst($name);
 	$typeclass 		= new $c();
 	if(method_exists($typeclass, 'subfieldOptions')){
 	$entries[$name] = $entry;  
-   //  die("bg");   	
-	}
+  
+  	}
 	
 	}
 	$this->ClassesWithSubfields = array_unique($entries);

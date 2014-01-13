@@ -27,28 +27,15 @@ class Text extends Basics{
     * @param array $element info about the metadata field
     */	
 public function showsubfield($post=null, $element=null, $value){
+			$element[postmetaprefix] = $this->postmetaprefix;
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
-			$element[postmetaprefix] = $this->postmetaprefix;
-			$values	 	= get_post_meta($post->ID, $name, true); 
-			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
-			$values	 	= (!is_array($values)) ? array($values) : $values;
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
+			$rel 		= json_encode($element);
 			
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
-		
-
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
-			
-		
-			$rel = json_encode($element );
-			$html = "";			
+			$html 		= "";			
 			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/><input type=\"text\" {$required} {$max_length} {$length} name=\"{$name}\" rel='$rel' value=\"{$value}\"/> 
-			
+			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/><input type=\"text\" name=\"{$name}\" rel='$rel' class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/>
 			</div>";
 			
 			
@@ -72,9 +59,6 @@ public function showfield($post=null, $element=null, $value=null){
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;
 
-			
-			//$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
 			$html 		= "";
 	
 			
@@ -89,9 +73,14 @@ public function showfield($post=null, $element=null, $value=null){
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." name=\"{$name}[]\" value=\"{$value}\"/> 
-			<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
-			</div>";
+			<input type=\"text\" class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." name=\"{$name}[]\" value=\"{$value}\"/>";
+			
+			if($element[multiple]==1){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}
+			
+			$html."</div>";
 			}
 			
 			
@@ -197,9 +186,8 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
     * @access public
     */	
 public function subfieldOptions($element, $new=null){
-//print_r($element);
-$statusc 	= ($element[status]==1)? "checked":"";
-$parent 	= ($element[parent]=="") ? $element[ID] : $element[parent]; 
+
+$parent 	= ($element['parent']=="") ? $element[ID] : $element[parent]; 
 
 echo"
 	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][parent]\" value=\"{$parent}\"/>
@@ -229,9 +217,19 @@ echo"
 	</td>
 	</tr>
 	
+
+	<tr>
+	<td>".__("Placeholder value", "_coll").":<br/> 
+	<i class=\"hint\">".__("A greyed out value when the field is empty. Ideal to use for hints.","_coll")."</i></td>
+	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][placeholder]\" value=\"{$element[placeholder]}\"/>
+	
+	</td>
+	</tr>
+	
+	
 	<tr>
 	<td>".__("Length", "_coll").":</td>
-	<td><select name=\"subfields[{$element[nonce]}][max_length]\">";
+	<td><select name=\"subfields[{$element[nonce]}][length]\">";
 	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
 	$selector = ($element[max_length]=="")? 20 : $element[max_length];
 	for ($i=1; $i<100; $i++){

@@ -28,40 +28,29 @@ class Date extends Basics{
     * @param array $element info about the metadata field
     */	
 public function showsubfield($post=null, $element=null, $value){
+			
+			if(sizeof($post)>0){//only load scripts when the function is called from the edit screen
+			wp_enqueue_script('jquery-ui-datepicker'); 																										
+			wp_enqueue_script('datepicker', plugins_url().'/meta-collections/js/date/jquery.datepicker.js');
+
+			
+			if(get_bloginfo( 'language')=="nl-NL"){ 	
+				wp_enqueue_script('datepicker.lang', plugins_url().'/meta-collections/js/i18n/jquery.ui.datepicker-nl.js');
+			}
+			
+			}
+			$element[postmetaprefix] = $this->postmetaprefix;
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
-			$element[postmetaprefix] = $this->postmetaprefix;
-			$values	 	= get_post_meta($post->ID, $name, true); 
-			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
-			$values	 	= (!is_array($values)) ? array($values) : $values;
+			$rel 		= json_encode($element );			
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
-		
-
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
-	
-	
-			$html="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\"/>
-			<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>
+			$html.="<div class=\"metafield-value\">
+			<label for=\"{$name}[]}\">{$element[label]}:</label><br/>
+			<input type=\"text\" $required name=\"{$name}\" value=\"{$value}\" rel='$rel' class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-week\"></span>
 			</div>";
 			
-		
-			$html.="<script>
-			jQuery(document).ready(function () {
-			 
-			 date_preset = {$element['format']};
-			 jQuery('.datepicker').datepicker({dateFormat: date_preset}).val();
-			 
-			});
-			</script>";
-			
-		return $html;
+			return $html;
 }	
 	
 	
@@ -92,7 +81,6 @@ function showfield($post=null, $element=null){
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;
 
-			
 			
 			$html 		= "";
 	
@@ -232,7 +220,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
     * @access public
     */	
 public function subfieldOptions($element, $new=null){
-	$statusc 	= ($element[status]==1)? "checked":"";
+	
 	$parent 	= ($element[parent]=="") ? $element[ID] : $element[parent]; 
 	
 	echo"
@@ -251,63 +239,13 @@ public function subfieldOptions($element, $new=null){
 
 	
 	echo"</td>
-	</tr>
-
-	<tr>
-	<td style=\"width:25%\">".__("Status").":</td>
-	<td><input type=\"checkbox\" {$statusc} name=\"subfields[{$element[nonce]}][status]\" value=\"1\" onclick=\"$('.rowstatus_{$element[nonce]}').addClass((this.checked)? 'genericon-show' : 'genericon-hide').removeClass((this.checked)? 'genericon-hide' : 'genericon-show')\" /></td>
-	</tr>
-	
-	<tr>
-	<td style=\"width:25%\">".__("Label").": *</td>
-	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][label]\" id=\"label_{$element[nonce]}\" class=\"required label\" rel=\"{$element[nonce]}\" value=\"{$element[label]}\"/></td>
-	</tr>
-	
-	<tr>
-	<td>".__("Description").":</td>
-	<td><textarea name=\"subfields[{$element[nonce]}][description]\" rows=\"3\" cols=\"60\">{$element[description]}</textarea></td>
 	</tr>";
 
-	$autoselected = ($element[width]=="") ? "selected" : "";
-	echo"<tr>
-	<td>".__("Width").":</td>
-	<td>
-	<select name=\"subfields[{$element[nonce]}][width]\">
-	<option value=\"\" $autoselected>auto</option>
-	";
-	
-	for($i=1;$i<101;$i++){
-	$selected = ($i==$element[width])? "selected": "";
-	echo"<option value=\"{$i}\" {$selected}>{$i}</option>";
-	}
-	
-	
-	echo"</select> %
-	</td>
-	</tr>
 
+	$this->Field->getSubBasics($element);
+	$this->Field->getValidationOptions($element);
 	
-	<tr>
-	<td>".__("Required", "_coll").":</td>
-	<td>";
 	
-	$r_checked_yes	= ($element[required]==1)? "checked": "";
-	$r_checked_no	= ($element[required]==0)? "checked": "";
-	echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"subfields[{$element[nonce]}][required]\" {$r_checked_yes}> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"subfields[{$element[nonce]}][required]\" {$r_checked_no}> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>
-
-	
-	<tr>
-	<td>".__("Required Errormessage", "_coll").":</td>
-	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][required_err]\" value=\"{$element[required_err]}\"/>
-	
-	</td>
-	</tr>";	
 	
 	
 	$formats = array(	
@@ -341,15 +279,17 @@ public function subfieldOptions($element, $new=null){
 	</td>
 	</tr>
 	
-
-	
-	<tr>
+	<tr>	
 	<td colspan=\"2\" style=\"padding:10px\">
-	<a href=\"#\" onclick=\"save_metafield('{$element[ID]}', '{$element[cpt]}', '".__("Field Options Saved")."...');\" class=\"button-primary\" id=\"savemetafield\">".__("Save")."</a></td>
+	<a href=\"#\" onclick=\"toggle_row(event, '{$element[nonce]}')\" class=\"button closefield\">".__("Close Field")."</a>	</td>
 	</tr>
+	</table>
 	
-	
-	</table>";
+	<script>
+	 jQuery(document).ready(function(){
+	 $('.rowtype_{$element[nonce]}').html('{$this->fieldname}');
+	 });
+	</script>";
 
 }
 

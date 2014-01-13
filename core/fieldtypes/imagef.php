@@ -20,6 +20,101 @@ class Imagef extends Basics{
 	$this->fieldname 	= __("Image field", "_coll");
 }
 	
+
+	
+/**
+    * Shows the specific fieldtype in UI::edituserinterface, post(-new).php or edit.php. 
+    * @access public
+    * @param object $post the post info
+    * @param array $element info about the metadata field
+    */	
+public function showfield($post=null, $element=null){
+			global $post;		
+			 
+			 if(sizeof($post)>0){//only load scripts when the function is called from the edot screen		
+			 wp_enqueue_script( 'jquery.imagef', plugins_url().'/meta-collections/js/imagef/jquery.imagef.js', '', '1.0'); 
+			 }
+			 
+			 
+			 
+			$element 	= ($element[id]!="") ? $element[args]: $element;
+			$name	 	= $this->postmetaprefix.$element[ID];
+
+			$values	 	= get_post_meta($post->ID, $name, true); 
+			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
+			$values	 	= (!is_array($values)) ? array($values) : $values;
+			
+			
+			
+			$element[postmetaprefix] = $this->postmetaprefix;
+			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
+			
+			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
+			$rel 		= json_encode($element );
+			
+			$element[return_value] = ($element[return_value]=="") ? "object": $element[return_value];
+			
+			if($element[description]!=""){
+			$html.="<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			}
+
+						
+			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
+			$html = "";
+			$i=0;
+			
+			foreach ($values as $value){
+			$showimagediv		= ($value!="")?"block":"none";
+			$showbutton			= ($value=="")?"inline-block":"none";
+
+			if($showimagediv=="block"){
+				$valueO 		= json_decode($value);
+				$return_value 	= ";background: url('{$valueO->sizes->thumbnail->url}')";
+			}
+			$hiddenid 			= $this->postmetaprefix.$element[ID]."_".$i;
+			$img_container_id 	= $this->postmetaprefix.$element[ID]."_".$i."_img";
+			
+			$html.="<div class=\"metafield-value\" style=\"display: 
+			-moz-inline-stack;
+			display: inline-block;
+			vertical-align: top;
+			zoom: 1;
+			*display: inline;
+			min-height: 200px;
+			_height: 200px;
+			margin-right:20px;\">
+			<label for=\"{$element[ID]}\">{$element[label]}: </label><br/>
+			
+			<input type=\"hidden\" name=\"{$name}[]\" id=\"{$hiddenid}\" rel='$rel' value='{$value}' class=\"".implode(" ", $fieldfinfo[0])."\"/> 
+			
+			<div class=\"image_container\" style=\"display:{$showimagediv}$return_value\" id=\"{$img_container_id}\">
+			<ul>
+			<li class=\"genericon genericon-edit edit_image\" rel=\"upload-image-button_{$element[ID]}\" title=\"".__("Select other image","_coll")."\"></li>
+			<li class=\"genericon genericon-trash delete_image\" title=\"".__("Delete image","_coll")."\"></li>
+			</ul>
+			</div>
+			
+			<a class=\"upload-image-button button\" style=\"position:relative;top:-2px;display:{$showbutton}\" id=\"upload-image-button_{$element[ID]}\" rel=\"{$hiddenid}\"><span class=\"genericon-image genericon_\" style=\"vertical-align:bottom;padding:0px 2px 0px 0px;\"></span>".__("Insert Media")."</a>
+			";
+			
+			if($element[multiple]==1){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")."\" style=\"margin-top:4px;border-radius:4px;opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}			
+			
+			$html.="</div>";
+			$i++;
+			}
+		
+			
+		
+			echo $this->Field->metafieldBox($html, $element);
+			
+			}
+
+
+
+
 /**
     * Shows the specific subfieldtype in UI::edituserinterface, post(-new).php or edit.php. 
     * @access public
@@ -30,7 +125,7 @@ public function showsubfield($post=null, $element=null, $value){
 			global $post;		
 			
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen		
-			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/imagef/jquery.imagef.js', '', '1.0'); 
+			wp_enqueue_script( 'jquery.imagef', plugins_url().'/meta-collections/js/imagef/jquery.imagef.js', '', '1.0'); 
 			}
 			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
@@ -43,9 +138,6 @@ public function showsubfield($post=null, $element=null, $value){
 			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
 			$rel 		= json_encode($element );
 
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
 			
 			$element[return_value] = ($element[return_value]=="") ? "object": $element[return_value];
 			$showimagediv	= ($value!="")?"block":"none";
@@ -82,87 +174,10 @@ public function showsubfield($post=null, $element=null, $value){
 			});
 			</script>";
 			
-			
-/*			
-			$html."<script>id=\"upload_".$element['nonce']."\"
-			
-			jQuery('.upload-image-button').click(function() {
-    tb_show('', 'media-upload.php?TB_iframe=true&post_id={$post->ID}');
-    
-    window.send_to_editor = function(html) {
-        url = jQuery(html).attr('href');
-        jQuery('input[name$=\"{$name}[]\"]').val(url);
-        tb_remove();
-    };
-    return false;
-});
-
-</script>";
-*/
+		
 		return $html;
 }
-	
-/**
-    * Shows the specific fieldtype in UI::edituserinterface, post(-new).php or edit.php. 
-    * @access public
-    * @param object $post the post info
-    * @param array $element info about the metadata field
-    */	
-public function showfield($post=null, $element=null){
-			global $post;		
-			 wp_enqueue_script( 'zebra_tooltips', plugins_url('/js/zebra_tooltips.js', __FILE__), '', '2.0.1');  	//test
 
-			$element 	= ($element[id]!="") ? $element[args]: $element;
-			$name	 	= $this->postmetaprefix.$element[ID];
-
-			$values	 	= get_post_meta($post->ID, $name, true); 
-			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
-			$values	 	= (!is_array($values)) ? array($values) : $values;
-
-			$required 	= ($element[required]==1) ? "class=\"required\" " : "";
-			$max_length = ($element[max_length]!="") ? " maxlength=\"{$element[max_length]}\"" :"";
-			$length 	= ($element[max_length]!="") ? " size=\"".($element[max_length]+2)."\"" :"20";
-		
-
-			if($element[required]==1){
-			$_SESSION[required][$element[ID]] = $element[required_err]	;
-			}
-			
-		
-			
-			$html = "";
-
-			foreach ($values as $value){//[]
-			$html.="<div class=\"metafield-value\">
-			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" {$required} size=\"90\" {$length} name=\"{$name}[]\" value=\"{$value}\"/> 
-			<a class=\"button-secondary upload-image-button\" onclick=\"tb_show('Test', 'media-upload.php?post_id={$post->ID}&type=image&wpcf-fields-media-insert=1&TB_iframe=true');return false;\">".__("get / upload image","_coll")."</a>
-		 
-			<a class=\"delete_metavalue\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(this);return false;\">&nbsp;</a>
-			</div>";
-			}
-		
-			
-			
-			$html."<script>
-			
-			jQuery('.upload-image-button').click(function() {
-    tb_show('', 'media-upload.php?TB_iframe=true&post_id={$post->ID}');
-    
-    window.send_to_editor = function(html) {
-        url = jQuery(html).attr('href');
-        jQuery('input[name$=\"{$name}[]\"]').val(url);
-        tb_remove();
-    };
-    return false;
-});
-
-</script>
-";
-
-			echo $this->Field->metafieldBox($html, $element);
-			
-			}
 
 /**
     * Shows the specific form for the fieldtype iwith all the options related to that field. 
@@ -188,14 +203,24 @@ $statusc = ($element[status]==1)? "checked":"";
 	
 		
 	$this->Field->getBasics($element);
+	$this->Field->getValidationOptions($element, 1);
 	
-	echo"<tr>
+	echo"
+	<tr>
+	<td>".__("Placeholder value", "_coll").":<br/> 
+	<i class=\"hint\">".__("A greyed out value when the field is empty. Ideal to use for hints.","_coll")."</i></td>
+	<td><input type=\"text\" name=\"placeholder\" value=\"{$element[placeholder]}\"/>
+	
+	</td>
+	</tr>
+	
+	<tr>
 	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
 	<td valign=\"top\">";
 	
 	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
 	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
+	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
 
 	
 	echo"<ul class=\"radio_list radio vertical\">

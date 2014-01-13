@@ -1,7 +1,7 @@
 var file_frame;
 var $ = jQuery.noConflict();
 
-$(document).ready(function() {
+//$(document).ready(function() {
 
 $(document).on("click",".edit_image",function(event){
 buttonId = $(event.currentTarget).attr('rel');
@@ -47,4 +47,4 @@ file_frame.open();
 
 
 });
-});
+//});

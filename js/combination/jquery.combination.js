@@ -20,20 +20,16 @@ function delete_row(event, el){
 		
 }
 
-
 function add_subfield(event, element){
 	event.preventDefault();
 	
 	rows	=$('.subfields>table').length;
 	element['row'] = rows;
-	
 	$('#no-collections').css({"display":"none"});
 	
-	$.post( ajaxurl, element, function( data ) {
+	$.post(ajaxurl, element, function( data ) {
 	$(data).appendTo('#subfield_'+element['ID']);
-	
-	
-		});
+	});
 	
 }
 
@@ -41,6 +37,6 @@ $(document).on("keydown",".label",function(event){
 nonce = $(event.target).attr("rel");
 
 setTimeout(function(){
- $('.spanlabel_'+nonce).html($('#label_'+nonce).val()) }, 200)
+ $('.spanlabel_'+nonce).html($('#label_'+nonce).val()) }, 200);
 
 });

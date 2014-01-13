@@ -4,8 +4,6 @@ var $ = jQuery.noConflict();
 $(document).ready(function() {
 
 
-//DATE FIELD CHECK!
-
 $('#post').validate({
 	errorPlacement: function(error, element) {
 	//error.html($(element).attr('data'));
@@ -48,6 +46,50 @@ function add_value_instance(wrapperID, fieldtype){
 		break;
 	
 	case "combination":
+		//imagefields
+		$('#'+wrapperID+' .metafield-body>div:last-child').clone().appendTo($('#'+wrapperID+' .metafield-body') );
+		$('#'+wrapperID+' .metafield-body>div:last-child .image_container').css({"display": "none"});
+		$('#'+wrapperID+' .metafield-body>div:last-child .upload-image-button').css({"display": "inline-block"});
+		$('#'+wrapperID+' .metafield-body>div:last-child .wysiwygscontainer').html('//nu de wysiwyg nog....');
+		$('#'+wrapperID+' .metafield-body>div:last-child input, #'+wrapperID+' .metafield-body>div:last-child select, #'+wrapperID+' .metafield-body>div:last-child textearea').each(function(index, el ) {
+		$(this).val('');		
+		
+		elementinfo = $.parseJSON( $(el).attr('rel'));
+		
+		newname 	= elementinfo['postmetaprefix']+""+elementinfo['parent']+"["+(parseFloat(elementinfo['instance']+1))+"]["+elementinfo['nonce']+"]"
+		$(el).attr('name', newname);//give all the instances a new name and a new row!
+			
+		$.each(elementinfo, function(key, value){
+			if(key=="instance"){
+				elementinfo[key] = parseFloat(value)+1;
+			}
+			
+		})	
+		$(el).attr('rel', JSON.stringify(elementinfo));
+		});
+		
+		
+		parts 			= $('#'+wrapperID+' .metafield-body>div:last-child').attr("id").split("_");
+		newDivID 		= parts[0]+"_"+parts[1]+"_"+(parseFloat(parts[2])+1);
+		newInputID	 	= elementinfo.postmetaprefix+"_"+elementinfo.parent+"_"+elementinfo.instance+"_"+elementinfo.nonce;
+		
+		$('#'+wrapperID+' .metafield-body>div:last-child').attr("id",newDivID);
+		//$('#'+wrapperID+' .metafield-body>div:last-child td:last-child').css({"display":"block"});
+		$('#'+wrapperID+' .metafield-body>div:last-child input[type=hidden]').attr("id",newInputID);
+		$('#'+wrapperID+' .metafield-body>div:last-child .upload-image-button').attr("rel",newInputID);
+
+		//metafieldID = wrapperID.split("_")[0];
+		//wp-collections_combinatie[1][86f3483118]-wrap
+		//console.log($('#'+wrapperID+' .metafield-body>div').find('.wysiwygs'));//metafieldID: metafieldID+'----------'+wysiwyg_num[metafieldID], tabindex:wysiwyg_num[metafieldID]
+		jQuery.post('admin-ajax.php',  {action: 'add_wysiwyg_field', aa:'b'}, function(data){
+		
+		
+		//jQuery(data).appendTo(jQuery('#'+wrapperID+' .metafield-body'))
+		//wysiwyg_num[metafieldID]++;
+		});
+			 
+	/*	
+		
 		$('#'+wrapperID+' .metafield-body>table:last-child').clone().appendTo($('#'+wrapperID+' .metafield-body') );
 		$('#'+wrapperID+' .metafield-body>table:last-child .image_container').css({"display": "none"});
 		$('#'+wrapperID+' .metafield-body>table:last-child .upload-image-button').css({"display": "inline-block"});
@@ -77,7 +119,7 @@ function add_value_instance(wrapperID, fieldtype){
 		$('#'+wrapperID+' .metafield-body>table:last-child td:last-child').css({"display":"block"});
 		$('#'+wrapperID+' .metafield-body>table:last-child input[type=hidden]').attr("id",newInputID);
 		$('#'+wrapperID+' .metafield-body>table:last-child .upload-image-button').attr("rel",newInputID);
-		
+		*/
 		break;
 	
 	case "date":
