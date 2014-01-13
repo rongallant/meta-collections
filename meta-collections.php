@@ -688,8 +688,6 @@ public function collection_menu() {
 public function combination(){
 	$this->includes();
 	include('core/fieldtypes/combination.php');
-	//print_r($_POST);
-	
 	$this->Metadata	= new Combination($_POST);
 	die();
 }	
