@@ -38,7 +38,8 @@ public function showsubfield($post=null, $element=null, $value){
 		
 			wp_enqueue_style( 'datetimepicker',   get_option('siteurl').'/wp-content/plugins/meta-collections/css/datetime/jquery.datetimepicker.css', '');  				
 			}
-
+			
+			$value		= ($value=="" && $element[default_value]!="") ? $element[default_value] : $value;
 			$element[postmetaprefix] = $this->postmetaprefix;
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
@@ -51,7 +52,7 @@ public function showsubfield($post=null, $element=null, $value){
 			
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$name}[]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" name=\"{$name}\" class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/><span class=\"add-on genericon_ genericon-{$addonclass} datetimebutton\"></span>";  
+			<input type=\"text\" name=\"{$name}\" rel='$rel' class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/><span class=\"add-on genericon_ genericon-{$addonclass} datetimebutton\"></span>";  
 			
 			
 			$html.="</div>";

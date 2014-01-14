@@ -33,8 +33,7 @@ public function showsubfield($post=null, $element=null, $value){
 			
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
 			wp_enqueue_script('jquery.colorpicker-min.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.min.js', '', '1.0.6');
-			wp_enqueue_script('jquery.colorpicker.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.js', '', '1.0.6');
-			
+			wp_enqueue_script('jquery.colorpicker.js', plugins_url().'/meta-collections/js/colorpicker/jquery.colorpicker.js', '', '1.0.6');		
 			wp_enqueue_style('css.colorpicker', plugins_url().'/meta-collections/css/colorpicker/jquery.colorpicker.css'); 											//user only for the colorpicker field
 			
 			 if(get_bloginfo( 'language')=="nl-NL"){ 	
@@ -118,10 +117,6 @@ function showfield($post=null, $element=null){
 			$html.="</div>";
 			$i++;			
 			}
-			//			 
-
-			//<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" 
-			//onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>
 			
 			$html.="<script>colortitle = '".__("Choose a color","_coll")."'</script>";
 			

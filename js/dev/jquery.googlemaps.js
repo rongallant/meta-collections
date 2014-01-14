@@ -11,11 +11,9 @@ init : function(args) {
 		//var self = this;
 		//this.args = args;
 		//this.self = self;
-		console.log(google.maps)
+		
 		$.extend( this, args || {} );
-		//mapInstances[this.name] = this.name;
-			//console.log('ai');		
-	this.geocoder = new google.maps.Geocoder();
+		this.geocoder = new google.maps.Geocoder();
 },
 
 showmap: function(args) {

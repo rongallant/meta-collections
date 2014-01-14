@@ -76,6 +76,7 @@ public function save_metafield(){
 	$metadataset = get_option("metadata_".$_POST[cpt]); 	
 	$_POST['ID'] = ($_POST['ID']=="new")? $this->slugify($_POST[label]) : $_POST['ID'];
 	
+	
 	foreach($_POST as $key=>$value){
 	if($_POST[$key]==""){
 	$_POST[$key] = 0;
@@ -88,14 +89,8 @@ public function save_metafield(){
 	$metadataset[$_POST['ID']][$key] = $value;
 
 	}
-	
-	//if($_POST[$key]==""){
-		//echo $key."<<";
-		//$metadataset[$_POST['ID']][$key] = 0;
-	//}
-	
+
 	}
-	
 	
 	update_option( "metadata_".$_POST[cpt], $metadataset, '', 'no'); 
 }
@@ -120,7 +115,7 @@ echo"<div class=\"icon32\" id=\"icon-options-general\"><br></div><h2>
 ".__("Add Metafield to Set for: {$_POST[cpt]}",'_coll')." 
 </h2>
 
-<div style=\"height:40px;width:100%;padding:7px;\">
+<div style=\"height:40px;width:100%;padding:7px;\"> 
 <div class=\"updated settings-error\" style=\"display:none;\" id=\"setting-error-settings_updated\"></div>
 </div>
 
@@ -147,7 +142,7 @@ $cpts 			= get_option("collection_cpt");
 $collection 	= $cpts[$_POST['cpt']];
 //print_r($metadataset);
 $buttons ="<a rel=\"action:collectionoverview\" class=\"button ajaxify\" href=\"admin-ajax.php\">&lsaquo; ".__("Back")."</a>
-<a rel=\"action:add_metafield, cpt:{$_POST[cpt]}\" class=\"button-primary ajaxify\" href=\"admin-ajax.php\">".__("Add Metafield")."</a>";			
+<a rel=\"action:add_metafield, cpt:{$_POST[cpt]}\" class=\"button-primary ajaxify\" href=\"admin-ajax.php\">".__("Add Metafield", "_coll")."</a>";			
 			
 echo"<div class=\"icon32\" id=\"icon-options-general\" ><br></div>
 <h2>".__("Edit Metadata Set: {$collection[labels][name]}",'_coll')."</h2>

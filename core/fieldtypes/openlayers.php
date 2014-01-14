@@ -33,7 +33,7 @@ function showfield($post=null, $element=null, $c=null){
 			if(sizeof($post)>0){//only load scripts when the function is called from the edot screen
 			wp_enqueue_script( 'openlayers', 'http://openlayers.org/api/OpenLayers.js', '', '1.0'); 
 			wp_enqueue_script( 'jquery.json', plugins_url().'/meta-collections/js/openlayers/jquery.json.js', '', '1.0'); 						
-			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.min.js', '', '1.0'); 
+			wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/dev/jquery.openlayers.js', '', '1.0'); 
 			wp_enqueue_style( 'openlayers',  get_option('siteurl').'/wp-content/plugins/meta-collections/css/openlayers/jquery.openlayers.css', ''); 
 			}
 
@@ -126,9 +126,7 @@ function showfield($post=null, $element=null, $c=null){
     * @access public
     */	
 function fieldOptions($element){
-		
-		
-	 
+			
 	echo"
 	<link rel='stylesheet' id='openlayers-css'  href='".plugins_url()."/meta-collections/css/openlayers/jquery.openlayers.css?ver=3.8' type='text/css' media='all' />
 	<table class=\"widefat metadata\" id=\"another\" cellspacing=\"0\" cellpadding=\"10\">";
@@ -165,8 +163,8 @@ function fieldOptions($element){
 	
 	</td>
 	<td valign=\"top\"><br/>
-	<div id=\"fieldmap\" style=\"width:100%;height:300px;\"></div>	<br/>
-Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"latitude\">° Longitude: <input id=\"longitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"longitude\"> °
+	<div id=\"fieldmap_{$element[ID]}\" style=\"width:100%;height:300px;\"></div>	<br/>
+Latitude: <input id=\"latitude\" class=\"ol_latitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"latitude\">° Longitude: <input id=\"longitude\" class=\"ol_longitude\" type=\"text\" size=\"23\" value=\"\" readonly name=\"longitude\"> °
 
 
 	 <br/>
@@ -183,7 +181,7 @@ Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly n
 	
 	<tr>
 	<td>".__("Default Zoom level", "_coll")." :</td>
-	<td><select name=\"zoom\" id=\"fieldzoom\" onchange=\"$('#fieldmap').data('olmap').setZoom(this.value)\">";
+	<td><select name=\"zoom\" class=\"fieldzoom\" id=\"fieldzoom\" onchange=\"$('#fieldmap').data('olmap').setZoom(this.value)\">";
 	//<input type=\"text\" name=\"max_length\" value=\"{$element[max_length]}\"/>
 	for ($i=0; $i<19; $i++){
 	$selected = ($i==$element[zoom])? "selected":"";	
@@ -203,14 +201,14 @@ Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly n
 	"Google Hybrid"		=> "google_hybrid",
 	"Google Satellite"	=> "google_satellite"
 	);
+	$formID 		= "#edit_options_{$element[ID]}_{$element[cpt]}";
 	
 	echo"<tr>
 	<td>".__("Choose layers", "_coll")." :<br/>
 	<i class=\"hint\">".__("Choose the layers with tile distributors.", "_coll")."</i>
 	</td>
 	<td>";
-	//print_r($element);
-	// [layers] => Array ( [google_hybrid] => 1 [google_satellite] => 1 
+
 	foreach($layers as $name=>$code){//$code
 	$checked = ($element[layers][$name]==1) ? "checked":"";
 	echo"<input type=\"checkbox\" name=\"layers[$name]\" {$checked} value=\"1\"/> {$name}<br/>
@@ -220,25 +218,6 @@ Latitude: <input id=\"latitude\" type=\"text\" size=\"23\" value=\"\" readonly n
 	
 	echo"</td>
 	</tr>
-	
-	
-	<tr>
-	<td valign=\"top\">".__("Allow multiple values / instances of this element", "_coll").":</td>
-	<td valign=\"top\">";
-	
-	$m_checked_yes	= ($element[multiple]==1)? "checked": "";
-	$m_checked_no	= ($element[multiple]==0)? "checked": "";
-	$formID = "#edit_options_{$element[ID]}_{$element[cpt]}";
-	
-	
-echo"<ul class=\"radio_list radio vertical\">
-                <li><label><input type=\"radio\" value=\"1\" name=\"multiple\" checked disabled> ".__("Yes")."</label></li>
-                <li><label><input type=\"radio\" value=\"0\" name=\"multiple\" disabled> ".__("No")."</label></li>
-                </ul>
-	
-	</td>
-	</tr>	
-
 	
 	<tr>
 	<td colspan=\"2\">
@@ -252,8 +231,6 @@ echo"<ul class=\"radio_list radio vertical\">
 	
 	
 	</table>";
-	//wp_enqueue_script( 'openlayers', 'http://openlayers.org/api/OpenLayers.js', '', '1.0'); //user only for the georeference field
-			//wp_enqueue_script( 'jquery.openlayers', plugins_url().'/meta-collections/js/openlayers/jquery.openlayers.js', '', '1.0'); //user only for the georeference field
 		
 echo"<script>
 	
@@ -267,14 +244,14 @@ jQuery(document).ready(function(){
 	
 	olfscript =$.getScript(\"".plugins_url()."/meta-collections/js/openlayers/jquery.openlayersfield.js\", function( data, textStatus, jqxhr ) {
 	
-	$('#fieldmap').OpenLayerField(".json_encode($element).");
+	$('#fieldmap_{$element[ID]}').OpenLayerField(".json_encode($element).");
 		
 	});
 
 	
 	});
 	}else{
-	$('#fieldmap').OpenLayerField(".json_encode($element).");
+	$('#fieldmap_{$element[ID]}').OpenLayerField(".json_encode($element).");
 
 	}	
 });

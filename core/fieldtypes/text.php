@@ -32,9 +32,8 @@ public function showsubfield($post=null, $element=null, $value){
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
 			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			$rel 		= json_encode($element);
-			
-			$html 		= "";			
-			$html.="<div class=\"metafield-value\">
+
+			$html="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/><input type=\"text\" name=\"{$name}\" rel='$rel' class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." value=\"{$value}\"/>
 			</div>";
 			
@@ -69,7 +68,7 @@ public function showfield($post=null, $element=null, $value=null){
 						
 			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
 			
-			//print_r($fieldfinfo);
+			$i=0;
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$element[ID]}\">{$element[label]}:</label><br/>
@@ -77,12 +76,13 @@ public function showfield($post=null, $element=null, $value=null){
 			
 			if($element[multiple]==1){
 			$visibility = ($i==0) ? "0": "1";
-			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")."\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
 			}
 			
 			$html."</div>";
-			}
+			$i++;
 			
+			}
 			
 			echo $this->Field->metafieldBox($html, $element);
 			
@@ -188,7 +188,7 @@ echo"<table class=\"widefat metadata\" cellpadding=\"10\">";
 public function subfieldOptions($element, $new=null){
 
 $parent 	= ($element['parent']=="") ? $element[ID] : $element[parent]; 
-
+//print_r($element);
 echo"
 	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][parent]\" value=\"{$parent}\"/>
 	<input type=\"hidden\" name=\"subfields[{$element[nonce]}][nonce]\" value=\"{$element[nonce]}\"/>

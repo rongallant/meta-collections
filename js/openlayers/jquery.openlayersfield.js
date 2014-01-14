@@ -7,10 +7,7 @@ field: null
 },
 
 _create: function() {
-		
-
-	
-
+	olObj = this;	
 	this.map = new OpenLayers.Map($(this.element).attr('id'), 
 	{ controls: [
             new OpenLayers.Control.Navigation(),
@@ -22,13 +19,11 @@ _create: function() {
 	"moveend": this.saveZoomandLocation
 	}, 
 	projection: new OpenLayers.Projection("EPSG:3857"),
-	displayProjection: new OpenLayers.Projection("EPSG:4326")
+	displayProjection: new OpenLayers.Projection("EPSG:4326"),
+	parent: olObj
         }
 	
 	);
-    //this.map.projection = "EPSG:3857";
-    //this.map.displayProjection = new OpenLayers.Projection("EPSG:4326");
-    //this.map.displayProjection = new OpenLayers.Projection("EPSG:4326");
     
     this.osm = new OpenLayers.Layer.OSM();   
     this.map.addLayer(this.osm);
@@ -54,14 +49,18 @@ _create: function() {
 
 saveZoomandLocation:function(obj){
 
+
 latlong= obj.object.getCenter().transform(
             obj.object.getProjectionObject(),
             new OpenLayers.Projection("EPSG:4326")
         );
-
-	$('#latitude').val(latlong.lat);
-	$('#longitude').val(latlong.lon);
-	$('#fieldzoom').val(obj.object.getZoom());
+	//$('#latitude').val(latlong.lat);
+	//$('#longitude').val(latlong.lon);
+	//console.log(this.options.parent.element.parent().parent().parent().find(".fieldzoom"))
+	this.options.parent.element.parent().find(".ol_latitude").val(latlong.lat);
+	this.options.parent.element.parent().find(".ol_longitude").val(latlong.lon);
+	this.options.parent.element.parent().parent().parent().find(".fieldzoom").val(obj.object.getZoom());
+	//$('#fieldzoom').val(obj.object.getZoom());fieldzoom
 
 
 },

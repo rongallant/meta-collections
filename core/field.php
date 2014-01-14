@@ -33,14 +33,13 @@ $this->getClassesWithSubfields();
 
 unset($element[action]);
 $action 		= ($subfield==1) ? "changesubfieldtype" :  "changemetafieldtype";
-
-$othervars		= "type: this.value, action:'{$action}'";
+$typea			= "this.value";
+$othervars		= "action:'{$action}', type: $typea";
 
 
 $elementinfo	= json_encode($element);
 $elementinfo	= preg_replace("/\"/","'",$elementinfo);
 $elementinfo 	= preg_replace("/}/",", $othervars}",$elementinfo);
-
 $row 			= $element[row]+1; 
 $fieldID 		= ($subfield==1) ? "#td_{$element[nonce]}" :  "#edit_options_{$element[ID]}_{$element[cpt]}" ;
 $fields 		= ($subfield==1) ? $this->ClassesWithSubfields : $this->entries;
@@ -48,7 +47,7 @@ $name 			= ($subfield==1) ? "subfields[".$element[nonce]."][type]" : "type";
 
 
 
-echo"<select name=\"{$name}\" onchange=\"jQuery('{$fieldID}').load('admin-ajax.php', {$elementinfo});\">";
+echo"<select name=\"{$name}\" onchange=\"$('{$fieldID}').load('admin-ajax.php', {$elementinfo});\">";
 	
 	foreach($fields as $metatype=>$metafile){
 	$c = ucfirst($metatype);
@@ -67,10 +66,6 @@ public function getAttributesAndClasses($element){
 
 			if($element[placeholder]!=""){
 				$attributes [] = "placeholder=\"{$element[placeholder]}\" ";
-			}
-			//print_r($element);
-			if($element[format]!=""){
-				$attributes [] = "rel=\"{$element[format]}\" ";
 			}
 			
 			if($element[length]!=""){
@@ -100,9 +95,6 @@ public function getAttributesAndClasses($element){
 					$options[format]	  	= "d/m/Y";
 				}
 				
-				//timepicker:false,
-				//format:'d/m/Y'
-				//print_r($options);
 				$attributes [] = "data='".json_encode($options)."'";
 			}
 
@@ -242,9 +234,6 @@ public function getSubBasics($element){
     * @access public
     * @param array $element
     */	
- 
-
-
     
 public function getBasics($element){
 	$statusc = ($element[status]==1)? "checked":"";

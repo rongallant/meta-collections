@@ -64,7 +64,7 @@ public function showsubfield($post=null, $element=null, $value){
 			
 			$option_key = (count($key_val)==2) ? $key_val[0] : $option;
 			$option_val = (count($key_val)==2) ? $key_val[1] : $option;
-			$sel 		= ($option_key==$value || $option_val==$value) ? "selected" : "";
+			$sel 		= ($option_key==$value || $option_val==$value || ($value=="" && $option_val==$element[default_value])) ? "selected" : "";
 			$html.="<option {$sel} value=\"{$option_val}\">{$option_val}</option>";
 			}
 			$html.="</select>
@@ -106,7 +106,9 @@ public function showfield($post=null, $element=null){
 			}
 				
 			$fieldfinfo = $this->Field->getAttributesAndClasses($element);
-				
+			
+			
+			foreach ($values as $value){	
 			$html.="<div class=\"metafield-value\">
 			<select class=\"".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])." name=\"{$name}[]\">";
 			
@@ -122,11 +124,18 @@ public function showfield($post=null, $element=null){
 			$option_key = (count($key_val)==2) ? $key_val[0] : $option;
 			$option_val = (count($key_val)==2) ? $key_val[1] : $option;
 			//$sel 		= ($option_val==$selval)? "selected":"";
-			$sel 		= (is_array($values) && in_array($option, $values)) ? "selected" : "";
+			$sel 		= ( (is_array($values) && in_array($option, $values)) || ($value=="" && $option_val==$element[default_value])) ? "selected" : "";
 			$html.="<option {$sel} value=\"{$option_key}\">{$option_val}</option>";
 			}
-			$html.="</select>
-			</div>";
+			$html.="</select>";
+			
+			if($element[multiple]==1){
+			$visibility = ($i==0) ? "0": "1";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			}
+			
+			$html.="</div>";
+			}
 			
 			echo $this->Field->metafieldBox($html, $element);
 					
@@ -181,7 +190,7 @@ public function fieldOptions($element){
 	key:value<br/>
 	key2:value2
 	</td>
-	<td><textarea name=\"options\" rows=\"3\" cols=\"60\">{$element[options]}</textarea>
+	<td><textarea name=\"options\" rows=\"20\" cols=\"19\">{$element[options]}</textarea>
 	</td>
 	</tr>
 	
@@ -289,7 +298,7 @@ public function subfieldOptions($element, $new=null){
 	key:value<br/>
 	key2:value2
 	</td>
-	<td><textarea name=\"subfields[{$element[nonce]}][options]\" rows=\"3\" cols=\"60\">{$element[options]}</textarea>
+	<td><textarea name=\"subfields[{$element[nonce]}][options]\" rows=\"20\" cols=\"19\">{$element[options]}</textarea>
 	</td>
 	</tr>
 

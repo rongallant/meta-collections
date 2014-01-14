@@ -39,6 +39,8 @@ public function showsubfield($post=null, $element=null, $value){
 			}
 			
 			}
+			
+			$value		= ($value=="" && $element[default_value]!="") ? $element[default_value] : $value;
 			$element[postmetaprefix] = $this->postmetaprefix;
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element['parent']."[".$element[instance]."][".$element['nonce']."]";
@@ -76,7 +78,8 @@ function showfield($post=null, $element=null){
 			
 			$element 	= ($element[id]!="") ? $element[args]: $element;
 			$name	 	= $this->postmetaprefix.$element[ID];
-
+			$rel 		= json_encode($element );			
+			
 			$values	 	= get_post_meta($post->ID, $name, true); 
 			$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
 			$values	 	= (!is_array($values)) ? array($values) : $values;
@@ -95,11 +98,11 @@ function showfield($post=null, $element=null){
 			foreach ($values as $value){
 			$html.="<div class=\"metafield-value\">
 			<label for=\"{$name}[]}\">{$element[label]}:</label><br/>
-			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\" class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-week\"></span>";  
+			<input type=\"text\" $required name=\"{$name}[]\" value=\"{$value}\" rel='$rel' class=\"special ".implode(" ", $fieldfinfo[0])."\" ".implode(" ", $fieldfinfo[1])."/><span class=\"add-on genericon_ genericon-week\"></span>";  
 			
 			if($element[multiple]==1){
 			$visibility = ($i==0) ? "0": "1";
-			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." {$element[label]}\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")."\" href=\"#\" style=\"opacity:{$visibility}\" onclick=\"remove_value_instance(event, $(this).parent('.metafield-value'))\">&nbsp;</a>";
 			}
 			
 			$html.="</div>";			
@@ -278,6 +281,22 @@ public function subfieldOptions($element, $new=null){
 	echo"</select>	
 	</td>
 	</tr>
+	
+		<tr>
+	<td>".__("Default Value", "_coll").":</td>
+	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][default_value]\" value=\"{$element[default_value]}\"/>
+	
+	</td>
+	</tr>
+	
+	<tr>
+	<td>".__("Placeholder value", "_coll").":<br/> 
+	<i style=\"color:#aaa\">".__("A greyed out value when the field is empty. Ideal to use for hints.","")."</i></td>
+	<td><input type=\"text\" name=\"subfields[{$element[nonce]}][placeholder]\" value=\"{$element[placeholder]}\"/>
+	
+	</td>
+	</tr>
+
 	
 	<tr>	
 	<td colspan=\"2\" style=\"padding:10px\">

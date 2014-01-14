@@ -20,9 +20,7 @@ class Combination extends Basics{
 	$this->fieldname 	= __("Combination field", "_coll");
 	
 	if($meta[action]!=null){
-	//	print_r($meta[action]);
 		echo $this->$meta[action]($meta);	
-	//	die();
 	}
 }
 	
@@ -39,10 +37,8 @@ public function showfield($post=null, $element=null){
 			$name	 	= $this->postmetaprefix.$element[ID];
 
 			$values	 	= get_post_meta($post->ID, $name, true); 
-			//$values	 	= ($values=="" && $element[default_value]!="") ? $element[default_value] : $values;
-			//$values	 	= (!is_array($values)) ? array($values) : $values;
-
-
+			
+			
 			if(!is_array($values)){
 				$values[0] = array();
 				
@@ -60,13 +56,19 @@ public function showfield($post=null, $element=null){
 			$this->Field->getClassesWithSubfields();
 			
 			$html = "";
+			
+			
+			if($element[description]!=""){
+			$html.="<span style=\"font-size:10px;font-style:italic\">{$element[description]}</span>";	
+			}
+			
 			$instance=1;
 			foreach ($values as $row=>$elements){
 
 			$html.="<div id=\"div_{$element[ID]}_$instance\" rel=\"{$instance}\" data=\"{$name}\">";
 			
-			foreach($element[subfields] as $nonce => $elementinfo){//determine earlier if a field is active status
-			//$width 									= ($element[subfields][$nonce][width]!="") ? "width:{$element[subfields][$nonce][width]}%;" : "";
+			foreach($element[subfields] as $nonce => $elementinfo){
+			if($elementinfo[status]==1){
 			$elementinfo[instance] 	= $instance;	
 				
 			$html .="<div class=\"subfield\" style=\"{$elementinfo[width]}\">";
@@ -75,13 +77,14 @@ public function showfield($post=null, $element=null){
 			$html.= $typeclass->showsubfield($post, $elementinfo, $elements[$elementinfo[nonce]]);	
 			$html.="</div>";			
 			}
+			}
+			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent())\">&nbsp;</a>";
 			
-			$html.="<a class=\"delete_metavalue genericon_ genericon-trash\" title=\"".__("delete this", "_coll")." style=\"opacity:{$visibility}\" {$element[label]}\" href=\"#\" onclick=\"remove_value_instance(event, $(this).parent())\">&nbsp;</a>
-
 			
 			
-			</div>";
+			$html.="</div>";
 			$instance++;
+			
 			}
 			
 			echo $this->Field->metafieldBox($html, $element);
@@ -94,17 +97,17 @@ public function add_subfield($element){
 	$this->Field->getFields();
 	$this->Field->getClasses();
 	$this->Field->getClassesWithSubfields();
-	
+	//$element[ID]	= 'new';
 	$element[type]	= 'text';//= add standard a text field
 	$this->Field 	= new Field();
 	
 	$element[nonce] = wp_create_nonce($element[cpt].'_'.rand(0,100000000000));	
-	
+	unset ($element[subfields]);
 	$c 				= ucfirst($element[type]);
 	$typeclass 		= new $c();
 	$row 			= $element[row]+1;	
 
-	//print_r($element);
+	
 	echo"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" >
 	<tr class=\"on\" id=\"tr_{$element[nonce]}\">
 	<td class=\"row rownumber\" style=\"width:5%;\"><span class=\"sorthandle\" title=\"Drag to sort\">".$row."</span></td>
@@ -312,19 +315,7 @@ public function fieldOptions($element){
    });
    
    </script>";
-/**/
-//Cancel <a href=\"#\" onclick=\"\" class=\"button\">".__("Cancel")."</a>
-/*
-	jQuery(document).ready(function(){
-	
-	jQuery('{$formID}').validate();
-	
-	if(olscript===undefined){
-	olscript =$.getScript(\"http://openlayers.org/api/OpenLayers.js\", function( data, textStatus, jqxhr ) {
-	
-	olfscript =$.getScript(\"".plugins_url()."/meta-collections/js/openlayers/jquery.openlayersfield.js\", function( data, textStatus, jqxhr ) {
-	
-*/
+
 }
 
 }

@@ -108,7 +108,6 @@ public function __construct(){
 	}	
 	
 	
-	// $this->menu = add_action('admin_menu', array($this, 'wp_admin_widgets_admin_menu'));  
 	/*********** ACTIONS FOR COLLECTIONS *************/
 	
 	
@@ -216,7 +215,7 @@ public function init(){
 	"digits"		=> array(__("Make the element require digits only.", "_coll"), "c"), 
 	"creditcard"	=> array(__("Make the element require a credit card number.", "_coll"), "c"),
 	"minlength"		=> array(__("Make the element require a given minimum length.", "_coll"), "i"),  
-	"maxlength"		=> array(__("Make the element require a given maxmimum length.", "_coll"), "i"),  
+	"maxlength"		=> array(__("Make the element require a given maximum length.", "_coll"), "i"),  
 	"min"			=> array(__("Make the element require a given minimum.", "_coll"), "i"),  
 	"max"			=> array(__("Make the element require a given maximum.", "_coll"), "i")
 	); 
@@ -619,8 +618,9 @@ public function get_taxonomies($post_type){
 	$this->metadataset 	= get_option("metadata_".$post_type);
 	if(is_array($this->metadataset)){
 		$types 				= $this->search_nested_arrays($this->metadataset, "type");
+		if(is_array($types)){
 		$has_taxonomies		= in_array("taxonomy", $types);
-		
+		}
 		if($has_taxonomies){ //if there are resistered taxonomy fields loop trough them
 			
 			foreach($this->metadataset as $metadataID=>$metaINFO){ 

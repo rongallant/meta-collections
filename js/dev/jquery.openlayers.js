@@ -1,5 +1,5 @@
 $ = jQuery.noConflict();
-var obj;
+var OLobj;
 
 
 $.widget( "custom.OpenLayer", {
@@ -13,15 +13,15 @@ _create: function() {
 
 $(this.element).html("");
 this.props = new Array("title", "date", "time", "amount");
-	console.log(this.options.lang);	
-obj			= this;
+
+OLobj		= this;
 
 	DeleteFeature 	= OpenLayers.Class(OpenLayers.Control, {
     	initialize: function(layer, options) {
 	        OpenLayers.Control.prototype.initialize.apply(this, [options]);
 	        this.layer = layer;
 	        this.handler = new OpenLayers.Handler.Feature(
-	            this, layer, {click: obj.deleteFeature}
+	            this, layer, {click: OLobj.deleteFeature}
 	        );
     },
     CLASS_NAME: "OpenLayers.Control.DeleteFeature"
@@ -34,7 +34,6 @@ this.mapoptions = { controls: [
             ],
 			displayProjection: new OpenLayers.Projection("EPSG:4326")
 			};
-	//console.log(this.options.layers);
 	
 	
 	this.map 		= new OpenLayers.Map($(this.element).attr('id'), this.mapoptions);
@@ -103,20 +102,19 @@ this.mapoptions = { controls: [
     this.map.addControl(new OpenLayers.Control.MousePosition( {id: "utm_mouse", prefix: "Mercator ", displayProjection: this.map.baseLayer.projection, numDigits: 0} ));
     
     this.drawPoints();
-    //console.log(this.options.features);
     
-	 
+     
 	this.editPanel 		= new OpenLayers.Control.Panel({displayClass: 'editPanel'});
     this.navControl 	= new OpenLayers.Control.Navigation({title: this.options.lang.Navigation});
-    this.editControl 	= new OpenLayers.Control.ModifyFeature(this.vectorLayer, {dragComplete:obj.modifyFeature,title: this.options.lang.ModifyFeature});
+    this.editControl 	= new OpenLayers.Control.ModifyFeature(this.vectorLayer, {dragComplete:OLobj.modifyFeature,title: this.options.lang.ModifyFeature});
     this.drawControl	= new OpenLayers.Control.DrawFeature(this.vectorLayer, OpenLayers.Handler.Point, {featureAdded: this.addnewFeature, displayClass: 'pointButton', title: this.options.lang.DrawFeature, handlerOptions: {style: this.sty}});
     //this.deleteControl  = new DeleteFeature(this.vectorLayer, {title: 'punten wissen'});         
 	//this.deleteControl	= new DeleteFeature(this.vectorLayer, {title: 'punten wissen'});
     this.deleteControl	= new DeleteFeature(this.vectorLayer, {title: this.options.lang.DeleteFeature}); 
-    this.selectfeature	= new OpenLayers.Control.SelectFeature(this.vectorLayer, {clickFeature: function(feature){obj.popupFeature(feature)}, title: this.options.lang.SelectFeature}); 
+    this.selectfeature	= new OpenLayers.Control.SelectFeature(this.vectorLayer, {clickFeature: function(feature){OLobj.popupFeature(feature)}, title: this.options.lang.SelectFeature}); 
     
     this.switcher = new OpenLayers.Control.LayerSwitcher({"title": this.options.lang.Baselayer}); 
-    this.selectfeature.obj = this;
+    this.selectfeature.OLobj = this;
     this.editPanel.addControls([
             this.navControl,
             this.editControl,
@@ -150,14 +148,14 @@ $.each(savedfeatures[0], function( index, feature) {
 
 	point = new OpenLayers.Geometry.Point(feature.lon,feature.lat).transform(
       new OpenLayers.Projection("EPSG:4326"),
-            obj.map.getProjectionObject()
+            OLobj.map.getProjectionObject()
        );
 
 	f = new OpenLayers.Feature.Vector(point,{"title": feature.title, "date": feature.date, "time": feature.time, "amount": feature.amount});
     
     f.lonlat 	= new OpenLayers.LonLat(feature.lon,feature.lat).transform(
       new OpenLayers.Projection("EPSG:4326"),
-       obj.map.getProjectionObject()
+       OLobj.map.getProjectionObject()
     );
 	
 	features.push(f);
@@ -165,15 +163,15 @@ $.each(savedfeatures[0], function( index, feature) {
 
 });
 
-//console.log(features)
+
 this.vectorLayer.addFeatures(features)
 this.updateFeatureInfo();
 },
 
 modifyFeature:function(Sfeature){		
-	console.log(Sfeature);
-
-	$.each(obj.vectorLayer.features, function( index, feature ) {
+	
+	
+	$.each(OLobj.vectorLayer.features, function( index, feature ) {
 		if(Sfeature.id==feature.id){
 		lonlat = new OpenLayers.LonLat(Sfeature.geometry.x, Sfeature.geometry.y);
 		//.transform(
@@ -185,15 +183,15 @@ modifyFeature:function(Sfeature){
 
 	});
 	
-	obj.updateFeatureInfo();
+	OLobj.updateFeatureInfo();
 	//console.log(obj.vectorLayer.features);
 },
 	
 addnewFeature: function(feature){
 //console.log(arguments);
 	
-	for (var e=0;e<obj.props.length;e++) {
-	feature.attributes[obj.props[e]]="";
+	for (var e=0;e<OLobj.props.length;e++) {
+	feature.attributes[OLobj.props[e]]="";
 	}
 	
 	//latlon =	feature.geometry.transform(  
@@ -205,7 +203,7 @@ addnewFeature: function(feature){
 	feature.lonlat = new OpenLayers.LonLat(feature.geometry.x,feature.geometry.y);
 	//console.log(feature);
 
-	obj.updateFeatureInfo();		
+	OLobj.updateFeatureInfo();		
 	 
 	},
 	
@@ -213,15 +211,15 @@ deleteFeature: function(feature){
 	//alert(23)
 	 if(feature.fid == undefined) {
             feature.state = OpenLayers.State.DELETE;
-            obj.vectorLayer.destroyFeatures([feature]);
+            OLobj.vectorLayer.destroyFeatures([feature]);
      } else {
             feature.state = OpenLayers.State.DELETE;
-            obj.vectorLayer.events.triggerEvent("afterfeaturemodified", {feature: feature});
+            OLobj.vectorLayer.events.triggerEvent("afterfeaturemodified", {feature: feature});
             feature.renderIntent = "select";
-            obj.vectorLayer.drawFeature(feature);
+            OLobj.vectorLayer.drawFeature(feature);
     }
     // feature.destroy(); 
-	obj.updateFeatureInfo();
+	OLobj.updateFeatureInfo();
 	console.log(feature);
 	},
 	 
@@ -234,7 +232,7 @@ updateFeatureInfo: function(sfeature){
 		$.each(this.vectorLayer.features, function( index, feature ) {
 
 		lonlat = new OpenLayers.LonLat(feature.lonlat.lon,feature.lonlat.lat).transform(
-               obj.map.getProjectionObject(),
+               OLobj.map.getProjectionObject(),
 			   new OpenLayers.Projection("EPSG:4326")
 		);
 		//feature.lonlat = new OpenLayers.LonLat(feature.lonlat.lon,feature.lonlat.lat);
@@ -248,7 +246,7 @@ updateFeatureInfo: function(sfeature){
 		});
 
 //console.log(features);
-		$("#"+obj.options.input).val(JSON.stringify(features));
+		$("#"+OLobj.options.input).val(JSON.stringify(features));
 		
 
 	},
@@ -262,7 +260,7 @@ popupFeature: function (feature){
 	mform		= "<form class='propertyform' id='form_"+feature.fid+"'>";
 	for (var e=0;e<this.props.length;e++) {
 	an 			= (this.props[e]=="amount") ? "an":"a";
-	ititle 		= obj.capitaliseFirstLetter(this.props[e]);
+	ititle 		= OLobj.capitaliseFirstLetter(this.props[e]);
 	v 			= (feature.attributes[this.props[e]]!=undefined)? feature.attributes[this.props[e]]: "";
 	mform		+= "<div class='property'><label for='"+feature.attributes[this.props[e]]+"'>"+ititle+":</label>";
 	mform		+= "<input type='text' name='"+this.props[e]+"' class='"+this.props[e]+"' rel='"+feature.fid+"' placeholder='type "+an+" "+this.props[e]+"' value='"+v+"'/></div>";
@@ -291,8 +289,8 @@ popupFeature: function (feature){
 	$('#featurePopup_contentDiv').html("<div class='popupmessage'>"+this.options.lang.properties_mod+"</div>")
 	setTimeout(function(){
 	popup.destroy();		
-	console.log(obj);
-	obj.updateFeatureInfo();
+	//console.log(OLobj);
+	OLobj.updateFeatureInfo();
 	}, 2500);
 	
 		return false;
