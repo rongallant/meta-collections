@@ -148,7 +148,7 @@ Besides that there is a simple shortcode interface, explained also in this docum
 * Added the YouTube field with lots of options. 
 * Fixed a bug in the open layer field 
 * Added a input radio field
-
+ 
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
