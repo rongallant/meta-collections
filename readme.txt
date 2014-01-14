@@ -5,7 +5,7 @@ Tags: collection, collection management, post type, custom taxonomy, custom post
 
 Requires at least: 3.0
 Tested up to: 3.8 
-Version: 2.0.2
+Version: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 2.0.2
@@ -198,6 +198,7 @@ Besides that there is a simple shortcode interface, explained also in this docum
 
 
 = 2.0.3 =
+* Added extensive validation options. 
 * Added a Combination field with lots of options. 
 * Added a User field. 
 * Updated the Image field. 
