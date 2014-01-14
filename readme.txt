@@ -155,6 +155,7 @@ Besides that there is a simple shortcode interface, explained also in this docum
 * Added a User field. 
 * Updated the Image field. 
 
+ 
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
