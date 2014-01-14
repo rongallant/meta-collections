@@ -154,6 +154,7 @@ Besides that there is a simple shortcode interface, explained also in this docum
 * Added a Combination field with lots of options. 
 * Added a User field. 
 * Updated the Image field. 
+
  
 == Upgrade Notice ==
 = 1.0 =
@@ -201,7 +202,6 @@ Besides that there is a simple shortcode interface, explained also in this docum
 * Added the YouTube field with lots of options. 
 * Fixed a bug in the open layer field 
 * Added a input radio field
-
 
 = 2.0.3 =
 * Added extensive validation options. 
