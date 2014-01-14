@@ -32,7 +32,7 @@ public function showfield($post=null, $element=null){
 			global $post;		
 			 
 			 if(sizeof($post)>0){//only load scripts when the function is called from the edot screen		
-			 wp_enqueue_script( 'jquery.imagef', plugins_url().'/meta-collections/js/imagef/jquery.imagef.js', '', '1.0'); 
+			 wp_enqueue_script( 'jquery.imagef', plugins_url().'/meta-collections/js/imagef/jquery.imagef.min.js', '', '1.0'); 
 			 }
 			 
 			 
