@@ -5,7 +5,7 @@ Tags: collection, collection management, post type, custom taxonomy, custom post
 
 Requires at least: 3.0
 Tested up to: 3.8 
-Version: 2.0.2
+Version: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 Stable tag: 2.0.2
@@ -14,15 +14,14 @@ Use Wordpress as a Collection Manager. Customize Wordpress' post edit screen by 
 == Description ==
 <h4>Meta Collections</h4>
 Meta Collections is developed to turn Wordpress into a Collection manager.
-Beside 'Posts' and 'Pages' you can add your own custom post types (a Collection e.g. 'Films'). 
-For that particular post type you can add you own Metadata schema (custom fields). 
+Beside 'Posts' and 'Pages' you can add your own custom post types (a Collection e.g. 'Films', 'Recipes' or 'Products'). 
+For that particular post type you can add you own Metadata schema (custom fields: For 'Products' a price, image and manufacturer field). 
 For example, if you want a Dublin Core metadata schema you can. That schema can be a mixture of system and custom fields or a completely customized metadataschema.
-On top of that you can intuitively compose the user interface for the post type by dragging and dropping metafields in the right places using neat metaboxes.
- Fields can be validated and can consist of multiple instances (e.g. more dan one ingredient field).
-You can also add metafields in the post overview table. 
+You can intuitively compose the user interface for the post type in a preview screen by dragging and dropping metafields in the right places using neat metaboxes.
+Fields can be validated and can consist of multiple instances (e.g. more dan one ingredient field with a custom post type 'recipes').
+You can add metafields in the post overview table. 
 
 <h4>Fields types</h4>
-
 * Text
 * Textarea
 * Wysiwyg (Wordpress' native Editor)
@@ -38,6 +37,11 @@ You can also add metafields in the post overview table.
 * Select (for selecting one or multiple values in a dropdownmenu)
 * Radio buttons (for single value)
 * Open Layer New Open Layer field for managing multiple point with a post (or other custom post type) every point can contain a title, date time and amount.
+* user field. Select single or multiple wordpress users en roles in  checkbox, select or radio setting.
+* Combination Field. A field that can contain multiple other fieltypes. For example a text field and an image field. This field can also be repeated. 
+This field you will enable to add multiple 'records' to one post, page or other custom post type you created. 
+For instance, if you would have a custom post type 'films', this field would enable you to add mulitple actors with each film containing a bio, photo and other personal info.
+
 
 Wishlist
 * File
@@ -46,7 +50,7 @@ Wishlist
 
 
 <h4>Shortcode</h4>
-Shorcodes is still quity simple since this plugin is brand new (september 2012)
+Shorcodes is still quite simple
 you can add the follow shorcode in your posts description in order to use the fields
 <code> [collections metafield="identifier" instance="all" seperator=" - "]</code>
 
@@ -75,8 +79,17 @@ The plugin is published in a language supporing two languages, English and Dutch
 == Frequently Asked Questions ==
 
 = I added a metafield but it doesn't show up in the post type edit screen =
+You first have to drag it into the user interface. Go to Collections, click on 'User Interface', Create and place a metabox and drag the field in that box. 
 
-You first have to drag it into the user interface. Go to Collections, click on 'edit user interface' and drag the field in a place you wan't it  
+= How to use this plugin in template design? =
+When you add metadata to a post type, a hint appears above every field how to get the data in the front end. Data that belong to each individual field.
+The composition differs for each field. The best way to know the fields content is to do this in the right template part (e.g. page.php):
+
+$fieldcontents = get_post_meta($post->ID, collections_fiedname, true);
+print_r($fieldcontents);  
+
+Besides that there is a simple shortcode interface, explained also in this document.
+
 
 
 == Screenshots ==
@@ -139,7 +152,7 @@ You first have to drag it into the user interface. Go to Collections, click on '
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
-
+ 
 = 1.0.1 = 
 * Some issues fixed for php 5.2 compatibility
 
@@ -182,3 +195,10 @@ You first have to drag it into the user interface. Go to Collections, click on '
 * Added the YouTube field with lots of options. 
 * Fixed a bug in the open layer field 
 * Added a input radio field
+
+
+= 2.0.3 =
+* Added extensive validation options. 
+* Added a Combination field with lots of options. 
+* Added a User field. 
+* Updated the Image field. 
