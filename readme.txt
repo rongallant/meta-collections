@@ -37,7 +37,7 @@ You can add metafields in the post overview table.
 * Select (for selecting one or multiple values in a dropdownmenu)
 * Radio buttons (for single value)
 * Open Layer New Open Layer field for managing multiple point with a post (or other custom post type) every point can contain a title, date time and amount.
-* user field. Select single or multiple wordpress users en roles in  checkbox, select or radio setting.
+* User field. Select single or multiple wordpress users en roles in  checkbox, select or radio setting.
 * Combination Field. A field that can contain multiple other fieltypes. For example a text field and an image field. This field can also be repeated. 
 This field you will enable to add multiple 'records' to one post, page or other custom post type you created. 
 For instance, if you would have a custom post type 'films', this field would enable you to add mulitple actors with each film containing a bio, photo and other personal info.
@@ -148,11 +148,11 @@ Besides that there is a simple shortcode interface, explained also in this docum
 * Added the YouTube field with lots of options. 
 * Fixed a bug in the open layer field 
 * Added a input radio field
- 
+
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
-
+ 
 = 1.0.1 = 
 * Some issues fixed for php 5.2 compatibility
 
