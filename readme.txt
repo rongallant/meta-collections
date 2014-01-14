@@ -149,6 +149,12 @@ Besides that there is a simple shortcode interface, explained also in this docum
 * Fixed a bug in the open layer field 
 * Added a input radio field
 
+= 2.0.3 =
+* Added extensive validation options. 
+* Added a Combination field with lots of options. 
+* Added a User field. 
+* Updated the Image field. 
+ 
 == Upgrade Notice ==
 = 1.0 =
 * This is the first release so no notices.
