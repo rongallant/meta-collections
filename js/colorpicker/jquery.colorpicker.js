@@ -1,0 +1,1 @@
+var colortitle;$(document).on("focusin",".colorpickers",function(e){$(this).colorpicker({parts:"full",alpha:true,color:$(this).val(),title:colortitle,select:function(e,t){$(this).prev().css({background:"#"+t.formatted})}})})

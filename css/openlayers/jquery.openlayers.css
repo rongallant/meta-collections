@@ -1,0 +1,132 @@
+.map {
+    /*width: 600px;*/
+    width:100%;
+    height: 450px;
+    border: 1px solid black;
+    overflows:hidden;
+}
+
+div.olControlPanel {
+    top: 0px;
+    left: 50px;
+    position: absolute;
+}
+
+.olControlPanel div {
+    display: block;
+    width:  22px;
+    height: 22px;
+    border: thin solid black;
+    margin-top: 10px;
+    background-color: white
+}
+
+.helpButtonItemInactive {
+    background-image: url("../images/help.png");
+}
+
+.olControlMousePosition {
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+    height: 15px;
+    font-size: 8pt;
+    background-color: white
+}
+
+#utm_mouse {
+    bottom: 15px;
+}
+
+
+div.editPanel {
+    top: 10px;
+    right: 10px;
+    position: absolute;
+}
+
+.editPanel div {
+      background-image: url("../images/controls_sprite.png");
+      background-repeat: no-repeat;
+      width:  24px;
+      height: 22px;
+      margin-right:3px;
+      position:relative;
+      float:left;
+}
+
+.olControlNavigationItemActive {background-position: -102px -23px; }
+.olControlNavigationItemInactive {background-position: -102px 0px; }
+
+.lineButtonItemActive {background-position: 0px -69px; }
+.lineButtonItemInactive {background-position: 0px -46px; }
+
+.pointButtonItemActive {background-position: -76px -23px; }
+.pointButtonItemInactive {background-position: -76px 0px; }
+
+.olControlModifyFeatureItemActive {background-position: 0px -23px; }
+.olControlModifyFeatureItemInactive {background-position: 0px 0px; }
+
+.olControlDeleteFeatureItemActive { background-position: -153px -23px; }
+.olControlDeleteFeatureItemInactive { background-position: -153px 0px; }
+
+.olControlSelectFeatureItemActive { background-position: -180px -23px; }
+.olControlSelectFeatureItemInactive { background-position: -180px 0px; }
+
+.olControlLayerSwitcherItemInactive{display:none;} 
+.olControlLayerSwitcherItemActive {display:none};
+
+.property{
+	padding:5px 0px 15px 0px;
+	font-family: "Open Sans",helvetica, sans-serif;	
+}
+
+#featurePopup_GroupDiv h2{
+	font-family: "Open Sans",helvetica, sans-serif;
+	font-size:22px;
+	margin: 0px 0px 10px 0px;
+}
+
+.property label{
+	display: inline-block;
+	clear:left;
+	min-width: 60px;
+	padding-right:10px;
+	font-size:13px;
+}
+
+.property input[type=text], .property input[type=submit]{
+	padding:6px;
+	font-size:14px
+}
+
+.popupmessage{
+	margin-top:40%;
+	font-family: "Open Sans",helvetica, sans-serif;
+	text-align: center;	
+}
+
+.olControlLayerSwitcher .layersDiv {
+    background-color: #1e8cbe!important;
+    padding: 5px 10px!important;
+    font-family: "Open Sans",helvetica,sans-serif !important;
+    font-size: 12px !important;
+   
+}
+
+.olControlLayerSwitcher {
+	font-family: "Open Sans",helvetica,sans-serif !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    margin-top:30px;
+    position:absolute;
+}
+
+.baseLayersDiv, .gm-style div, .gm-style span, .gm-style label, .gm-style a {
+	 font-family: "Open Sans",helvetica,sans-serif !important;
+    font-size: 12px !important;
+}
+
+.olControlLayerSwitcher label{
+	font-size: 12px !important;
+}

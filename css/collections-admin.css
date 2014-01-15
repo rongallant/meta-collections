@@ -1,0 +1,243 @@
+i.hint{
+	color:#aaa;
+}
+	
+.helpmessage{
+	font-family: 'comic sans', 'comic sans MS';
+	font-size: 12px;
+	color:#808080;
+	min-height:52px;
+	padding-right:30px;
+	text-align:right;
+	position:relative;
+	top:24px;
+	z-index:4;
+	background: url('../images/arrow-right.png') no-repeat 100% 9px;
+	
+}
+
+a.disabled{
+	opacity:0.4;
+}
+
+.side-text{
+	width:100%;
+	padding-left:40px;
+	min-height:30px;
+	background: url('../images/arrow-left.png') no-repeat 0% 9px;
+	font-family: 'comic sans', 'comic sans MS';
+	font-size: 11px;
+	color: #0074A2;
+}
+
+/******** SORTABLES METABOXES EN METAFIELD BOXES UI ***********/
+.metabox-holder-collections .meta-box-sortables{
+	border: 2px dashed #90BACD!important;
+	border-radius: 4px;
+	padding:4px;
+}
+#inactive-system-sortables{
+	border: 2px dashed #90BACD!important;
+	border-radius: 4px;
+	padding:4px;
+	min-height:35px;
+}
+
+#inactive-system-sortables .postbox, #inactive-sortables .meta-field-box{
+	swidth:250px;
+	}
+
+#inactive-sortables, #active-sortables{
+	border: 2px dashed #90BACD!important;
+	border-radius: 4px;
+	padding:4px;
+	min-height:135px;
+}
+/*
+.new-sortable:after{
+	content : ' drag metaboxes in this area'; 
+	font-family: 'comic sans', 'comic sans MS';
+	font-size: 11px;
+	color: #0074A2;
+}
+*/
+#inactive-sortables:after{
+	content : ' drag metaboxes in this area'; 
+	font-family: 'comic sans', 'comic sans MS';
+	font-size: 11px;
+	color: #0074A2;
+}
+
+
+.meta-field-box, .meta-field-system-box{
+
+	margin-bottom:10px;
+}
+
+
+.meta-field-box .meta-field-hndle{ /*open meta field box*/
+	color:transparent!important;
+	background: url('../images/move.gif') no-repeat 10px 10px!important;
+	border-bottom:none!important;
+	border:none!important;
+	text-shadow:none!important;
+}
+
+
+ .meta-field-system-box.closed .meta-field-hndle{
+	 background:#c0c0c0;
+	 border: 1px solid  #c0c0c0!important;
+	 color:white;
+	 border-radius: 2px;
+	 cursor: move;
+	 /*color:#333333!important;*/
+	}
+
+.meta-field-box.closed .meta-field-hndle{
+	 background-image: -moz-linear-gradient(center bottom , #eee, #f1f1f1)!important;
+	 background-position:0px 0px!important;
+	 border: 1px solid #c0c0c0!important;
+	 color:white;
+	 border-radius: 2px;
+	 cursor: move;
+	 color:#333333!important;
+	}
+
+.meta-field-box.closed .meta-field-hndle:hover{
+	border: 1px solid #13455B!important;
+}
+
+.meta-field-box .handlediv {
+    cursor: pointer;
+    float: right;
+    height: 30px;
+    width: 27px;
+}
+
+.meta-field-box:hover .handlediv{
+    /*background: red url("../images/arrows.png") no-repeat scroll 6px 7px transparent;*/
+    background: url("../images/arrows.png") no-repeat scroll 6px 7px transparent;/*ADJUST*/
+    
+}
+
+
+.meta-field-sortables{
+	min-height: 25px;
+}
+
+tr.on, {
+	/*background-image: -moz-linear-gradient(center bottom , #6D6D6D, #808080);*/
+	
+} 
+
+tr.on td, tr.on th{
+	color:white!important;
+	background: #2EA2CC;
+}
+tr.on:hover td, tr.on:hover th{
+	background: #1e8cbe;
+}
+
+tr.on a:link, tr.on a:visited{
+	color:white!important;
+}
+
+tr.on a:hover, tr.on a:active{
+	color:#e17341!important;
+}
+
+.sorthandle{
+	cursor:move;
+}
+.spanlabel {
+	font-weight: bold;
+	font-size:15px;
+}
+td.row{
+	
+	border-bottom:1px solid #f1f1f1!important;
+}
+
+tr .row .srow-actions{
+	opacity:0
+}
+
+tr .row:hover .srow-actions{
+	opacity:1
+}
+
+td.categories{
+	
+}
+
+
+td.metadataform{
+	background: -moz-linear-gradient(center top , #2C8BBE, #246F99) repeat scroll 0 0 transparent!important;
+	padding:10px;
+	border-top:none!important;
+	}
+	
+
+th.manage-column{
+	background-image: -moz-linear-gradient(center bottom , #eee, #f1f1f1)!important;
+	 	
+}
+
+.rownumber{
+	text-align:center;
+	
+}
+.rownumber span{
+	display:block;
+	width:22px;
+	height:20px;
+	border-radius: 5px;
+	padding-top:2px;
+	border: 2px solid white; 
+	text-align:center;
+}
+/******* TABS ******/
+
+.ui_controls .tab-content{
+display:none;
+}
+
+.ui_controls .content-active{
+display:block;
+}
+
+.ui_controls h3{
+	text-align:left;
+}
+
+
+table.metafield {
+	margin-bottom:20px;
+}
+
+
+.meta-field-box input[disabled]{
+	color:#464646;
+	background: #fff;
+}
+
+.postbox .metabox_options{
+	display:none;
+}
+
+.postbox .metabox_options a{
+	display:none;	
+	margin: 0px 5px 0px 0px;
+}
+
+.postbox:hover .metabox_options, .postbox:hover .metabox_options a{
+	display:inline;	
+}
+
+
+/****** VALIDATION CSS *********/
+
+label.error{
+	color:red;
+	padding: 0px 0px 0px 15px;
+}

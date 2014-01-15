@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".wysiwygscontainer").each(function(e,t){wyss=$("#wysiwygs_"+$(t).attr("rel"));wyss.appendTo(t)})})

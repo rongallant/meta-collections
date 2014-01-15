@@ -1,0 +1,257 @@
+input[type=text], textarea, select{
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    border-radius: 4px;
+  	border:1px solid #dddddd;
+
+}
+
+input.sspecial[type=text]{
+    border-radius: 0px!important;
+}
+
+input.special[type=text]{
+    border-radius: 4px 0px 0px 4px!important;
+}
+
+.collection_button{
+	border-radius: 4px 0px 0px 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	min-width: 16px;
+	padding: 4px 5px 3px 5px;
+    position:relative;
+   	displays: inline-block;
+    margin: 0px 0px 0px -2px;
+    top:4px;
+    color: #fff;
+    cursor:pointer;	
+}
+
+.metafield-value a.uncheck{
+	display:none;
+}
+
+.metafield-value:hover a.uncheck{
+	background: #fe4f10;
+	color: #fff;
+	border-radius: 4px;
+	
+	border: 1px solid #d26037;
+	display:inline;
+}
+
+.metafield-value a.delete_metavalue:link,
+.metafield-value a.delete_metavalue:visited{
+	border-radius: 0 4px 4px 0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	background-color:  #d15d33;
+	border: 1px solid #a94b28;
+	width: 16px;
+	padding: 4px 1px 3px 4px;
+    position:relative;
+   	displays: inline-block;
+    margin: 0px 0px 0px -2px;
+    top:4px;
+    cursor:pointer;
+	display:none;
+}
+
+.metafield-value:hover a.delete_metavalue{
+	background: #fe4f10;
+	color:white;
+	display:inline;
+	border: 1px solid #d26037;
+	}
+
+.metafield-value:hover a.delete_metavalue:hover{
+	background: #d6440f;
+	
+	}
+
+
+.colordiv{
+	position:relative;
+	float:left;
+	width:29px;
+	height:26px;
+	top:1px;
+	left:2px;
+    border-radius: 4px 0px 0px 4px!important;
+	border:1px solid #dddddd;
+}
+
+span.add-on{
+	border-radius: 0 4px 4px 0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;	
+	background-color:  #2EA2CC;
+	border: 1px solid #0074A2;
+	min-width: 16px;
+    padding: 4px 5px 3px 5px;
+    position:relative;
+   	displays: inline-block;
+    margin: 0px 0px 0px -2px;
+    top:4px;
+    color: #fff;
+    cursor:pointer;
+}
+
+span.add-on:hover{
+	background:#1e8cbe;
+	
+}
+
+
+/* imagef */
+
+.image_container{
+	width:150px;
+	height:150px;
+	border-radius:5px;
+	border:1px solid #f1f1f1;
+}
+
+.image_container ul{
+	position:relative;
+	left:10px;
+	top:0px;
+	display:none;
+}
+
+.image_container:hover ul{
+	display:block;
+}
+
+.image_container li{
+	border-radius: 50%;
+	border:1px solid #aaa;
+	background:white;
+	text-align: center;
+	cursor:pointer;
+	color:#aaa;
+}
+
+.image_container li:hover{
+	color:#2EA2CC;
+	border:1px solid #2EA2CC;
+}
+
+.image_container li.genericon-trash:hover{
+	color:#E17341;
+	border:1px solid #E17341;
+}
+
+option[selected]{
+	background:#1e8cbe;
+	color:white;
+}
+/*
+.metafield-value a.delete_metavalue{
+	display:none;
+	text-decoration:none;
+	
+}
+
+.metafield-value:hover a.delete_metavalue{
+	display:inline-block;
+}
+
+a.genericon-trash:link,a.genericon-trash:visited{
+	border-radius: 50%;
+	border:	1px solid #e17341;
+	color:#e17341;
+	cursor:pointer;
+	padding:2px 1px 0px 2px;
+	width:16px;
+}
+
+a.genericon-trash:hover,a.genericon-trash:active{
+	background:#e17341;
+	color:white;
+
+}
+.combitable{
+	border-bottom:1px solid #DFDFDF!important;
+}
+
+.combitable td{
+	vertical-align: top;
+}
+
+.combitable td:last-child a{
+display:none	
+}
+
+.combitable:hover td:last-child a{
+display:inline-block;	
+}
+
+
+*/
+
+.subfield{
+	display: -moz-inline-stack;
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	border:1px solid #f6f6f6;
+	margin-right:20px;
+	*display: inline;
+	
+	min-height: 100px;
+	_height: 100px;
+	;
+}
+/****** METAFIELD CSS ***********/
+
+.metafield-wrapper{
+	width:100%;
+	margin-bottom: 15px;
+}
+
+.metafield-wrapper  .metafield-box{
+	border:1px solid  #DFDFDF;
+	border-radius:4px;
+}
+
+.metafield-wrapper  .metafield-label{
+	text-shadow: 0 1px 0 #fff;
+	padding:6px;
+	font-size:13px;
+	font-style:italic;
+	background:#ededed;
+	color:#333333;
+	font-family: Georgia,'Times New Roman','Bitstream Charter',Times,serif;
+}
+
+.metafield-wrapper  .metafield-body{
+	padding:10px;
+}
+
+.metafield-wrapper  .metafield-value{
+	padding:4px;
+	border-bottom:0px solid #DFDFDF;
+	sheight:inherit;
+	margin-bottom:6px;
+}
+
+.metafield-wrapper  .metafield-value label{
+	display:inline-block;
+	font-size:10px;
+}
+
+.metafield-wrapper  .metafield-add{
+	padding:0px 0px 10px 15px;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+   font-style: italic 
+}
+input:-moz-placeholder, textarea:-moz-placeholder { 
+    font-style: italic
+}
+input::-moz-placeholder, textarea::-moz-placeholder { 
+    font-style: italic 
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+    font-style: italic
+}
+
